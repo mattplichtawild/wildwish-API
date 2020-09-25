@@ -14,7 +14,7 @@ RUN pip install pipenv
 # WORKDIR ${PROJECT_DIR}
 
 # Set DEBUG to 0 so pipenv install doesn't return a non zero?
-ENV DEBUG 0
+# ENV DEBUG 0
 
 # Set working directory to code directory (alt. method to above)
 WORKDIR /app
@@ -23,6 +23,6 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock
 
 # What do these flags mean?
-# --system flag will install packages into system python instead of into a virtual env
+# --system flag will install packages into system python instead of into a virtual env (use is not recommended by pipenv)
 # --deploy flag will make the build fail if Pipfile.lock is out of date
-RUN pipenv install --system --deploy
+RUN pipenv install --deploy --ignore-pipfile
