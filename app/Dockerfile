@@ -17,7 +17,7 @@ RUN pip install pipenv
 WORKDIR /app
 
 # Get dependencies
-COPY Pipfile Pipfile.lock /app/
+COPY Pipfile ../django-wildwish/Pipfile.lock
 
 # What do these flags mean?
 RUN pipenv install --system --deploy
