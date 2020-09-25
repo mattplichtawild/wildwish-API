@@ -23,4 +23,6 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock
 
 # What do these flags mean?
+# --system flag will install packages into system python instead of into a virtual env
+# --deploy flag will make the build fail if Pipfile.lock is out of date
 RUN pipenv install --system --deploy
