@@ -17,19 +17,17 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /django-wildwish
 WORKDIR /django-wildwish
 
-
-# Use pipenv to manage packages and get dependencies
-# RUN pip install pipenv
-# COPY Pipfile Pipfile.lock
-# Skip using pipenv, just use pip
-
 # Get list of required packages
 COPY requirements.txt /django-wildwish/
 
 # Install packages listed in requirements.txt
 RUN pip install -r requirements.txt
 
+# Skip using pipenv, just use pip
+# RUN pip install pipenv
+# COPY Pipfile Pipfile.lock
+
 # What do these flags mean?
 # --system flag will install packages into system python instead of into a virtual env (use is not recommended by pipenv)
 # --deploy flag will make the build fail if Pipfile.lock is out of date
-RUN pipenv install --deploy --ignore-pipfile
+# RUN pipenv install --deploy --ignore-pipfile
