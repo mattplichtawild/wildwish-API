@@ -22,6 +22,8 @@ COPY requirements.txt /django-wildwish/
 
 # Install packages listed in requirements.txt
 RUN pip install -r requirements.txt
+COPY . /django-wildwish/
+
 
 # Skip using pipenv, just use pip
 # RUN pip install pipenv
