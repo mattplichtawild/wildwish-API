@@ -3,7 +3,7 @@ FROM python:3.8
 
 # Sets dumping log messages directly to stream instead of buffering
 # I don't even know what this means or if I need to do it
-# ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED 1
 
 # Create environment variables
 # These lines copied from tutorial before I knew what I was doing
@@ -17,11 +17,17 @@ FROM python:3.8
 RUN mkdir /django-wildwish
 WORKDIR /django-wildwish
 
-# Use pipenv to manage packages
-RUN pip install pipenv
 
-# Get dependencies
-COPY Pipfile Pipfile.lock
+# Use pipenv to manage packages and get dependencies
+# RUN pip install pipenv
+# COPY Pipfile Pipfile.lock
+# Skip using pipenv, just use pip
+
+# Get list of required packages
+COPY requirements.txt /django-wildwish/
+
+# Install packages listed in requirements.txt
+RUN pip install -r requirements.txt
 
 # What do these flags mean?
 # --system flag will install packages into system python instead of into a virtual env (use is not recommended by pipenv)
