@@ -4,12 +4,13 @@ services:
   db:
     image: postgres:12
     environment:
+        # These need to be changed to match db
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ["./wait-for-postgres.sh", "dbpython," "manage.py", "migrate", "runserver 0.0.0.0:8000"]
     volumes:
       - .:/django-wildwish
     ports:
