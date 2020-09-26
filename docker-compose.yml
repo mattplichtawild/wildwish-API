@@ -1,29 +1,48 @@
-# Copy pasted from https://github.com/adamyala/event_aggregator/blob/master/docker-compose.yml
-version: '3'
-
+version: "3.8"
+   
 services:
-
   db:
-    # if a version is left out, the latest postgres will be used
     image: postgres:12
-    ports:
-      - 5432:5432
-    # declare a database
     environment:
-    # db name and password need to match what I already have created?
-      - POSTGRES_DB=event_aggregator
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-
   web:
     build: .
-    command: >
-      bash -c "
-        ./wait-for-postgres.sh db &&
-        pipenv run python manage.py migrate
-      "
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/var/www
+      - .:/django-wildwish
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - db
+
+# Copy pasted from https://github.com/adamyala/event_aggregator/blob/master/docker-compose.yml
+# version: '3'
+
+# services:
+
+#   db:
+#     # if a version is left out, the latest postgres will be used
+#     image: postgres:12
+#     ports:
+#       - 5432:5432
+#     # declare a database
+#     environment:
+#     # db name and password need to match what I already have created?
+#       - POSTGRES_DB=event_aggregator
+#       - POSTGRES_PASSWORD=postgres
+
+#   web:
+#     build: .
+#     command: >
+#       bash -c "
+#         ./wait-for-postgres.sh db &&
+#         pipenv run python manage.py migrate
+#       "
+#     volumes:
+#       - .:/var/www
+#     ports:
+#       - 8000:8000
+#     depends_on:
+#       - db
