@@ -10,7 +10,8 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    command: ["./wait-for-postgres.sh", "dbpython", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
+    # command: ["./wait-for-postgres.sh", "db", "python", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/django-wildwish
     ports:
