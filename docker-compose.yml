@@ -10,6 +10,7 @@ services:
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
+    # Permission denied when attempting to run "wait-for"
     # command: ["./wait-for-postgres.sh", "db", "python", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
