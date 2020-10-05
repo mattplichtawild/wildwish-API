@@ -24,3 +24,5 @@ b45b6309d329        postgres:12           "docker-entrypoint.s…"   3 days ago 
 ```
 
 Log into the container with `docker exec -t -i f68fda031a4a bash` then run `python manage.py makemigrations && python manage.py migrate`.
+
+Alternatively `docker-compose run web /usr/local/bin/python manage.py migrate` will accomplish this.
