@@ -5,6 +5,10 @@ FROM python:3.8
 # I don't even know what this means or if I need to do it
 ENV PYTHONUNBUFFERED 1
 
+# Set permissions so file can be executed
+# Doesn't solve permissions problem...
+# RUN chmod +x ./wait-for-postgres.sh
+
 # Create environment variables
 # These lines copied from tutorial before I knew what I was doing
 # ENV PROJECT_DIR /usr/local/src/django-wildwish
