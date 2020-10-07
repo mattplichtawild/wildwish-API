@@ -9,13 +9,11 @@ ENV PYTHONUNBUFFERED 1
 # Doesn't solve permissions problem...
 # RUN chmod +x ./wait-for-postgres.sh
 
+
 # Create environment variables
 # These lines copied from tutorial before I knew what I was doing
 # ENV PROJECT_DIR /usr/local/src/django-wildwish
 # WORKDIR ${PROJECT_DIR}
-
-# Set DEBUG to 0 so pipenv install doesn't return a non zero?
-# ENV DEBUG 0
 
 # Create directory for image build and set as working directory
 RUN mkdir /django-wildwish
@@ -28,6 +26,7 @@ COPY requirements.txt /django-wildwish/
 RUN pip install -r requirements.txt
 COPY . /django-wildwish/
 
+CMD python manage.py runserver 0.0.0.0:8000
 
 # Skip using pipenv, just use pip
 # RUN pip install pipenv
