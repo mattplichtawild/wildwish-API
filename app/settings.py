@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'animals.apps.AnimalsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,7 +82,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': os.getenv('DB_HOST', 'db'),
+        # 'HOST': os.getenv('DB_HOST', 'db'),
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }
