@@ -13,7 +13,7 @@ class User(models.Model):
         return (f'{self.first_name} {self.last_name}')
 
 class Animal(models.Model):
-    user = models.ForeignKey(User, default='1', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=24, default='test')
     species = models.CharField(max_length=72, default='test')
     bio = models.CharField(max_length=180, default='test')
