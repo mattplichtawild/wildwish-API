@@ -25,3 +25,7 @@ class Animal(models.Model):
     # Example method from docs
     def was_created_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    
+class Wish(models.Model):
+    animal = models.ForeignKey(Animal)
+    
