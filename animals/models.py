@@ -32,4 +32,4 @@ class Toy(models.Model):
     
 class Wish(models.Model):
     animal = models.ForeignKey(Animal)
-    
+    toy = models.ForeignKey(Toy)
