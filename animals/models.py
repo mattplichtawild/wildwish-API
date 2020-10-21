@@ -33,3 +33,8 @@ class Toy(models.Model):
 class Wish(models.Model):
     animal = models.ForeignKey(Animal)
     toy = models.ForeignKey(Toy)
+    
+class Donation(models.Model):
+    user = models.ForeignKey(User)
+    wish = models.ForeignKey(Wish)
+    amount = models.DecimalField(max_digits=None, decimal_places=2)
