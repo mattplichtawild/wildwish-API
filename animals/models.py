@@ -31,12 +31,18 @@ class Toy(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField
     
+    def __str__(self):
+        return self.name
+    
 class Wish(models.Model):
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
     
     # Don't allow deletion of the toy if being referenced by wishes
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
+    
+    def __str__(self):
+        return (f'{self.toy.name} for {self.animal.name}')
     
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
