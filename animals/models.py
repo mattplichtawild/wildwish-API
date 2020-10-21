@@ -26,6 +26,10 @@ class Animal(models.Model):
     def was_created_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     
+class Toy(models.Model):
+    name = models.CharField(max_length=32)
+    description = models.TextField
+    
 class Wish(models.Model):
     animal = models.ForeignKey(Animal)
     
