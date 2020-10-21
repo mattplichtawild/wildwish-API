@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
 from django.utils import timezone
 import datetime
 
@@ -31,10 +32,16 @@ class Toy(models.Model):
     description = models.TextField
     
 class Wish(models.Model):
-    animal = models.ForeignKey(Animal)
-    toy = models.ForeignKey(Toy)
+    # If the animal is deleted, wishes also get deleted
+    animal = models.ForeignKey(Animal, on_delete=CASCADE)
+    
+    # Don't allow deletion of the toy if being referenced by wishes
+    toy = models.ForeignKey(Toy, on_delete=PROTECT)
     
 class Donation(models.Model):
-    user = models.ForeignKey(User)
-    wish = models.ForeignKey(Wish)
-    amount = models.DecimalField(max_digits=None, decimal_places=2)
+    # Preserve record of donation even if user deletes their account
+    user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
+    
+    # Preserve record donation even if animal or wish is deleted
+    wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
+    amount = models.DecimalField(max_digits=6, decimal_places=2)
