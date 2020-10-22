@@ -51,3 +51,6 @@ class Donation(models.Model):
     # Preserve record donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
     amount = models.DecimalField(max_digits=6, decimal_places=2)
+    
+    def __str__(self):
+        return (f'{self.amount} to {self.wish.animal.name}')
