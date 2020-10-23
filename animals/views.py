@@ -2,11 +2,21 @@ from django.http import request
 from django.http.response import JsonResponse
 from animals.models import Animal, Donation, Wish
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse
+from django.views import generic    
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the animals index.")
+class IndexView(generic.ListView):
+    model = Animal
+    template_name = 'animals/index.html'
+    context_object_name = 'animals_index'
+    
+    def get_queryset(self):
+        return Animal.objects.all
+    
+# Index using functional view instead of class based    
+# def index(request):
+#     return HttpResponse("Hello, world. You're at the animals index.")
 
 def detail(request, animal_id):
     # animal = Animal.objects.get(pk=animal_id)
@@ -36,6 +46,7 @@ def donate(request, animal_id):
         d.save()
         print (f'{d.user} donated {d.amount} to {d.wish}')
     except (KeyError, Wish.DoesNotExist):
-        return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Wish does not exist'})
+        return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
     else:
-        return HttpResponse("This is some example text.")
+        # reverse() is a utility function provided by Django
+        return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
