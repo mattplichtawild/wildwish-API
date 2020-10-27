@@ -6,17 +6,20 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views import generic    
 
-class IndexView(generic.ListView):
-    model = Animal
-    template_name = 'animals/index.html'
-    context_object_name = 'animals_index'
+# class IndexView(generic.ListView):
+#     model = Animal
+#     template_name = 'animals/index.html'
+#     context_object_name = 'animals_index'
     
-    def get_queryset(self):
-        return Animal.objects.all
+#     def get_queryset(self):
+#         return Animal.objects.all
     
 # Index using functional view instead of class based    
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the animals index.")
+def index(request):
+    # Use pagination/React components once page gets big enough
+    animals_list = Animal.objects.all()
+    
+    return render(request, 'animals/index.html', {'animals_list': animals_list})
 
 def detail(request, animal_id):
     # animal = Animal.objects.get(pk=animal_id)
