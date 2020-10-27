@@ -7,10 +7,11 @@ app_name = 'animals'
 # 'name' argument is used by django route helpers (in templates and such)
 urlpatterns = [
     # Path to index using functional view instead of class based
-    # path('', views.index, name='animals_index'),
+    path('', views.index, name='animals_index'),
     
     # ex: /animals/
-    path('', views.IndexView.as_view(), name='index'),
+    # Index view using django generic view
+    # path('', views.IndexView.as_view(), name='animal_index'),
     
     # ex: /animals/1
     path('<int:animal_id>/', views.detail, name='detail'),
