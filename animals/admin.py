@@ -27,6 +27,7 @@ class AnimalAdmin(admin.ModelAdmin):
         (None, {'fields': ['name', 'species', 'bio']})
     ]
     inlines = [WishInLine]
+    search_fields = ['name', 'species']
     
 admin.site.register(User, UserAdmin)
 admin.site.register(Animal, AnimalAdmin)
