@@ -42,7 +42,7 @@ class Wish(models.Model):
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
     
     def __str__(self):
-        return (f'{self.toy.name} for {self.animal.name}')
+        return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
     
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
