@@ -11,10 +11,10 @@ class UserAdmin(admin.ModelAdmin):
         ('Authentication Info', {'fields': ['keeper', 'verified']}),
     ]
     
-class WishInLine(admin.StackedInline):
+class WishInLine(admin.TabularInline):
     model = Wish
     # extra = How many fields are available at once
-    extra = 3
+    extra = 1
     
 
 class AnimalAdmin(admin.ModelAdmin):
