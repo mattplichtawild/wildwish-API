@@ -10,8 +10,16 @@ class User(models.Model):
     keeper = models.BooleanField(default=False)
     verified = models.BooleanField(default=False)
     
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def auth_keeper(self):
+        return self.keeper & self.verified
+    
+    # keeper.short_description = 'Zookeeper?'
+    
     def __str__(self):
-        return (f'{self.first_name} {self.last_name}')
+        return f'{self.first_name} {self.last_name}'
 
 class Animal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
