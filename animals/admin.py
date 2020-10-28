@@ -11,6 +11,10 @@ class UserAdmin(admin.ModelAdmin):
         ('Authentication Info', {'fields': ['keeper', 'verified']}),
     ]
     
+class WishAdmin(admin.ModelAdmin):
+    # each entry is a callable attribute on 'Wish'
+    list_display = ('id', 'animal', 'toy')
+    
 class WishInLine(admin.TabularInline):
     model = Wish
     # extra = How many fields are available at once
@@ -26,5 +30,5 @@ class AnimalAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(Animal, AnimalAdmin)
 admin.site.register(Toy)
-admin.site.register(Wish)
+admin.site.register(Wish, WishAdmin)
 admin.site.register(Donation)
