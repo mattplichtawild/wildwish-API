@@ -10,7 +10,7 @@ class UserAdmin(admin.ModelAdmin):
         (None, {'fields': ['first_name','last_name']}),
         ('Authentication Info', {'fields': ['keeper', 'verified']}),
     ]
-    list_display = ('last_name', 'first_name', 'keeper')
+    list_display = ('last_name', 'first_name', 'auth_keeper')
     
 class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
