@@ -13,10 +13,12 @@ class User(models.Model):
     def name(self):
         return f'{self.first_name} {self.last_name}'
 
+    # what authorization checks to complete?
     def auth_keeper(self):
         return self.keeper & self.verified
     
-    # keeper.short_description = 'Zookeeper?'
+    auth_keeper.boolean = True
+    auth_keeper.short_description = 'Verified Zookeeper'
     
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
