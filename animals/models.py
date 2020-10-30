@@ -25,8 +25,15 @@ class User(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+# If an animals user is deleted, assign the zoo's superuser to the new user if it exists
+def set_user_from_zoo(animal):
+    if animal.zoo.superuser:
+        return animal.zoo.superuser
+    return None
+
 class Animal(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET(set_user_from_zoo), null=True)
     name = models.CharField(max_length=24, default='test')
     species = models.CharField(max_length=72, default='test')
     bio = models.CharField(max_length=180, default='test')
