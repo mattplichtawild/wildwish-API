@@ -1,6 +1,7 @@
 from django.db import models
 from multiselectfield import MultiSelectField
-from address.models import AddressField
+# Set Google API key before using AddressField
+# from address.models import AddressField
 
 # Constants to use for accreditation choices
 NONE = ''
