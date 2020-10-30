@@ -54,6 +54,9 @@ class Wish(models.Model):
     def __str__(self):
         return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
     
+    class Meta:
+        verbose_name_plural = 'Wishes'
+    
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
