@@ -1,3 +1,4 @@
+from zoos.models import Zoo
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
 from django.utils import timezone
@@ -8,6 +9,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=24, default='test')
     email = models.EmailField(max_length=32, default='test')
     keeper = models.BooleanField(default=False)
+    zoo = models.ForeignKey(Zoo, null=True, on_delete=PROTECT)
     verified = models.BooleanField(default=False)
     
     def name(self):
