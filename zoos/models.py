@@ -3,17 +3,7 @@ from multiselectfield import MultiSelectField
 # Set Google API key before using AddressField
 # from address.models import AddressField
 
-# Constants to use for accreditation choices
-NONE = ''
-AZA = 'AZA'
-GFAS = 'GFAS'
-EAZA = 'EAZA'
-
-ACCR_CHOICES = (
-    (AZA, 'Association of Zoos and Aquariums'),
-    (GFAS, 'Global Federation of Animal Sanctuaries'),
-    (EAZA, 'European Association of Zoos and Aquariums')
-)
+from .constants import ACCR_CHOICES, ST_CHOICES
 
 class Zoo(models.Model):
     name = models.CharField(max_length=72)
@@ -22,7 +12,10 @@ class Zoo(models.Model):
     
     # Beginner location data, migrate to AddressField in future iteration
     city = models.CharField(max_length=48)
-    st = models.CharField(max_length=2)
+    st = models.CharField(
+        max_length=2,
+        choices=ST_CHOICES
+        )
     st.verbose_name = 'State'
 
     # Use 'django_address' dependency for addresses?
