@@ -1,4 +1,4 @@
 Django>=3.0,<4.0
 django-multiselectfield>=0.1.12
-django-address>=2.5
+django-address>=0.2.5
 psycopg2-binary>=2.8
