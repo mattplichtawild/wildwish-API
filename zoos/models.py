@@ -14,7 +14,7 @@ ACCR_CHOICES = (
 )
 
 class Zoo(models.Model):
-    name = models.CharField(max_length=72, default='test')
+    name = models.CharField(max_length=72)
     accrs = MultiSelectField(choices=ACCR_CHOICES, null=True)
     # Use 'django_address' dependency for addresses?
     # address1 = AddressField()
