@@ -88,12 +88,13 @@ class Donation(models.Model):
     
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
-    # Set donor name and email variables for preservation in column tables
-    def __init__(self):
+    # Set donor name and email variables for preservation in table
+    def set_donor_info(self):
         if self.user:
             self.donor_first_name = self.user.first_name
             self.donor_last_name = self.user.last_name
             self.donor_email = self.user.email
     
-    # def __str__(self):
-    #     return (f'{self.amount} to {self.wish.animal.name}')
+    def __str__(self):
+        if self.wish:
+            return (f'{self.amount} to {self.wish.animal.name}')
