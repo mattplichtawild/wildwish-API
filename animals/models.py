@@ -94,6 +94,10 @@ class Donation(models.Model):
             self.donor_first_name = self.user.first_name
             self.donor_last_name = self.user.last_name
             self.donor_email = self.user.email
+            
+    def save(self, *args, **kwargs):
+        self.set_donor_info(self)
+        super().save(*args, **kwargs)
     
     def __str__(self):
         if self.wish:
