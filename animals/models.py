@@ -42,13 +42,17 @@ class Animal(models.Model):
     species = models.CharField(max_length=72)
     bio = models.CharField(max_length=180)
     
+    def set_zoo(self):
+        if self.user and self.user.auth_keeper():
+            self.zoo = self.user.zoo
+    
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return self.name
     
-    def __init__(self):
-        if self.user and self.user.auth_keeper():
-            self.zoo = self.user.zoo
+    def save(self, *args, **kwargs):
+        self.set_zoo(self)
+        super().save(*args, **kwargs)
             
     # Example method from docs
     # def was_created_recently(self):
