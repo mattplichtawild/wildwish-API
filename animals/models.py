@@ -23,7 +23,7 @@ class User(models.Model):
     auth_keeper.short_description = 'Verified Zookeeper'
     
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return self.name()
 
 # If an animals user is deleted, assign the zoo's superuser to the new user if it exists
 # Method needs to be rewritten. 'Zoo' doesn't have a 'superuser' attr
@@ -35,7 +35,7 @@ def set_user_from_zoo(animal):
 class Animal(models.Model):
     # Is this fk needed since a fk already exists with 'user' which has a zoo fk?
     # (default=self.user.zoo_id)?
-    # zoo = models.ForeignKey(Zoo, null=True, on_delete=PROTECT)
+    zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
     user = models.ForeignKey(User, on_delete=PROTECT, null=True)
     name = models.CharField(max_length=24)
@@ -46,9 +46,13 @@ class Animal(models.Model):
     def __str__(self):
         return self.name
     
+    def __init__(self):
+        if self.user and self.user.zoo:
+            self.zoo = self.user.zoo
+            
     # Example method from docs
-    def was_created_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    # def was_created_recently(self):
+    #     return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     
 class Toy(models.Model):
     name = models.CharField(max_length=32)
@@ -73,17 +77,22 @@ class Wish(models.Model):
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
-    donor_name = models.CharField(max_length=72)
+    
+    # donor first and last name to preserve if User is ever deleted
+    donor_first_name = models.CharField(max_length=72)
+    donor_last_name = models.CharField(max_length=72)
     donor_email = models.EmailField(max_length=72)
+    
     # Preserve record of donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
     
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
-    # Set donor name and email variables
+    # Set donor name and email variables for preservation in column tables
     def __init__(self):
         if self.user:
-            self.donor_name = (f'{self.user.first_name} {self.user.last_name}')
+            self.donor_first_name = self.user.first_name
+            self.donor_last_name = self.user.last_name
             self.donor_email = self.user.email
     
     # def __str__(self):
