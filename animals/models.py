@@ -26,6 +26,7 @@ class User(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 # If an animals user is deleted, assign the zoo's superuser to the new user if it exists
+# Method needs to be rewritten. 'Zoo' doesn't have a 'superuser' attr
 def set_user_from_zoo(animal):
     if animal.zoo.superuser:
         return animal.zoo.superuser
@@ -33,8 +34,10 @@ def set_user_from_zoo(animal):
 
 class Animal(models.Model):
     # Is this fk needed since a fk already exists with 'user' which has a zoo fk?
+    # (default=self.user.zoo_id)?
     # zoo = models.ForeignKey(Zoo, null=True, on_delete=PROTECT)
-    user = models.ForeignKey(User, on_delete=models.SET(set_user_from_zoo), null=True)
+    # for user: on_delete=models.SET(set_user_from_zoo)
+    user = models.ForeignKey(User, on_delete=PROTECT, null=True)
     name = models.CharField(max_length=24, default='test')
     species = models.CharField(max_length=72, default='test')
     bio = models.CharField(max_length=180, default='test')
@@ -70,10 +73,16 @@ class Wish(models.Model):
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
-    
-    # Preserve record donation even if animal or wish is deleted
+    donor_name = models.CharField(max_length=72)
+    # Preserve record of donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
+    
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
-    def __str__(self):
-        return (f'{self.amount} to {self.wish.animal.name}')
+    # Set donor name attribute
+    def __init__(self):
+        if self.user:
+            self.donor_name = (f'{self.user.first_name} {self.user.last_name}')
+    
+    # def __str__(self):
+    #     return (f'{self.amount} to {self.wish.animal.name}')
