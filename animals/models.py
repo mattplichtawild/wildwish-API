@@ -5,9 +5,9 @@ from django.utils import timezone
 import datetime
 
 class User(models.Model):
-    first_name = models.CharField(max_length=24, default='test')
-    last_name = models.CharField(max_length=24, default='test')
-    email = models.EmailField(max_length=32, default='test')
+    first_name = models.CharField(max_length=24)
+    last_name = models.CharField(max_length=24)
+    email = models.EmailField(max_length=72)
     keeper = models.BooleanField(default=False)
     zoo = models.ForeignKey(Zoo, null=True, on_delete=PROTECT)
     verified = models.BooleanField(default=False)
@@ -38,9 +38,9 @@ class Animal(models.Model):
     # zoo = models.ForeignKey(Zoo, null=True, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
     user = models.ForeignKey(User, on_delete=PROTECT, null=True)
-    name = models.CharField(max_length=24, default='test')
-    species = models.CharField(max_length=72, default='test')
-    bio = models.CharField(max_length=180, default='test')
+    name = models.CharField(max_length=24)
+    species = models.CharField(max_length=72)
+    bio = models.CharField(max_length=180)
     
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
@@ -74,15 +74,17 @@ class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
     donor_name = models.CharField(max_length=72)
+    donor_email = models.EmailField(max_length=72)
     # Preserve record of donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
     
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
-    # Set donor name attribute
+    # Set donor name and email variables
     def __init__(self):
         if self.user:
             self.donor_name = (f'{self.user.first_name} {self.user.last_name}')
+            self.donor_email = self.user.email
     
     # def __str__(self):
     #     return (f'{self.amount} to {self.wish.animal.name}')
