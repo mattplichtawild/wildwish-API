@@ -42,17 +42,18 @@ class Animal(models.Model):
     species = models.CharField(max_length=72)
     bio = models.CharField(max_length=180)
     
-    def set_zoo(self):
-        if self.user and self.user.auth_keeper():
-            self.zoo = self.user.zoo
-    
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return self.name
     
-    def save(self, *args, **kwargs):
-        self.set_zoo(self)
-        super().save(*args, **kwargs)
+    # Two below methods need more testing before use
+    # def set_zoo(self):
+    #     if self.user and self.user.auth_keeper():
+    #         self.zoo = self.user.zoo
+            
+    # def save(self, *args, **kwargs):
+    #     self.set_zoo()
+    #     super().save(*args, **kwargs)
             
     # Example method from docs
     # def was_created_recently(self):
@@ -83,6 +84,7 @@ class Donation(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
     
     # donor first and last name to preserve if User is ever deleted
+    # Allows donation to be created without needing to create User
     donor_first_name = models.CharField(max_length=72)
     donor_last_name = models.CharField(max_length=72)
     donor_email = models.EmailField(max_length=72)
