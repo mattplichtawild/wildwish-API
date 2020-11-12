@@ -47,7 +47,7 @@ class Animal(models.Model):
         return self.name
     
     def __init__(self):
-        if self.user and self.user.zoo:
+        if self.user and self.user.auth_keeper():
             self.zoo = self.user.zoo
             
     # Example method from docs
