@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'animals.apps.AnimalsConfig',
     'zoos.apps.ZoosConfig',
+    'images.apps.ImagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'multiselectfield',
-    # AWS S3
+    # For AWS S3
     'storages',
     # 'address'
 ]
@@ -95,6 +96,9 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # AWS S3 for static assets
 
