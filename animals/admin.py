@@ -24,10 +24,10 @@ class WishInLine(admin.TabularInline):
 
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['name', 'species', 'bio']})
+        (None, {'fields': ['zoo', 'name', 'species', 'bio']})
     ]
     inlines = [WishInLine]
-    search_fields = ['name', 'species']
+    search_fields = ['zoo', 'name', 'species']
     
 admin.site.register(User, UserAdmin)
 admin.site.register(Animal, AnimalAdmin)
