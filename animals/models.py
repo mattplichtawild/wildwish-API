@@ -33,7 +33,7 @@ def set_user_from_zoo(animal):
     return None
 
 class Animal(models.Model):
-    # Is this fk needed since a fk already exists with 'user' which has a zoo fk?
+
     # (default=self.user.zoo_id)?
     zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
