@@ -22,6 +22,9 @@ class Zoo(models.Model):
         choices=ST_CHOICES
         )
     st.verbose_name = 'State'
+    
+    def __str__(self):
+        return self.name
 
     # Use 'django_address' dependency for addresses?
     # address1 = AddressField()
