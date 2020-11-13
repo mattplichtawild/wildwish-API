@@ -2,9 +2,11 @@
 AZA = 'AZA'
 GFAS = 'GFAS'
 EAZA = 'EAZA'
+AAZK = 'AAZK'
 
 ACCR_CHOICES = (
     (AZA, 'Association of Zoos and Aquariums'),
+    (AAZK, 'American Association of Zookeepers'),
     (GFAS, 'Global Federation of Animal Sanctuaries'),
     (EAZA, 'European Association of Zoos and Aquariums')
 )
