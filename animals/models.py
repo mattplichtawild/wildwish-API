@@ -27,10 +27,10 @@ class User(models.Model):
 
 # If an animals user is deleted, assign the zoo's superuser to the new user if it exists
 # Method needs to be rewritten. 'Zoo' doesn't have a 'superuser' attr
-def set_user_from_zoo(animal):
-    if animal.zoo.superuser:
-        return animal.zoo.superuser
-    return None
+# def set_user_from_zoo(animal):
+#     if animal.zoo.superuser:
+#         return animal.zoo.superuser
+#     return None
 
 class Animal(models.Model):
 
