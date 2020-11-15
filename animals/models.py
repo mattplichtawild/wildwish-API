@@ -41,7 +41,7 @@ class Animal(models.Model):
     name = models.CharField(max_length=24)
     species = models.CharField(max_length=72)
     bio = models.CharField(max_length=180)
-    
+
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return self.name

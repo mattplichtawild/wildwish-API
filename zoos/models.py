@@ -21,7 +21,9 @@ class Zoo(models.Model):
         max_length=2,
         choices=ST_CHOICES
         )
+    zip = models.CharField(max_length=5)
     st.verbose_name = 'State'
+    zip.verbose_name = 'Zip Code'
     
     def __str__(self):
         return self.name
