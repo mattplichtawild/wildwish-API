@@ -9,7 +9,7 @@ class AnimalInLine(admin.TabularInline):
 class ZooAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('Zoo Info', {'fields': ['city', 'st']}),
+        ('Zoo Info', {'fields': ['city', 'st', 'zip']}),
         (None, {'fields': ['accrs']}),
     ]
     inlines = [AnimalInLine]
