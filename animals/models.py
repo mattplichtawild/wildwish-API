@@ -1,3 +1,4 @@
+from images.models import Image
 from zoos.models import Zoo
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
@@ -24,13 +25,9 @@ class User(models.Model):
     
     def __str__(self):
         return self.name()
-
-# If an animals user is deleted, assign the zoo's superuser to the new user if it exists
-# Method needs to be rewritten. 'Zoo' doesn't have a 'superuser' attr
-# def set_user_from_zoo(animal):
-#     if animal.zoo.superuser:
-#         return animal.zoo.superuser
-#     return None
+    
+    class Meta:
+        db_table = 'users'
 
 class Animal(models.Model):
 
@@ -41,11 +38,15 @@ class Animal(models.Model):
     name = models.CharField(max_length=24)
     species = models.CharField(max_length=72)
     bio = models.CharField(max_length=180)
+    images = models.ManyToManyField(Image)
 
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return self.name
     
+    class Meta:
+        db_table = 'animals'
+        
     # Two below methods need more testing before use
     # def set_zoo(self):
     #     if self.user and self.user.auth_keeper():
@@ -62,13 +63,18 @@ class Animal(models.Model):
 class Toy(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField
+    images = models.ManyToManyField(Image)
     
     def __str__(self):
         return self.name
     
+    class Meta:
+        db_table = 'toys'
+    
 class Wish(models.Model):
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
+    images = models.ManyToManyField(Image)
     
     # Don't allow deletion of the toy if being referenced by wishes
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
@@ -78,6 +84,7 @@ class Wish(models.Model):
     
     class Meta:
         verbose_name_plural = 'Wishes'
+        db_table = 'wishes'
     
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
@@ -108,3 +115,6 @@ class Donation(models.Model):
     def __str__(self):
         if self.wish:
             return (f'{self.amount} to {self.wish.animal.name}')
+        
+    class Meta:
+        db_table = 'donations'
