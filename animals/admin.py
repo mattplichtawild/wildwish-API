@@ -1,3 +1,4 @@
+from images.models import Image
 from django.contrib import admin
 
 from .models import Donation, Toy, User, Animal, Wish
@@ -16,17 +17,25 @@ class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
     list_display = ('id', 'animal', 'toy')
     
-class WishInLine(admin.TabularInline):
+class WishInLine(admin.StackedInline):
     model = Wish
+    # 'fields' and 'exclude' are doing the same thing
+    # fields = ('toy', 'animal')
+    exclude = ('images',)
     # extra = How many fields are available at once
     extra = 1
     
-
+class ImageInLine(admin.TabularInline):
+    model = Animal.images.through
+    # extra = How many fields are available at once
+    extra = 1
+    
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['zoo', 'name', 'species', 'bio']})
+        (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
+        # ('Images', {'fields': ['images']})
     ]
-    inlines = [WishInLine]
+    inlines = [WishInLine, ImageInLine]
     search_fields = ['zoo', 'name', 'species']
     
 admin.site.register(User, UserAdmin)
