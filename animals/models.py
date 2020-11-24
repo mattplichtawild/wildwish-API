@@ -42,7 +42,7 @@ class Animal(models.Model):
 
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
-        return self.name
+        return f'{self.name} - {self.species}'
     
     class Meta:
         db_table = 'animals'
@@ -78,6 +78,9 @@ class Wish(models.Model):
     
     # Don't allow deletion of the toy if being referenced by wishes
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
+    
+    # Only active wishes are available to donate to
+    active = models.BooleanField(default=False)
     
     def __str__(self):
         return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
