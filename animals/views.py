@@ -6,6 +6,16 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views import generic    
 
+# For root URL (homepage):
+# Return list of active wishes; each list item has picture of animal, button to donate, and link to detail page
+def home(request):
+    wishes = Wish.objects.all()
+    
+    
+    print(wishes)
+    return HttpResponse('This is the homepage.')
+
+
 # class IndexView(generic.ListView):
 #     model = Animal
 #     template_name = 'animals/index.html'
