@@ -4,16 +4,20 @@ from animals.models import Animal, Donation, Wish
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.views import generic    
+from django.views.generic import ListView
 
 # For root URL (homepage):
+
+# Class based view currently returning list of all wishes as 'wish_list' template tag using 'as_view()' method
+class ActiveWishList(ListView):
+    model = Wish
+
 # Return list of active wishes; each list item has picture of animal, button to donate, and link to detail page
-def home(request):
-    wishes = Wish.objects.all()
+# def ActiveWishList(request):
+#     wishes = Wish.objects.all()    
+#     print(wishes)
     
-    
-    print(wishes)
-    return HttpResponse('This is the homepage.')
+#     return HttpResponse('This is the homepage.')
 
 
 # class IndexView(generic.ListView):
