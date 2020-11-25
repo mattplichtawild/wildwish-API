@@ -5,8 +5,9 @@
     <p>Display photos of animals with active wishes</p>
     <p>Something like w.animal.av_img where av_img returns the most recent photo or a chosen avatar photo or something.</p>
     <ul>
-        {% for w in wish_list %}
-            <li>{{ w.animal.name}}</li>
+        {% for w in active_wish_list %}
+            <li><a href='/'>{{ w.animal.name }}</a></li>
+            <li><img src={{ w.animal.recent_img.upload.url }}></li>
         {% endfor %}
     </ul>
 {% endblock %}
