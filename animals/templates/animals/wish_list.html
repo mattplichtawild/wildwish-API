@@ -1,0 +1,12 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+
+{% block content %}
+    <h2>Wishes</h2>
+    <p>Display photos of animals with active wishes</p>
+    <p>Something like w.animal.av_img where av_img returns the most recent photo or a chosen avatar photo or something.</p>
+    <ul>
+        {% for w in wish_list %}
+            <li>{{ w.animal.name}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
