@@ -8,9 +8,13 @@ from django.views.generic import ListView
 
 # For root URL (homepage):
 
-# Class based view currently returning list of all wishes as 'wish_list' template tag using 'as_view()' method
+# 'as_view()' method will return the defined query set as context object
 class ActiveWishList(ListView):
-    model = Wish
+    # Below is same as 'queryset = Wish.objects.all()'
+    # model = Wish
+    
+    queryset = Wish.objects.filter(active=True)
+    context_object_name = 'active_wish_list'
 
 # Return list of active wishes; each list item has picture of animal, button to donate, and link to detail page
 # def ActiveWishList(request):
