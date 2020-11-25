@@ -40,6 +40,9 @@ class Animal(models.Model):
     bio = models.CharField(max_length=180)
     images = models.ManyToManyField(Image)
 
+    def recent_img(self):
+        return self.images.last()
+    
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return f'{self.name} - {self.species}'
