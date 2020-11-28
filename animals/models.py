@@ -67,6 +67,7 @@ class Toy(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField
     images = models.ManyToManyField(Image)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     
     def __str__(self):
         return self.name
@@ -78,12 +79,22 @@ class Wish(models.Model):
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
     images = models.ManyToManyField(Image)
-    
     # Don't allow deletion of the toy if being referenced by wishes
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
-    
     # Only active wishes are available to donate to
     active = models.BooleanField(default=False)
+    fund_amount = models.DecimalField(max_digits=6, decimal_places=2)
+    
+    # To set fund amount
+    def set_fund(self):
+        # if self.fund_amount:
+        return self.toy.price
+    
+    def save(self, *args, **kwargs):
+        self.set_fund(self)
+        super().save(*args, **kwargs)
+    
+    # Method to check if wish is fully funded and deactivate if true
     
     def __str__(self):
         return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
@@ -107,16 +118,18 @@ class Donation(models.Model):
     
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
+    # This method probably shouldn't be used at all
     # Set donor name and email variables for preservation in table
-    def set_donor_info(self):
-        if self.user:
-            self.donor_first_name = self.user.first_name
-            self.donor_last_name = self.user.last_name
-            self.donor_email = self.user.email
+    # def set_donor_info(self):
+    #     if self.user:
+    #         self.donor_first_name = self.user.first_name
+    #         self.donor_last_name = self.user.last_name
+    #         self.donor_email = self.user.email
             
-    def save(self, *args, **kwargs):
-        self.set_donor_info(self)
-        super().save(*args, **kwargs)
+    # Extend the save method
+    # def save(self, *args, **kwargs):
+    #     self.set_donor_info(self)
+    #     super().save(*args, **kwargs)
     
     def __str__(self):
         if self.wish:
