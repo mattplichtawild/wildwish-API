@@ -8,7 +8,7 @@
 <form action="{% url 'animals:donate' animal.id %}" method="post">
 {% csrf_token %}
 {% for wish in animal.wish_set.all %}
-    <input type="radio" name="wish" id="wish{{ forloop.counter }}" value="{{ wish.id }}">
+    <input type="radio" name="wish_id" id="wish{{ forloop.counter }}" value="{{ wish.id }}">
     <label for="wish{{ forloop.counter }}">{{ wish.toy.name }}</label><br>
 {% endfor %}
 <input type="submit" value="Donate">

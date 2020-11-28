@@ -58,12 +58,13 @@ def detail(request, animal_id):
     return render(request, 'animals/detail.html', {'animal': animal})
 
 # Create donation with parameters from POST request (default user and amount for now)
+# Needs to do something with donor info from request Ex: 
 def donate(request, animal_id):
     print (f'The request was: {request}')
     print (request.POST)
     animal = get_object_or_404(Animal, pk=animal_id)
     try:
-        d = Donation(wish_id=request.POST['wish'], user_id=1, amount=1)
+        d = Donation(wish_id=request.POST['wish_id'], user_id=1, amount=1)
         d.save()
         print (f'{d.user} donated {d.amount} to {d.wish}')
     except (KeyError, Wish.DoesNotExist):

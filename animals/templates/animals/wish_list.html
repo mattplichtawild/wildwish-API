@@ -8,6 +8,13 @@
         {% for w in active_wish_list %}
             <li><a href='/'>{{ w.animal.name }}</a></li>
             <li><img src={{ w.animal.recent_img.upload.url }}></li>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="{% url 'animals:donate' w.animal.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="wish_id" id="{{ w.id }}" value="{{ w.id }}">
+                <input type="submit" value="Donate">
+            </form> 
         {% endfor %}
     </ul>
 {% endblock %}
