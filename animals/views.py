@@ -64,7 +64,13 @@ def donate(request, animal_id):
     print (request.POST)
     animal = get_object_or_404(Animal, pk=animal_id)
     try:
-        d = Donation(wish_id=request.POST['wish_id'], user_id=1, amount=1)
+        d = Donation(
+                wish_id=request.POST['wish_id'], 
+                donor_first_name=request.POST['donor_first_name'], 
+                donor_last_name=request.POST['donor_last_name'],
+                donor_email=request.POST['donor_email'],
+                amount=1
+            )
         d.save()
         print (f'{d.user} donated {d.amount} to {d.wish}')
     except (KeyError, Wish.DoesNotExist):
