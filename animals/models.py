@@ -85,6 +85,13 @@ class Wish(models.Model):
     active = models.BooleanField(default=False)
     fund_amount = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
     
+    def current_funding(self):
+        agg_fnd = 0
+        for d in self.donation_set.all():
+            agg_fnd += d.amount
+            
+        return agg_fnd
+    
     # To set fund amount
     def set_fund(self, *args, **kwargs):
         # if self.fund_amount:
@@ -98,7 +105,8 @@ class Wish(models.Model):
         
     def complete_funding(self):
         self.active = False
-    
+        self.save()
+            
     def __str__(self):
         return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
     
