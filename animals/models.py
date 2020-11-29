@@ -65,7 +65,7 @@ class Animal(models.Model):
     
 class Toy(models.Model):
     name = models.CharField(max_length=32)
-    description = models.TextField
+    description = models.CharField(max_length=180)
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     
@@ -94,7 +94,6 @@ class Wish(models.Model):
     
     # To set fund amount
     def set_fund(self, *args, **kwargs):
-        # if self.fund_amount:
         return self.toy.price
     
     def clean(self, *args, **kwargs):
