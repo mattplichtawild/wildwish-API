@@ -1,9 +1,9 @@
 {% comment %} {% extends "base.html" %} {% endcomment %}
 
 {% block content %}
-    <h2>Wishes</h2>
-    <p>Display photos of animals with active wishes</p>
-    <p>Something like w.animal.av_img where av_img returns the most recent photo or a chosen avatar photo or something.</p>
+    <h2>Wildwish.org</h2>
+    <p>There's no CSS here</p>
+    <p>This page exists as a placeholder for template tags and contexts while in development.</p>
     <ul>
         {% for w in active_wish_list %}
             <li><a href='/'>{{ w.animal.name }}</a></li>
@@ -13,7 +13,7 @@
             <form action="{% url 'animals:donate' w.animal.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="wish_id" id="{{ w.id }}" value="{{ w.id }}">
-                
+
                 <label for="donor_first_name">First Name:</label>
                 <input type="text" name="donor_first_name" id="donor_first_name">
 
