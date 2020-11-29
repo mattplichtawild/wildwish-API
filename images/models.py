@@ -6,6 +6,9 @@ class Image(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField()
     
+    def __str__(self):
+        return self.upload.name
+    
     # class Meta:
     #     abstract = True
 
