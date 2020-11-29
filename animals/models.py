@@ -83,18 +83,21 @@ class Wish(models.Model):
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
     # Only active wishes are available to donate to
     active = models.BooleanField(default=False)
-    fund_amount = models.DecimalField(max_digits=6, decimal_places=2)
+    fund_amount = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
     
     # To set fund amount
-    def set_fund(self):
+    def set_fund(self, *args, **kwargs):
         # if self.fund_amount:
         return self.toy.price
     
-    def save(self, *args, **kwargs):
-        self.set_fund(self)
-        super().save(*args, **kwargs)
-    
-    # Method to check if wish is fully funded and deactivate if true
+    def clean(self, *args, **kwargs):
+        if self.fund_amount is None:
+            self.fund_amount = self.toy.price
+            
+        super().clean(*args, **kwargs)
+        
+    def complete_funding(self):
+        self.active = False
     
     def __str__(self):
         return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
