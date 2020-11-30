@@ -141,6 +141,24 @@ class Donation(models.Model):
     #     self.set_donor_info(self)
     #     super().save(*args, **kwargs)
     
+    def send_recpt(self):
+        from decouple import config
+        from sendgrid import SendGridAPIClient
+        from sendgrid.helpers.mail import Mail
+        message = Mail(
+            from_email = 'roar@wildheart.foundation',
+            to_emails = self.donor_email,
+            subject = f'Your Donation to {self.wish.animal.name}',
+            html_content = '<strong>Hey thanks for donating.</strong>')
+        try:
+            sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.body)
+    
     def __str__(self):
         if self.wish:
             return (f'{self.amount} to {self.wish.animal.name}')
