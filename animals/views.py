@@ -70,9 +70,9 @@ def donate(request, animal_id):
     try:
         d = Donation(
                 wish_id=request.POST['wish_id'], 
-                first_name=request.POST['donor_first_name'], 
-                last_name=request.POST['donor_last_name'],
-                email=request.POST['donor_email'],
+                first_name=request.POST['first_name'], 
+                last_name=request.POST['ast_name'],
+                email=request.POST['email'],
                 amount=1
             )
         send_recpt(d)
