@@ -73,7 +73,7 @@ def donate(request, animal_id):
                 first_name=request.POST['first_name'], 
                 last_name=request.POST['ast_name'],
                 email=request.POST['email'],
-                amount=1
+                amount=request.POST['amount']
             )
         send_recpt(d)
         if d.save():
