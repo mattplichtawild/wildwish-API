@@ -104,6 +104,7 @@ class Wish(models.Model):
         
     def complete_funding(self):
         self.active = False
+        
         self.save()
             
     def __str__(self):
@@ -119,9 +120,9 @@ class Donation(models.Model):
     
     # donor first and last name to preserve if User is ever deleted
     # Allows donation to be created without needing to create User
-    donor_first_name = models.CharField(max_length=72)
-    donor_last_name = models.CharField(max_length=72)
-    donor_email = models.EmailField(max_length=72)
+    first_name = models.CharField(max_length=72)
+    last_name = models.CharField(max_length=72)
+    email = models.EmailField(max_length=72)
     
     # Preserve record of donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
@@ -149,7 +150,7 @@ class Donation(models.Model):
             from_email = 'roar@wildheart.foundation',
             to_emails = self.donor_email,
             subject = f'Your Donation to {self.wish.animal.name}',
-            html_content = '<strong>Hey thanks for donating.</strong>')
+            html_content = f'<strong>Hey thanks for donating.</strong>')
         try:
             sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
             response = sg.send(message)
