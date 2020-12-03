@@ -14,13 +14,13 @@
                 {% csrf_token %}
                 <input type="hidden" name="wish_id" id="{{ w.id }}" value="{{ w.id }}">
 
-                <label for="donor_first_name">First Name:</label>
+                <label for="first_name">First Name:</label>
                 <input type="text" name="donor_first_name" id="donor_first_name">
 
-                <label for="donor_last_name">Last Name:</label>
+                <label for="last_name">Last Name:</label>
                 <input type="text" name="donor_last_name" id="donor_last_name">
 
-                <label for="donor_email">Email:</label>
+                <label for="email">Email:</label>
                 <input type="email" name="donor_email" id="donor_email">  
 
                 <input type="submit" value="Donate">
