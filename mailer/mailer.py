@@ -2,8 +2,8 @@ from decouple import config
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+# Use SendGrid Dynamic Templates (https://mc.sendgrid.com/dynamic-templates)
 
-    
 # Argument is 'Donation' object from 'animals' app
 def send_recpt(donation):
     
@@ -11,17 +11,17 @@ def send_recpt(donation):
         from_email = 'roar@wildheart.foundation',
         to_emails = donation.email,
         # subject = f'Your Donation to {donation.wish.animal.name}',
-        html_content = '<strong>Hey thanks for donating.</strong>'
+        # html_content = '<strong>Hey thanks for donating.</strong>'
     )
     
     message.dynamic_template_data = {
         'subject': f'Your Donation to {donation.wish.animal.name}',
         'name': donation.first_name,
-        'city': 'Denver'
+        'animal_name': donation.wish.animal.name
     }
     
     message.template_id = 'd-397bbaeafd9e4933934aa42d1826d7fc'
-    
+
     try:
         sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
         response = sg.send(message)
