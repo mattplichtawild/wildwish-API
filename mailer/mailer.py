@@ -14,13 +14,6 @@ def send_recpt(donation):
         html_content = '<strong>Hey thanks for donating.</strong>'
     )
     
-    message.dynamic_template_data = {
-        'subject': f'Your Donation to {donation.wish.animal.name}',
-        'name': donation.first_name,
-        'city': 'Denver'
-    }
-    message.template_id = 'd-397bbaeafd9e4933934aa42d1826d7fc'
-    
     try:
         sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
         response = sg.send(message)
