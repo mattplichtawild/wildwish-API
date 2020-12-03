@@ -60,6 +60,8 @@ def detail(request, animal_id):
 # Create donation with parameters from POST request (default user and amount for now)
 # Needs to do something with donor info from request Ex: 
 def donate(request, animal_id):
+    from mailer.mailer import send_recpt
+    
     print (f'The request was: {request}')
     print (request.POST)
     animal = get_object_or_404(Animal, pk=animal_id)
@@ -73,11 +75,12 @@ def donate(request, animal_id):
                 donor_email=request.POST['donor_email'],
                 amount=1
             )
-        d.save()
-        if wish.current_funding() >= wish.fund_amount:
-            wish.complete_funding()
-            wish.save()
-            
+        send_recpt(d)
+        if d.save():
+            if wish.current_funding() >= wish.fund_amount:
+                wish.complete_funding()
+                wish.save()
+            d.save()
         print (f'{d.user} donated {d.amount} to {d.wish}')
     except (KeyError, Wish.DoesNotExist):
         return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
