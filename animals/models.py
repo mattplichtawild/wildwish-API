@@ -43,6 +43,9 @@ class Animal(models.Model):
     def recent_img(self):
         return self.images.last()
     
+    def get_active_wish(self):
+        return self.wish_set.filter(active=True).first()
+    
     # Returns <Animal: 'name'> instead of <Animal: Animal object (n)> when calling object
     def __str__(self):
         return f'{self.name} - {self.species}'
@@ -104,7 +107,6 @@ class Wish(models.Model):
         
     def complete_funding(self):
         self.active = False
-        
         self.save()
             
     def __str__(self):
@@ -127,6 +129,7 @@ class Donation(models.Model):
     # Preserve record of donation even if animal or wish is deleted
     wish = models.ForeignKey(Wish, null=True, on_delete=SET_NULL)
     
+    # Need to enforce rule that amount is greater than 0
     amount = models.DecimalField(max_digits=6, decimal_places=2)
     
     # This method probably shouldn't be used at all
