@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views.generic import ListView
+from images.models import Image
+from mailer import mailer
 
 # For root URL (homepage):
 
@@ -60,7 +62,6 @@ def detail(request, animal_id):
 # Create donation with parameters from POST request (default user and amount for now)
 # Needs to do something with donor info from request Ex: 
 def donate(request, animal_id):
-    from mailer.mailer import send_recpt
     
     print (f'The request was: {request}')
     print (request.POST)
@@ -75,7 +76,7 @@ def donate(request, animal_id):
                 email=request.POST['email'],
                 amount=request.POST['amount']
             )
-        send_recpt(d)
+        mailer.send_recpt(d)
         if d.save():
             if wish.current_funding() >= wish.fund_amount:
                 wish.complete_funding()
@@ -87,3 +88,23 @@ def donate(request, animal_id):
     else:
         # reverse() is a utility function provided by Django
         return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
+    
+# /animals/:animal_id/wish
+# Maybe refactor into separate wish app and use '/wishes/:wish_id
+# Method is for updating active wish with pictures, not creating new wish
+def update_wish(request, animal_id):
+    # Get active wish from animal's set
+    # GET returns form to upload images (no other attribute changes)
+    # POST adds images and triggers mailer to send email with images to donor
+    
+    animal = Animal.objects.get(pk=animal_id)
+    wish = animal.get_active_wish()
+    if request.POST:
+        img = Image.objects.create(upload=request.POST[''])
+        wish.images.add(img)
+        mailer.send_donor_imgs(wish)
+    else:
+        # Are these doing the same thing?
+        # return render(request, 'animals/detail.html', {'animal': animal})
+        # return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
+        return render(request, 'animals/wish_form.html', {'wish': wish})
