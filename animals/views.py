@@ -66,27 +66,30 @@ def donate(request, animal_id):
     print (f'The request was: {request}')
     print (request.POST)
     animal = get_object_or_404(Animal, pk=animal_id)
-    wish = get_object_or_404(Wish, pk=request.POST['wish_id'])
-
-    try:
-        d = Donation(
-                wish_id=request.POST['wish_id'], 
-                first_name=request.POST['first_name'], 
-                last_name=request.POST['ast_name'],
-                email=request.POST['email'],
-                amount=request.POST['amount']
-            )
-        mailer.send_recpt(d)
-        if d.save():
-            if wish.current_funding() >= wish.fund_amount:
-                wish.complete_funding()
-                wish.save()
-            d.save()
-        print (f'{d.user} donated {d.amount} to {d.wish}')
-    except (KeyError, Wish.DoesNotExist):
-        return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
+    if request.POST:
+        wish = get_object_or_404(Wish, pk=request.POST['wish_id'])
+        try:
+            d = Donation(
+                    wish_id=request.POST['wish_id'],
+                    first_name=request.POST['first_name'],
+                    last_name=request.POST['ast_name'],
+                    email=request.POST['email'],
+                    amount=request.POST['amount']
+                )
+            mailer.send_recpt(d)
+            if d.save():
+                if wish.current_funding() >= wish.fund_amount:
+                    wish.complete_funding()
+                    wish.save()
+                d.save()
+            print (f'{d.user} donated {d.amount} to {d.wish}')
+        except (KeyError, Wish.DoesNotExist):
+            return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
+        else:
+            # reverse() is a utility function provided by Django
+            return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
+        
     else:
-        # reverse() is a utility function provided by Django
         return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
     
 # /animals/:animal_id/wish
@@ -104,7 +107,4 @@ def update_wish(request, animal_id):
         wish.images.add(img)
         mailer.send_donor_imgs(wish)
     else:
-        # Are these doing the same thing?
-        # return render(request, 'animals/detail.html', {'animal': animal})
-        # return HttpResponseRedirect(reverse('animals:detail', args=(animal.id,)))
         return render(request, 'animals/wish_form.html', {'wish': wish})
