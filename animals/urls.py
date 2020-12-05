@@ -16,5 +16,6 @@ urlpatterns = [
     # ex: /animals/1
     path('<int:animal_id>/', views.detail, name='detail'),
     
-    path('<int:animal_id>/donate', views.donate, name='donate')
+    path('<int:animal_id>/donate', views.donate, name='donate'),
+    path('<int:animal_id>/wish', views.update_wish, name='update_wish')
 ]
