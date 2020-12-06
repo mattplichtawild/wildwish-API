@@ -30,3 +30,8 @@ def send_recpt(donation):
         print(response.headers)
     except Exception as e:
         print(e.body)    
+        
+# Argument is wish
+def send_donor_imgs(wish):
+    print(f'Images from {wish.animal.name}\'s wish have been emailed.')
+    
