@@ -1,1 +1,12 @@
 {{wish.animal.name}}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+   {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
+
+{% if img_obj %}
+  <h3>Succesfully uploaded : {{img_obj.title}}</h3>
+  <img src="{{ img_obj.upload.url}}" alt="connect" style="max-height:300px">
+{% endif %}
