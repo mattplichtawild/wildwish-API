@@ -35,6 +35,12 @@ def send_recpt(donation):
 def send_donor_imgs(wish):
     print(f'Images from {wish.animal.name}\'s wish have been emailed.')
     
+    # Get list of emails from wish.donations
+    d_set = wish.donation_set.all()
+    email_list = []
+    for d in d_set:
+        email_list.append(d.email)
+        
     message = Mail(
         from_email = 'roar@wildheart.foundation',
         to_emails = email_list,
