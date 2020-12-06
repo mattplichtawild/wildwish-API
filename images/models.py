@@ -5,6 +5,7 @@ from django.db import models
 class Image(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField()
+    title = models.CharField(max_length=90, default='Untitled')
     
     def __str__(self):
         return self.upload.name
