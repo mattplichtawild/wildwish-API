@@ -62,9 +62,6 @@ def detail(request, animal_id):
 # Create donation with parameters from POST request (default user and amount for now)
 # Needs to do something with donor info from request Ex: 
 def donate(request, animal_id):
-    
-    print (f'The request was: {request}')
-    print (request.POST)
     animal = get_object_or_404(Animal, pk=animal_id)
     if request.POST:
         wish = get_object_or_404(Wish, pk=request.POST['wish_id'])
@@ -96,15 +93,22 @@ def donate(request, animal_id):
 # Maybe refactor into separate wish app and use '/wishes/:wish_id
 # Method is for updating active wish with pictures, not creating new wish
 def update_wish(request, animal_id):
+    from .forms import ImageForm
     # Get active wish from animal's set
     # GET returns form to upload images (no other attribute changes)
     # POST adds images and triggers mailer to send email with images to donor
     
     animal = Animal.objects.get(pk=animal_id)
     wish = animal.get_active_wish()
-    if request.POST:
-        img = Image.objects.create(upload=request.POST[''])
-        wish.images.add(img)
-        mailer.send_donor_imgs(wish)
+    form = ImageForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+             # img_obj = Image.objects.create(upload=request.POST['upload'])
+            img_obj = form.instance
+            wish.images.add(img_obj)
+            mailer.send_donor_imgs(wish)
+            # Get the current instance object to display in the template
+            return render(request, 'animals/wish_form.html', {'form': form, 'img_obj': img_obj})
     else:
-        return render(request, 'animals/wish_form.html', {'wish': wish})
+        return render(request, 'animals/wish_form.html', {'wish': wish, 'form': form})
