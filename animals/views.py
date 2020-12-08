@@ -63,8 +63,14 @@ def detail(request, animal_id):
 # Needs to do something with donor info from request Ex: 
 def donate(request, animal_id):
     animal = get_object_or_404(Animal, pk=animal_id)
+    print('before if statement')
     if request.POST:
+        print('Hit if statement')
         wish = get_object_or_404(Wish, pk=request.POST['wish_id'])
+        print(wish.current_funding() >= wish.fund_amount)
+        if wish.current_funding() >= wish.fund_amount:
+            wish.complete_funding()
+            # wish.save()
         try:
             d = Donation(
                     wish_id=request.POST['wish_id'],
@@ -73,12 +79,10 @@ def donate(request, animal_id):
                     email=request.POST['email'],
                     amount=request.POST['amount']
                 )
-            mailer.send_recpt(d)
-            if d.save():
-                if wish.current_funding() >= wish.fund_amount:
-                    wish.complete_funding()
-                    wish.save()
-                d.save()
+            # mailer.send_recpt(d)
+            
+
+            d.save()
             print (f'{d.user} donated {d.amount} to {d.wish}')
         except (KeyError, Wish.DoesNotExist):
             return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
@@ -107,7 +111,12 @@ def update_wish(request, animal_id):
              # img_obj = Image.objects.create(upload=request.POST['upload'])
             img_obj = form.instance
             wish.images.add(img_obj)
-            mailer.send_donor_imgs(wish)
+            
+            # Get list of address and send email to each one
+            d_set = wish.donation_set.all()
+            for d in d_set:
+                mailer.send_wish_imgs(d)
+                
             # Get the current instance object to display in the template
             return render(request, 'animals/wish_form.html', {'form': form, 'img_obj': img_obj})
     else:
