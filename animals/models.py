@@ -118,7 +118,7 @@ class Wish(models.Model):
     
 class Donation(models.Model):
     # Preserve record of donation even if user deletes their account
-    user = models.ForeignKey(User, null=True, on_delete=SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=SET_NULL, blank=True)
     
     # donor first and last name to preserve if User is ever deleted
     # Allows donation to be created without needing to create User
@@ -148,6 +148,8 @@ class Donation(models.Model):
     def __str__(self):
         if self.wish:
             return (f'{self.amount} to {self.wish.animal.name}')
+        else:
+            return (f'{self.amount} to nobody in particular')
         
     class Meta:
         db_table = 'donations'
