@@ -34,36 +34,33 @@ def send_recpt(donation):
         print(e.body)    
         
 
-def send_donor_imgs(wish):
-    print(f'Images from {wish.animal.name}\'s wish have been emailed.')
+def send_wish_imgs(donation):
+    print(f'Images from {donation.wish.animal.name}\'s wish have been emailed.')
     
     # Get list of emails from wish.donations
     # The to array must at least have an email parameter with a valid email address and it may also contain a name parameter
     # {"email": "example@example.com", "name": "Example Recipient"}
-    d_set = wish.donation_set.all()
-    email_list = []
-    for d in d_set:
-        # Needs logic to check if email is valid
-        rec_obj = To(email=d.email, name=d.first_name, substitutions=None)
+    # d_set = wish.donation_set.all()
+    # email_list = []
+    # for d in d_set:
+    #     rec_obj = To(email=d.email, name=d.first_name, substitutions=None)
+    #     email_list.append(rec_obj)
         
-        email_list.append(rec_obj)
-        
-        # if d.
     
-    print(email_list)
+    # print(email_list)
         
     message = Mail(
         from_email = 'roar@wildheart.foundation',
-        to_emails = email_list,
+        to_emails = donation.email,
         # subject = f'Your Donation to {donation.wish.animal.name}',
         # html_content = '<strong>Hey thanks for donating.</strong>'
     )
     
     message.dynamic_template_data = {
-        'subject': f'Thanks to you, {wish.animal.name} got their wish',
+        'subject': f'Thanks to you, {donation.wish.animal.name} got their wish',
         # How to handle substitutions for multiple name list?
         # 'name': donation.first_name,
-        'animal_name': wish.animal.name
+        'animal_name': donation.wish.animal.name
     }
     
     # SG template name: Wish Image Update
