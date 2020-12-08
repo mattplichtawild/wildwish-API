@@ -16,12 +16,17 @@ class UserAdmin(admin.ModelAdmin):
 class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
     list_display = ('id', 'animal', 'toy')
+    # fieldsets = [
+    #     (None, {'fields': ['fund_amount']}),
+    #     # ('Current funding', {'fileds': ['']})
+    # ]
+    # exclude = ('fund_amount',)
     
 class WishInLine(admin.StackedInline):
     model = Wish
     # 'fields' and 'exclude' are doing the same thing
     # fields = ('toy', 'animal')
-    exclude = ('images',)
+    exclude = ('images','fund_amount')
     # extra = How many fields are available at once
     extra = 1
     
