@@ -81,6 +81,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
+# Use SendGrid Web API
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = config('SENDGRID_API_KEY')
+# defaults to True, so emails sent in DEBUG mode will not be delivered, unless this setting is explicitly set to False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+# echo to stdout or any other file-like object that is passed to the backend via the stream kwarg
+SENDGRID_ECHO_TO_STDOUT=True
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
