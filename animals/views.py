@@ -67,10 +67,6 @@ def donate(request, animal_id):
     if request.POST:
         print('Hit if statement')
         wish = get_object_or_404(Wish, pk=request.POST['wish_id'])
-        print(wish.current_funding() >= wish.fund_amount)
-        if wish.current_funding() >= wish.fund_amount:
-            wish.complete_funding()
-            # wish.save()
         try:
             d = Donation(
                     wish_id=request.POST['wish_id'],
@@ -79,10 +75,11 @@ def donate(request, animal_id):
                     email=request.POST['email'],
                     amount=request.POST['amount']
                 )
-            # mailer.send_recpt(d)
-            
-
+            mailer.send_recpt(d)
             d.save()
+            if wish.current_funding() >= wish.fund_amount:
+                wish.complete_funding()
+            # wish.save()
             print (f'{d.user} donated {d.amount} to {d.wish}')
         except (KeyError, Wish.DoesNotExist):
             return render(request, 'animals/detail.html', {'animal': animal, 'error_message': 'Please select a wish'})
