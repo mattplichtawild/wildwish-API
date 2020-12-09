@@ -6,7 +6,7 @@
     <p>This page exists as a placeholder for template tags and contexts while in development.</p>
     <ul>
         {% for w in active_wish_list %}
-            <li><a href='/'>{{ w.animal.name }}</a></li>
+            <li><a href='/animals/{{w.animal.id}}'>{{ w.animal.name }}</a></li>
             <li><img src={{ w.animal.recent_img.upload.url }}></li>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
