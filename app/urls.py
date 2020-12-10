@@ -13,12 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from animals.views import ActiveWishList
+# from animals.views import ActiveWishList
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('', ActiveWishList.as_view()),
+    # For basic html template
+    # path('', ActiveWishList.as_view()),
+    
+    # For React frontend
+    path('', include('frontend.urls')),
     path('animals/', include('animals.urls')),
     # path('zoos/', include('zoos.urls')),
     path('admin/', admin.site.urls),
