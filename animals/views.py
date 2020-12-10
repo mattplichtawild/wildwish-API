@@ -4,11 +4,17 @@ from animals.models import Animal, Donation, Wish
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from images.models import Image
 from mailer import mailer
 
-# For root URL (homepage):
+from .serializers import AnimalSerializer
+from rest_framework import generics
+
+# For CRUD actions using rest_framework
+class AnimalListCreate(generics.ListCreateAPIView):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializer
 
 # 'as_view()' method will return the defined query set as context object
 class ActiveWishList(ListView):
@@ -41,6 +47,23 @@ def index(request):
     
     return render(request, 'animals/index.html', {'animals_list': animals_list})
 
+# class AnimalView(DetailView):
+    # template_name = '/animals/detail.html'
+    # model = Animal
+    # context_object_name = 'animal'
+
+    # def get_context_data(self, **kwargs):
+    #     context = {
+    #         'component': 'overview.js',
+    #         'title': 'Hello World',
+    #         'props': 
+    #             {'animal': animal}
+    #     }
+
+    #     return context
+
+        
+
 def detail(request, animal_id):
     # animal = Animal.objects.get(pk=animal_id)
     # # return JsonResponse({animal})
@@ -55,9 +78,12 @@ def detail(request, animal_id):
     # except Animal.DoesNotExist:
     #     raise Http404("Animal does not exist")
     # return render(request, 'animals/detail.html', {'animal': animal})
+
+     
     
     # render method uses template in '/animals/templates' to return HTML template
     return render(request, 'animals/detail.html', {'animal': animal})
+
 
 # Create donation with parameters from POST request (default user and amount for now)
 # Needs to do something with donor info from request Ex: 
