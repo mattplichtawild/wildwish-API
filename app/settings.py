@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # 'storages' for AWS S3
     'storages',
     'rest_framework',
+    'frontend',
     # 'address'
 ]
 
@@ -114,11 +115,8 @@ DATABASES = {
     }
 }
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # AWS S3 for static assets
-
+# Comment out block to use local defaults
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
@@ -131,9 +129,12 @@ AWS_S3_REGION_NAME = 'us-west-2'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'animals/static'),
 ]
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
+
+MEDIA_URL = 'https://%s/media/' % (AWS_S3_CUSTOM_DOMAIN)
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

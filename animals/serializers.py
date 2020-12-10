@@ -5,4 +5,5 @@ from .models import Animal
 class AnimalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Animal
+        # 'images' field just needs to return the url of the image
         fields = ('id', 'zoo', 'name', 'species', 'bio', 'images')
