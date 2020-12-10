@@ -1,4 +1,7 @@
+// var BundleTracker = require('webpack-bundle-tracker');
+
 module.exports = {
+  watch: true,
     module: {
       rules: [
         {
@@ -9,5 +12,5 @@ module.exports = {
           }
         }
       ]
-    }
+    },
   };
