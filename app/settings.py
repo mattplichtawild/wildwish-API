@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'multiselectfield',
-    # For AWS S3
+    # 'storages' for AWS S3
     'storages',
+    'rest_framework',
     # 'address'
 ]
 
@@ -88,6 +89,13 @@ SENDGRID_API_KEY = config('SENDGRID_API_KEY')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 # echo to stdout or any other file-like object that is passed to the backend via the stream kwarg
 SENDGRID_ECHO_TO_STDOUT=True
+
+# Use JSON as default renderer (forms won't be generated like with built in API template)
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
