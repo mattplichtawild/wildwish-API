@@ -1,15 +1,14 @@
+from app.settings import SENDGRID_API_KEY
 from decouple import config
 from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail, To
-# from sendgrid.helpers.mail.to_email import To
+from sendgrid.helpers.mail import Mail
 
 # Use SendGrid Dynamic Templates (https://mc.sendgrid.com/dynamic-templates)
 
-SG = SendGridAPIClient(config('SENDGRID_API_KEY'))
+SG = SendGridAPIClient(SENDGRID_API_KEY)
 
 def send_msg(message):
     try:
-        
         response = SG.send(message)
         print(response.status_code)
         print(response.body)
