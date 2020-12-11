@@ -112,7 +112,7 @@ class Wish(models.Model):
         self.save()
             
     def __str__(self):
-        return (f'Wish ID #{self.id}: {self.toy.name} for {self.animal.name}')
+        return (f'ID #{self.id} | {self.toy.name} for {self.animal.name}')
     
     class Meta:
         verbose_name_plural = 'Wishes'
@@ -155,3 +155,14 @@ class Donation(models.Model):
         
     class Meta:
         db_table = 'donations'
+        
+class Species(models.Model):
+    common_name = models.CharField(max_length=72)
+    
+    common_name.verbose_name = 'Name'
+
+    def __str__(self):
+        return self.common_name
+    
+    class Meta:
+        verbose_name_plural = 'Species'
