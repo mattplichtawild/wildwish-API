@@ -39,9 +39,11 @@ class Animal(models.Model):
     species = models.CharField(max_length=72)
     bio = models.CharField(max_length=180)
     images = models.ManyToManyField(Image)
+    recent_img = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
 
-    def recent_img(self):
-        return self.images.last()
+    def get_recent_img(self):
+        if self.images.count() > 0:
+            return self.images.last()
     
     def get_active_wish(self):
         return self.wish_set.filter(active=True).first()
@@ -58,9 +60,9 @@ class Animal(models.Model):
     #     if self.user and self.user.auth_keeper():
     #         self.zoo = self.user.zoo
             
-    # def save(self, *args, **kwargs):
-    #     self.set_zoo()
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.recent_img = self.get_recent_img()
+        super().save(*args, **kwargs)
             
     # Example method from docs
     # def was_created_recently(self):
