@@ -32,12 +32,19 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <ul>
+     
+      return (
+          <ul>
         {this.state.data.map(animal => {
-          return (
+            console.log(animal)
+            console.log(animal.recent_img.upload)
+            return (
             <li key={animal.id}>
-              {animal.name} - {animal.bio}
+                <h2>{animal.name}</h2>
+                <p>{animal.species}</p>
+                <p>{animal.bio}</p>
+                <p>{animal.zoo}</p>
+                <a href={animal.recent_img.upload} >Picture</a>
             </li>
           );
         })}
