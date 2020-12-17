@@ -28,6 +28,17 @@ class User(models.Model):
     
     class Meta:
         db_table = 'users'
+        
+class Species(models.Model):
+    common_name = models.CharField(max_length=72)
+    
+    common_name.verbose_name = 'Common Name'
+
+    def __str__(self):
+        return self.common_name
+    
+    class Meta:
+        verbose_name_plural = 'Species'
 
 class Animal(models.Model):
 
@@ -36,10 +47,12 @@ class Animal(models.Model):
     # for user: on_delete=models.SET(set_user_from_zoo)
     user = models.ForeignKey(User, on_delete=PROTECT, null=True)
     name = models.CharField(max_length=24)
-    species = models.CharField(max_length=72)
+    species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
     bio = models.CharField(max_length=180)
     images = models.ManyToManyField(Image)
     recent_img = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
+
+    bio.help_text = 'Max 180 characters'
 
     def get_recent_img(self):
         if self.images.count() > 0:
@@ -54,19 +67,10 @@ class Animal(models.Model):
     
     class Meta:
         db_table = 'animals'
-        
-    # Two below methods need more testing before use
-    # def set_zoo(self):
-    #     if self.user and self.user.auth_keeper():
-    #         self.zoo = self.user.zoo
             
     def save(self, *args, **kwargs):
         self.recent_img = self.get_recent_img()
         super().save(*args, **kwargs)
-            
-    # Example method from docs
-    # def was_created_recently(self):
-    #     return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     
 class Toy(models.Model):
     name = models.CharField(max_length=32)
@@ -155,14 +159,3 @@ class Donation(models.Model):
         
     class Meta:
         db_table = 'donations'
-        
-class Species(models.Model):
-    common_name = models.CharField(max_length=72)
-    
-    common_name.verbose_name = 'Name'
-
-    def __str__(self):
-        return self.common_name
-    
-    class Meta:
-        verbose_name_plural = 'Species'
