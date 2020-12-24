@@ -15,7 +15,7 @@ class AnimalSerializer(serializers.ModelSerializer):
     
     # StringRelatedField returns the __str__ method of the related model
     zoo = serializers.StringRelatedField()
-    
+    species = serializers.StringRelatedField()
     images = ImageSerializer(many=True, read_only=True)
     recent_img = ImageSerializer(many=False, read_only=True)
     
