@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import axios from "axios";
-import AnimalCard from "./AnimalCard"
-import Button from '@material-ui/core/Button';
+import Home from "./Home";
 
 class App extends Component {
   constructor(props) {
@@ -38,15 +37,9 @@ class App extends Component {
   
   render() {
     return (
-      <ul>
-          {this.state.data.map(animal => {
-            return (
-              <li key={animal.id}>
-                <AnimalCard animal={animal} />
-              </li>
-            );
-          })}
-      </ul>
+      <>
+      <Home animals={this.state.data}/>
+      </>
     );
   }
 }
