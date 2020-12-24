@@ -35,24 +35,19 @@ class App extends Component {
   }
   
   render() {
-     
-      return (
-            <div>
-            <h2>Basic Front Page to hook React up</h2>
-            <p>No CSS or any styling.</p>
-            <ul>
-        {this.state.data.map(animal => {
+    return (
+      <div>
+        <h2>Basic Front Page to hook React up</h2>
+        <p>No CSS or any styling.</p>
+        <ul>
+          {this.state.data.map(animal => {
             return (
-            <li key={animal.id}>
-                <h2>{animal.name}</h2>
-                <p>{animal.species}</p>
-                <p>{animal.bio}</p>
-                <p>{animal.zoo}</p>
-                <a href={animal.recent_img.upload}>Picture</a>
-            </li>
-          );
-        })}
-      </ul>
+              <>
+              <AnimalCard key={animal.id} animal={animal} />
+              </>
+            );
+          })}
+        </ul>
       </div>
     );
   }
