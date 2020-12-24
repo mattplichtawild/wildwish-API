@@ -1,7 +1,7 @@
 from images.models import Image
 from django.contrib import admin
 
-from .models import Donation, Toy, User, Animal, Wish
+from .models import Donation, Species, Toy, User, Animal, Wish
 
 
 # User custom class to override fields for User
@@ -35,14 +35,21 @@ class ImageInLine(admin.TabularInline):
     # extra = How many fields are available at once
     extra = 1
     
+    # This isn't actually doing anything...
+    # model.verbose_name_plural = 'Animal Images'
+    
+    # class Meta:
+    #     verbose_name_plural = 'Animal Images'
+    
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
-        # ('Images', {'fields': ['images']})
+        # ('Profile Pic', {'fields': ['recent_img']})
     ]
     inlines = [WishInLine, ImageInLine]
     search_fields = ['zoo', 'name', 'species']
     
+admin.site.register(Species)
 admin.site.register(User, UserAdmin)
 admin.site.register(Animal, AnimalAdmin)
 admin.site.register(Toy)
