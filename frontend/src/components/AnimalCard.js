@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import Button from '@material-ui/core/Button';
 
 class AnimalCard extends Component {
     constructor(props) {
+        super(props);
         this.state = {
             animal: props.animal
         }
@@ -16,6 +18,9 @@ class AnimalCard extends Component {
                 <p>{animal.bio}</p>
                 <p>{animal.zoo}</p>
                 <a href={animal.recent_img.upload}>Picture</a>
+                <Button variant="contained" color="primary">
+                    Hello World
+                </Button>
             </div>
         )
     }

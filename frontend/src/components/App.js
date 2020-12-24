@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import axios from "axios";
+import AnimalCard from "./AnimalCard"
 
 class App extends Component {
   constructor(props) {
@@ -42,9 +43,9 @@ class App extends Component {
         <ul>
           {this.state.data.map(animal => {
             return (
-              <>
-              <AnimalCard key={animal.id} animal={animal} />
-              </>
+              <li key={animal.id}>
+                <AnimalCard animal={animal} />
+              </li>
             );
           })}
         </ul>
