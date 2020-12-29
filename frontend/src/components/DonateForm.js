@@ -3,25 +3,25 @@ import React, { useReducer } from "react";
 // Use useReducer hook to control state of multiple form fields
 
 const initialState = {
-    first_name: "",
-    last_name: "",
-    email: "",
+    first_name: '',
+    last_name: '',
+    email: '',
     amount: 1,
-}
+};
 
 function reducer(state, {field, value}) {
     return {
         ...state,
-        [field]: value,
+        [field]: value
     };
-}
+};
 
 function DonateForm() {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [first_name, last_name, email, amount] = state;
     const handleChange = (e) => {
         dispatch({field: e.target.name, value: e.target.value})
     };
+    const {first_name, last_name, email, amount} = state;
 
     const handleSubmit = (e) => {
     e.preventDefault();
