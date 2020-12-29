@@ -24,14 +24,13 @@ function DonateForm() {
     const {first_name, last_name, email, amount} = state;
 
     const handleSubmit = (e) => {
-    e.preventDefault();
-    // whatever you want to do when user submits a form
+    // e.preventDefault();
+    console.log('Donation Submitted!')
+    // how to close modal?
     };
 
     return (
-        <form onSubmit={(e) => {
-        console.log('Donation Submitted!')
-        }}>
+        <form onSubmit={handleSubmit}>
         <label htmlFor="first_name">First Name</label>
         <input
             className="first_name"
