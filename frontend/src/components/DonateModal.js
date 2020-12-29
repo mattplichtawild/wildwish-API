@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles';
+import DonateForm from './DonateForm'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,11 +34,12 @@ function DonateModal() {
 
   const body = (
     <div className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
+      <h2 id="simple-modal-title">Donate!</h2>
       <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        Write some bullshit here
       </p>
-      <DonateModal />
+      {/* <DonateModal /> */}
+        <DonateForm />
     </div>
   );
 
