@@ -11,7 +11,8 @@ import {
 } from '@mui-treasury/components/info';
 import { useGalaxyInfoStyles } from '@mui-treasury/styles/info/galaxy';
 import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
+import DonateModal from './DonateModal' 
 
 function AnimalCard(props) {
     const animal = props.animal
@@ -45,12 +46,6 @@ function AnimalCard(props) {
     const mediaStyles = useCoverCardMediaStyles({ bgPosition: 'top' });
     const styles = useStyles();
 
-    const handleClick = () => {
-        alert('clicked')
-        // open modal window for donation form
-
-    }
-
     return (
         <div>
             <Card className={styles.card}>
@@ -64,13 +59,15 @@ function AnimalCard(props) {
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
                     <InfoCaption>{animal.bio}</InfoCaption>
                 </Info>
+                <DonateModal />
+{/*                 
                 <Button 
                 variant='outlined' 
                 color='primary' 
                 onClick={() => handleClick()} 
                 >
                     Donate
-                </Button>
+                </Button> */}
                 </Box>
             </Card>
         </div>

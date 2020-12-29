@@ -1,8 +1,21 @@
 import React from 'react'
-import { Button, Form, Header, Icon, Modal } from 'semantic-ui-react'
+import Modal from '@material-ui/core/Modal'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
 
 function DonateModal() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
 
   function handleSubmit(e) {
       alert('clicked');
@@ -10,33 +23,39 @@ function DonateModal() {
     // whatever you want to do when user submits a form
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (
+    <div className={classes.paper}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+      <DonateModal />
+    </div>
+  );
+
   return (
-    <Modal
-      closeIcon
-    //   as={Form}
-    //   onSubmit={e => handleSubmit(e)}
-      open={open}
-      trigger={<Button>Donate</Button>}
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-    >
-      <Header icon='archive' content='Archive Old Messages' />
-      <Modal.Content>
-        <p>
-          Your inbox is getting full, would you like us to enable automatic
-          archiving of old messages?
-        </p>
-      </Modal.Content>
-      <Modal.Actions>
-        <Button color='red' onClick={() => setOpen(false)}>
-          <Icon name='remove' /> No
-        </Button>
-        <Button color='green' onClick={() => setOpen(false)}>
-          <Icon name='checkmark' /> Yes
-        </Button>
-      </Modal.Actions>
-    </Modal>
-  )
+    <div>
+      <button type="button" onClick={handleOpen}>
+        Donate
+      </button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
+    </div>
+  );
 }
 
 export default DonateModal;
