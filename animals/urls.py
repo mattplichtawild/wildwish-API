@@ -8,6 +8,7 @@ app_name = 'animals'
 urlpatterns = [
     # Path to index using functional view instead of class based
     path('', views.index, name='animals_index'),
+    path('wishes/active', views.WishListCreate.as_view(), name='active_wish_list'),
     
     # ex: /animals/
     # Index view using django generic view

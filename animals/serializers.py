@@ -1,6 +1,6 @@
 from django.db import models
 from rest_framework import serializers
-from .models import Animal
+from .models import Animal, Wish
 from images.models import Image
 
 # For related images field
@@ -31,3 +31,11 @@ class AnimalSerializer(serializers.ModelSerializer):
         model = Animal
         # 'images' field just needs to return the url of the image
         fields = ('id', 'zoo', 'name', 'species', 'bio', 'images', 'recent_img')
+
+class WishSerializer(serializers.ModelSerializer):
+    
+    animal = AnimalSerializer(read_only=True)
+    
+    class Meta:
+        model = Wish
+        fields = ['animal']

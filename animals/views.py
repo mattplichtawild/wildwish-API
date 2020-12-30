@@ -1,5 +1,6 @@
 
 
+from django.http.response import JsonResponse
 from animals.models import Animal, Donation, Wish
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, Http404
@@ -7,13 +8,17 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from mailer import mailer
 
-from .serializers import AnimalSerializer
+from .serializers import AnimalSerializer, WishSerializer
 from rest_framework import generics
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
+    
+class WishListCreate(generics.ListCreateAPIView):
+    queryset = Wish.objects.all()
+    serializer_class = WishSerializer
 
 # '/animals/:id
 # Create donation with parameters from POST request and add them to the animal's active wish
@@ -81,13 +86,17 @@ def update_wish(request, animal_id):
 # Deprecated views, no longer used (keep for reference)
 # Responds to GET request at '/' using django template
 # 'as_view()' method will return the defined query set as context object
-class ActiveWishList(ListView):
-    # Below is same as 'queryset = Wish.objects.all()'
-    # model = Wish
+# class ActiveWishList(ListView):
+#     # Below is same as 'queryset = Wish.objects.all()'
+#     # model = Wish
     
-    queryset = Wish.objects.filter(active=True)
-    context_object_name = 'active_wish_list'
+#     queryset = Wish.objects.filter(active=True)
+#     context_object_name = 'active_wish_list'
 
+def ActiveWishList(request):
+    queryset = Wish.objects.filter(active=True)
+    return JsonResponse(queryset, safe=False)
+    
 class IndexView(ListView):
     model = Animal
     template_name = 'animals/index.html'
