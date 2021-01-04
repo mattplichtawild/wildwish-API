@@ -48,11 +48,9 @@ class Animal(models.Model):
     user = models.ForeignKey(User, on_delete=PROTECT, null=True)
     name = models.CharField(max_length=24)
     species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
-    bio = models.CharField(max_length=180)
+    bio = models.TextField(null=True)
     images = models.ManyToManyField(Image)
     recent_img = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
-
-    bio.help_text = 'Max 180 characters'
 
     def get_recent_img(self):
         if self.images.count() > 0:
@@ -81,7 +79,7 @@ class Vendor(models.Model):
     
 class Toy(models.Model):
     name = models.CharField(max_length=32)
-    description = models.CharField(max_length=180)
+    description = models.TextField(null=True)
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
