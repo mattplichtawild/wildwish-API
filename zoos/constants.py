@@ -1,14 +1,16 @@
 # Constants to use for accreditation choices
 AZA = 'AZA'
-GFAS = 'GFAS'
-EAZA = 'EAZA'
 AAZK = 'AAZK'
+GFAS = 'GFAS'
+ZAA = 'ZAA'
+# EAZA = 'EAZA'
 
 ACCR_CHOICES = (
     (AZA, 'Association of Zoos and Aquariums'),
     (AAZK, 'American Association of Zookeepers'),
     (GFAS, 'Global Federation of Animal Sanctuaries'),
-    (EAZA, 'European Association of Zoos and Aquariums')
+    (ZAA, 'Zoological Association of America'),
+    # (EAZA, 'European Association of Zoos and Aquariums')
 )
 
 # For list of states
