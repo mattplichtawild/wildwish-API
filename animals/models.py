@@ -31,6 +31,9 @@ class User(models.Model):
         
 class Species(models.Model):
     common_name = models.CharField(max_length=72)
+    genus = models.CharField(max_length=72, null=True)
+    species = models.CharField(max_length=72, null=True)
+    sub_species = models.CharField(max_length=72, null=True)
     
     common_name.verbose_name = 'Common Name'
 
