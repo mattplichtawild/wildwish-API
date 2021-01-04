@@ -30,7 +30,7 @@ class WishInLine(admin.StackedInline):
     # extra = How many fields are available at once
     extra = 1
     
-class ImageInLine(admin.TabularInline):
+class AnimalImageInLine(admin.TabularInline):
     model = Animal.images.through
     # extra = How many fields are available at once
     extra = 1
@@ -46,12 +46,22 @@ class AnimalAdmin(admin.ModelAdmin):
         (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
-    inlines = [WishInLine, ImageInLine]
+    inlines = [WishInLine, AnimalImageInLine]
     search_fields = ['zoo', 'name', 'species']
+    
+class ToyImageInline(admin.TabularInline):
+    model = Toy.images.through
+    extra = 1
+    
+class ToyAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['name', 'price', 'description']})
+    ]
+    inlines = [ToyImageInline]
     
 admin.site.register(Species)
 admin.site.register(User, UserAdmin)
 admin.site.register(Animal, AnimalAdmin)
-admin.site.register(Toy)
+admin.site.register(Toy, ToyAdmin)
 admin.site.register(Wish, WishAdmin)
-admin.site.register(Donation)
+# admin.site.register(Donation)
