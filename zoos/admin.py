@@ -7,11 +7,12 @@ class AnimalInLine(admin.TabularInline):
     extra = 3
 
 class ZooAdmin(admin.ModelAdmin):
+    list_display = ['name', 'city', 'st', 'website']
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('Zoo Info', {'fields': ['city', 'st', 'zip']}),
+        ('Zoo Info', {'fields': ['website', 'city', 'st', 'zip']}),
         (None, {'fields': ['accrs']}),
     ]
-    inlines = [AnimalInLine]
-    search_fields = ['name']
+    # inlines = [AnimalInLine]
+    search_fields = ['name', 'st']
 admin.site.register(Zoo, ZooAdmin)
