@@ -20,6 +20,3 @@ djangorestframework>=3.12
 
 # For automated testing
 coverage>=5.3
-
-# For admin site select tags to work more like datalist
-django-awesomplete>=0.2.1
