@@ -33,7 +33,7 @@ def donate(request, animal_id):
             d = Donation(
                     wish_id=request.POST['wish_id'],
                     first_name=request.POST['first_name'],
-                    last_name=request.POST['ast_name'],
+                    last_name=request.POST['last_name'],
                     email=request.POST['email'],
                     amount=request.POST['amount']
                 )
@@ -84,6 +84,7 @@ def update_wish(request, animal_id):
     
     
 # Deprecated views, no longer used (keep for reference)
+#
 # Responds to GET request at '/' using django template
 # 'as_view()' method will return the defined query set as context object
 # class ActiveWishList(ListView):
@@ -112,21 +113,6 @@ def index(request):
     
     return render(request, 'animals/index.html', {'animals_list': animals_list})
 
-class AnimalView(DetailView):
-    template_name = '/animals/detail.html'
-    model = Animal
-    context_object_name = 'animal'
-
-    def get_context_data(self, **kwargs):
-        context = {
-            'component': 'overview.js',
-            'title': 'Hello World',
-            'props': 
-                {'animal': animal}
-        }
-
-        return context
-
 def detail(request, animal_id):
     # animal = Animal.objects.get(pk=animal_id)
     # # return JsonResponse({animal})
@@ -142,7 +128,20 @@ def detail(request, animal_id):
     #     raise Http404("Animal does not exist")
     # return render(request, 'animals/detail.html', {'animal': animal})
 
-     
+# class AnimalView(DetailView):
+#     template_name = '/animals/detail.html'
+#     model = Animal
+#     context_object_name = 'animal'
+
+#     def get_context_data(self, **kwargs):
+#         context = {
+#             'component': 'overview.js',
+#             'title': 'Hello World',
+#             'props': 
+#                 {'animal': animal}
+#         }
+
+#         return context
     
-    # render method uses template in '/animals/templates' to return HTML template
-    return render(request, 'animals/detail.html', {'animal': animal})
+#     # render method uses template in '/animals/templates' to return HTML template
+#     return render(request, 'animals/detail.html', {'animal': animal})
