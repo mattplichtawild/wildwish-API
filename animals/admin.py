@@ -49,6 +49,7 @@ class AnimalAdmin(admin.ModelAdmin):
         (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
+    list_display = ['name', 'species', 'zoo']
     inlines = [WishInLine, AnimalImageInLine]
     search_fields = ['name', 'species__common_name', 'zoo__name']
     autocomplete_fields = ['species', 'zoo']
@@ -60,7 +61,8 @@ class ToyImageInline(admin.TabularInline):
     verbose_name_plural = "Images"
     
 class ToyAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ['name', 'vendor__name']
+    list_display = ['name', 'vendor']
     fieldsets = [
         (None, {'fields': ['name', 'price', 'description', 'url']})
     ]

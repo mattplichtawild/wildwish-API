@@ -36,7 +36,8 @@ class Species(models.Model):
     sub_species = models.CharField(max_length=72, null=True)
     
     common_name.verbose_name = 'Common Name'
-
+    sub_species.verbose_name = 'Subspecies'
+    
     def __str__(self):
         return self.common_name
     
