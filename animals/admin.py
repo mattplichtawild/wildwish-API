@@ -1,6 +1,5 @@
 from images.models import Image
 from django.contrib import admin
-
 from .models import Donation, Species, Toy, User, Animal, Wish, Vendor
 
 
@@ -29,6 +28,7 @@ class WishInLine(admin.StackedInline):
     exclude = ('images','fund_amount')
     # extra = How many fields are available at once
     extra = 1
+    autocomplete_fields = ['toy']
     
 class AnimalImageInLine(admin.TabularInline):
     model = Animal.images.through
@@ -38,13 +38,20 @@ class AnimalImageInLine(admin.TabularInline):
     verbose_name = 'Image'
     verbose_name_plural = 'Images'
     
+class SpeciesAdmin(admin.ModelAdmin):
+    search_fields = ['common_name']
+    
+class ZooAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
     inlines = [WishInLine, AnimalImageInLine]
-    search_fields = ['zoo', 'name', 'species']
+    search_fields = ['name', 'species__common_name', 'zoo__name']
+    autocomplete_fields = ['species', 'zoo']
     
 class ToyImageInline(admin.TabularInline):
     model = Toy.images.through
@@ -53,6 +60,7 @@ class ToyImageInline(admin.TabularInline):
     verbose_name_plural = "Images"
     
 class ToyAdmin(admin.ModelAdmin):
+    search_fields = ['name']
     fieldsets = [
         (None, {'fields': ['name', 'price', 'description', 'url']})
     ]
@@ -60,7 +68,7 @@ class ToyAdmin(admin.ModelAdmin):
     
     
 admin.site.register(Animal, AnimalAdmin)
-admin.site.register(Species)
+admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Toy, ToyAdmin)
 admin.site.register(Vendor)
 # admin.site.register(User, UserAdmin)
