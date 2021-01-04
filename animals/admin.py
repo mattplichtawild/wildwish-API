@@ -54,7 +54,7 @@ class ToyImageInline(admin.TabularInline):
     
 class ToyAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['name', 'price', 'description']})
+        (None, {'fields': ['name', 'price', 'description', 'url']})
     ]
     inlines = [ToyImageInline]
     
