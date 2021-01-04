@@ -72,11 +72,19 @@ class Animal(models.Model):
         self.recent_img = self.get_recent_img()
         super().save(*args, **kwargs)
     
+class Vendor(models.Model):
+    name = models.CharField(max_length=72)
+    website = models.CharField(max_length=72)
+    
+    def __str__(self):
+        return self.name
+    
 class Toy(models.Model):
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=180)
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
     
     def __str__(self):
         return self.name
@@ -159,3 +167,4 @@ class Donation(models.Model):
         
     class Meta:
         db_table = 'donations'
+        
