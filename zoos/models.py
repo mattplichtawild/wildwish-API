@@ -12,6 +12,7 @@ class Zoo(models.Model):
     # Has superuser to manage all animals and wishes in collection?
     # superuser = models.ForeignKey('animals.User', null=True, on_delete=SET_NULL)
     name = models.CharField(max_length=72)
+    website = models.URLField(max_length=200, null=True)
     accrs = MultiSelectField(choices=ACCR_CHOICES, null=True, blank=True)
     accrs.verbose_name = 'Accreditations'
     
