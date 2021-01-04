@@ -87,7 +87,7 @@ class Toy(models.Model):
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
-    url = models.CharField(max_length=255, null=True)
+    url = models.URLField(max_length=255, null=True)
     
     def __str__(self):
         return self.name
