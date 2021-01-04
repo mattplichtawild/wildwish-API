@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework',
     'frontend',
-    'awesomplete',
     # 'address'
 ]
 
