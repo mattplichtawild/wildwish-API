@@ -15,12 +15,12 @@ class AnimalSerializer(serializers.ModelSerializer):
     zoo = serializers.StringRelatedField()
     species = serializers.StringRelatedField()
     images = ImageSerializer(many=True, read_only=True)
-    recent_img = ImageSerializer(many=False, read_only=True)
+    avatar = ImageSerializer(many=False, read_only=True)
     
     class Meta:
         model = Animal
         # 'images' field just needs to return the url of the image
-        fields = ('id', 'name', 'species', 'zoo', 'bio', 'images', 'recent_img')
+        fields = ('id', 'name', 'species', 'zoo', 'bio', 'images', 'avatar')
 
 class WishSerializer(serializers.ModelSerializer):
     
