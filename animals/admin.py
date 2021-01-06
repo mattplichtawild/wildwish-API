@@ -49,7 +49,7 @@ class AnimalAdmin(admin.ModelAdmin):
         (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
-    list_display = ['name', 'species', 'zoo']
+    list_display = ['name', 'species', 'zoo', 'user']
     inlines = [WishInLine, AnimalImageInLine]
     search_fields = ['name', 'species__common_name', 'zoo__name']
     autocomplete_fields = ['species', 'zoo']
