@@ -46,12 +46,16 @@ function AnimalCard(props) {
     const mediaStyles = useCoverCardMediaStyles({ bgPosition: 'top' });
     const styles = useStyles();
 
+    if (!animal.avatar){
+        animal.avatar = {upload: 'https://wildwishdev.s3.amazonaws.com/media/default-avatar.jpg'}
+    }
+
     return (
         <div>
             <Card className={styles.card}>
                 <CardMedia
                 classes={mediaStyles}
-                image={animal.recent_img.upload}
+                image={animal.avatar.upload}
                 />
                 <Box py={3} px={2} className={styles.content}>
                 <Info useStyles={useGalaxyInfoStyles}>
