@@ -31,9 +31,9 @@ class User(models.Model):
         
 class Species(models.Model):
     common_name = models.CharField(max_length=72)
-    genus = models.CharField(max_length=72, null=True)
-    species = models.CharField(max_length=72, null=True)
-    sub_species = models.CharField(max_length=72, null=True)
+    genus = models.CharField(max_length=72, null=True, blank=True)
+    species = models.CharField(max_length=72, null=True, blank=True)
+    sub_species = models.CharField(max_length=72, null=True, blank=True)
     
     common_name.verbose_name = 'Common Name'
     sub_species.verbose_name = 'Subspecies'
@@ -52,13 +52,18 @@ class Animal(models.Model):
     user = models.ForeignKey(User, on_delete=PROTECT, null=True)
     name = models.CharField(max_length=24)
     species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
-    bio = models.TextField(null=True)
+    bio = models.TextField(null=True, blank=True)
     images = models.ManyToManyField(Image)
-    recent_img = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
+    avatar = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
 
     def get_recent_img(self):
         if self.images.count() > 0:
             return self.images.last()
+        
+    def set_default_avatar(self):
+        if self.avatar is None:
+            self.avatar = self.get_recent_img()
+            self.save()
     
     def get_active_wish(self):
         return self.wish_set.filter(active=True).first()
@@ -71,8 +76,15 @@ class Animal(models.Model):
         db_table = 'animals'
             
     def save(self, *args, **kwargs):
-        self.recent_img = self.get_recent_img()
         super().save(*args, **kwargs)
+        
+# Sets an animal's avatar when first saved
+# I don't like how this works...
+# def set_animal_avatar(sender, instance, *args, **kwargs):
+#     instance.set_default_avatar()
+    
+# from django.db.models.signals import post_save
+# post_save.connect(set_animal_avatar, sender=Animal)
     
 class Vendor(models.Model):
     name = models.CharField(max_length=72)
