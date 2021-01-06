@@ -40,6 +40,7 @@ class AnimalImageInLine(admin.TabularInline):
     
 class SpeciesAdmin(admin.ModelAdmin):
     search_fields = ['common_name']
+    list_display = ['common_name', 'genus', 'species', 'sub_species']
     
 class ZooAdmin(admin.ModelAdmin):
     search_fields = ['name']
@@ -68,11 +69,13 @@ class ToyAdmin(admin.ModelAdmin):
     ]
     inlines = [ToyImageInline]
     
+class VendorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'website']
     
 admin.site.register(Animal, AnimalAdmin)
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Toy, ToyAdmin)
-admin.site.register(Vendor)
+admin.site.register(Vendor, VendorAdmin)
 # admin.site.register(User, UserAdmin)
 # admin.site.register(Wish, WishAdmin)
 # admin.site.register(Donation)
