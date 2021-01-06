@@ -49,21 +49,20 @@ class Animal(models.Model):
     # (default=self.user.zoo_id)?
     zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
-    user = models.ForeignKey(User, on_delete=PROTECT, null=True)
+    user = models.ForeignKey(User, on_delete=PROTECT, null=True, default=1)
     name = models.CharField(max_length=24)
     species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
     bio = models.TextField(null=True, blank=True)
     images = models.ManyToManyField(Image)
-    avatar = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='recent_img')
+    avatar = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='avatar_img')
 
-    def get_recent_img(self):
-        if self.images.count() > 0:
-            return self.images.last()
+    # This is being handled on the frontend
+    # def get_recent_img(self):
+    #     if self.images.count() > 0:
+    #         return self.images.last()
         
-    def set_default_avatar(self):
-        if self.avatar is None:
-            self.avatar = self.get_recent_img()
-            self.save()
+    # def set_default_avatar(self):
+    #     self.avatar = self.get_recent_img()
     
     def get_active_wish(self):
         return self.wish_set.filter(active=True).first()
@@ -77,14 +76,6 @@ class Animal(models.Model):
             
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        
-# Sets an animal's avatar when first saved
-# I don't like how this works...
-# def set_animal_avatar(sender, instance, *args, **kwargs):
-#     instance.set_default_avatar()
-    
-# from django.db.models.signals import post_save
-# post_save.connect(set_animal_avatar, sender=Animal)
     
 class Vendor(models.Model):
     name = models.CharField(max_length=72)
