@@ -32,8 +32,11 @@ class User(models.Model):
 class SpeciesGroup(models.Model):
     group_name = models.CharField(max_length=72)
     
-    def __st__(self):
+    def __str__(self):
         return self.group_name
+    
+    class Meta:
+        verbose_name = 'Species Group'
     
 class Species(models.Model):
     common_name = models.CharField(max_length=72)
@@ -43,6 +46,7 @@ class Species(models.Model):
     species_group = models.ManyToManyField(SpeciesGroup, blank=True)
     common_name.verbose_name = 'Common Name'
     sub_species.verbose_name = 'Subspecies'
+    species_group.verbose_name = 'Species Groups'
     
     def __str__(self):
         return self.common_name
@@ -95,6 +99,7 @@ class Toy(models.Model):
     description = models.TextField(null=True)
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    ship_cost = models.DecimalField(max_digits=6, decimal_places=2)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
     url = models.URLField(max_length=255, null=True)
     
