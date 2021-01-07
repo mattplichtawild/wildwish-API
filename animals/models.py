@@ -99,12 +99,13 @@ class Toy(models.Model):
     description = models.TextField(null=True)
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    ship_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    ship_cost = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
     url = models.URLField(max_length=255, null=True)
     
     suggested_species = models.ManyToManyField(SpeciesGroup, blank=True)
     suggested_species.verbose_name = 'Suggested Species'
+    ship_cost.help_text = 'Leave blank if unknown.'
     
     def __str__(self):
         return self.name
