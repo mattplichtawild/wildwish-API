@@ -54,7 +54,7 @@ class ZooAdmin(admin.ModelAdmin):
     
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['zoo', 'name', 'species', 'bio']}),
+        (None, {'fields': ['zoo', 'name', 'species', 'bio', 'date_of_birth']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
     list_display = ['name', 'species', 'zoo', 'user']

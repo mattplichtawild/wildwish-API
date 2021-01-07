@@ -67,6 +67,8 @@ class Animal(models.Model):
     bio = models.TextField(null=True, blank=True)
     images = models.ManyToManyField(Image)
     avatar = models.ForeignKey(Image, on_delete=PROTECT, null=True, related_name='avatar_img')
+    
+    date_of_birth.help_text = 'YYYY-MM-DD'
 
     # This is being handled on the frontend
     # def get_recent_img(self):
