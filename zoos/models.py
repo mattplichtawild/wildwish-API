@@ -17,6 +17,8 @@ class Zoo(models.Model):
     accrs.verbose_name = 'Accreditations'
     
     # Beginner location data, migrate to AddressField in future iteration
+    street = models.CharField(max_length=140, null=True)
+    street.help_text = 'Shipping address. Do not use main zoo address.'
     city = models.CharField(max_length=48)
     st = models.CharField(
         max_length=2,
