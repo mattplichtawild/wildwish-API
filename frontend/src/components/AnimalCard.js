@@ -46,14 +46,12 @@ function AnimalCard(props) {
     const mediaStyles = useCoverCardMediaStyles({ bgPosition: 'top' });
     const styles = useStyles();
 
-    // if (!animal.avatar){
-    //     animal.avatar = {upload: 'https://wildwishdev.s3.amazonaws.com/media/default-avatar.jpg'}
-    // }
+    const defaultAvatar = {upload: 'https://wildwishdev.s3.amazonaws.com/media/default-avatar.jpg'}
 
     if (!animal.avatar){
-        animal.avatar = animal.images[0]
+        animal.avatar = animal.images[0] || defaultAvatar
     }
-    
+
     return (
         <div>
             <Card className={styles.card}>
