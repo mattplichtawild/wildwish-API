@@ -38,9 +38,16 @@ class AnimalImageInLine(admin.TabularInline):
     verbose_name = 'Image'
     verbose_name_plural = 'Images'
     
+# class SpeciesGroupInline(admin.StackedInline):
+#     model = Species.species_group.through
+#     extra = 2
+#     verbose_name = 'Species Group'
+#     verbose_name_plural = 'Species Groups'
+    
 class SpeciesAdmin(admin.ModelAdmin):
-    search_fields = ['common_name']
+    search_fields = ['common_name', 'species_group__group_name']
     list_display = ['common_name', 'genus', 'species', 'sub_species']
+    # inlines = [SpeciesGroupInline]
     
 class ZooAdmin(admin.ModelAdmin):
     search_fields = ['name']
@@ -52,7 +59,7 @@ class AnimalAdmin(admin.ModelAdmin):
     ]
     list_display = ['name', 'species', 'zoo', 'user']
     inlines = [WishInLine, AnimalImageInLine]
-    search_fields = ['name', 'species__common_name', 'zoo__name']
+    search_fields = ['name', 'species__common_name', 'zoo__name', 'species__species_group__group_name']
     autocomplete_fields = ['species', 'zoo']
     
 class ToyImageInline(admin.TabularInline):
@@ -62,10 +69,10 @@ class ToyImageInline(admin.TabularInline):
     verbose_name_plural = "Images"
     
 class ToyAdmin(admin.ModelAdmin):
-    search_fields = ['name', 'vendor__name']
+    search_fields = ['name', 'vendor__name', 'suggested_species__group_name']
     list_display = ['name', 'price', 'vendor', 'url']
     fieldsets = [
-        (None, {'fields': ['name', 'price', 'description', 'vendor', 'url', 'suggested_species']})
+        (None, {'fields': ['name', 'description', 'price', 'ship_cost', 'vendor', 'url', 'suggested_species']})
     ]
     inlines = [ToyImageInline]
     
