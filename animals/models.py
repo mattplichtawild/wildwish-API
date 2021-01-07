@@ -43,6 +43,13 @@ class Species(models.Model):
     
     class Meta:
         verbose_name_plural = 'Species'
+        
+class SpeciesGroup(models.Model):
+    group_name = models.CharField(max_length=72)
+    related_species = models.ManyToManyField(Species)
+    
+    def __st__(self):
+        return self.group_name
 
 class Animal(models.Model):
 
@@ -91,6 +98,8 @@ class Toy(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True)
     url = models.URLField(max_length=255, null=True)
+    # suggested_species = models.ManyToManyField(SpeciesGroup, null=True, blank=True)
+    # species.verbose_name = 'Suggested Species'
     
     def __str__(self):
         return self.name
