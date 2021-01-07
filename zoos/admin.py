@@ -10,7 +10,7 @@ class ZooAdmin(admin.ModelAdmin):
     list_display = ['name', 'city', 'st', 'website']
     fieldsets = [
         (None, {'fields': ['name', 'website']}),
-        ('Address', {'fields': ['city', 'st', 'zip']}),
+        ('Address', {'fields': ['street', 'city', 'st', 'zip']}),
         ('Accreditations', {'fields': ['accrs']}),
     ]
     # inlines = [AnimalInLine]
