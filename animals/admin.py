@@ -1,6 +1,6 @@
 from images.models import Image
 from django.contrib import admin
-from .models import Donation, Species, Toy, User, Animal, Wish, Vendor
+from .models import Donation, Species, SpeciesGroup, Toy, User, Animal, Wish, Vendor
 
 
 # User custom class to override fields for User
@@ -65,17 +65,20 @@ class ToyAdmin(admin.ModelAdmin):
     search_fields = ['name', 'vendor__name']
     list_display = ['name', 'price', 'vendor', 'url']
     fieldsets = [
-        (None, {'fields': ['name', 'price', 'description', 'vendor', 'url']})
+        (None, {'fields': ['name', 'price', 'description', 'vendor', 'url', 'suggested_species']})
     ]
     inlines = [ToyImageInline]
     
 class VendorAdmin(admin.ModelAdmin):
     list_display = ['name', 'website']
     
+
+    
 admin.site.register(Animal, AnimalAdmin)
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Toy, ToyAdmin)
 admin.site.register(Vendor, VendorAdmin)
+admin.site.register(SpeciesGroup)
 # admin.site.register(User, UserAdmin)
 # admin.site.register(Wish, WishAdmin)
 # admin.site.register(Donation)
