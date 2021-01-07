@@ -55,12 +55,14 @@ class Species(models.Model):
         verbose_name_plural = 'Species'
 
 class Animal(models.Model):
-
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     # (default=self.user.zoo_id)?
     zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
     user = models.ForeignKey(User, on_delete=PROTECT, null=True, default=1)
     name = models.CharField(max_length=24)
+    date_of_birth = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
     bio = models.TextField(null=True, blank=True)
     images = models.ManyToManyField(Image)
