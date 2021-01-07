@@ -6,6 +6,8 @@ from django.utils import timezone
 import datetime
 
 class User(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     first_name = models.CharField(max_length=24)
     last_name = models.CharField(max_length=24)
     email = models.EmailField(max_length=72)
@@ -92,6 +94,8 @@ class Animal(models.Model):
         super().save(*args, **kwargs)
     
 class Vendor(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     name = models.CharField(max_length=72)
     website = models.CharField(max_length=72)
     
@@ -99,6 +103,8 @@ class Vendor(models.Model):
         return self.name
     
 class Toy(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     name = models.CharField(max_length=32)
     description = models.TextField(null=True)
     images = models.ManyToManyField(Image)
@@ -118,6 +124,8 @@ class Toy(models.Model):
         db_table = 'toys'
     
 class Wish(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
     images = models.ManyToManyField(Image)
@@ -156,6 +164,8 @@ class Wish(models.Model):
         db_table = 'wishes'
     
 class Donation(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL, blank=True)
     

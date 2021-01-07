@@ -8,9 +8,8 @@ from .constants import ACCR_CHOICES, ST_CHOICES
 # from django.db.models.deletion import SET_NULL
 
 class Zoo(models.Model):
-    # superuser running into issues with circular imports
-    # Has superuser to manage all animals and wishes in collection?
-    # superuser = models.ForeignKey('animals.User', null=True, on_delete=SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     name = models.CharField(max_length=72)
     website = models.URLField(max_length=200, null=True)
     accrs = MultiSelectField(choices=ACCR_CHOICES, null=True, blank=True)
