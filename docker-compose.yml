@@ -7,14 +7,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-        # These need to be changed to match db
       - POSTGRES_DB=wwpsql_dev
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   web:
     build: .
-    # Permission denied when attempting to run "wait-for"
-    # command: ["./wait-for-postgres.sh", "db", "python", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
+    # Need to also cd into /frontend and run 'npm run dev'
+    # ( cd frontend && npm run dev -d )
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/django-wildwish
