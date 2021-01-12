@@ -9,24 +9,35 @@ ENV PYTHONUNBUFFERED 1
 # Doesn't solve permissions problem...
 # RUN chmod +x ./wait-for-postgres.sh
 
-
-# Create environment variables
-# These lines copied from tutorial before I knew what I was doing
-# ENV PROJECT_DIR /usr/local/src/django-wildwish
-# WORKDIR ${PROJECT_DIR}
+# Listen on port 8000
+EXPOSE 8000
 
 # Create directory for image build and set as working directory
 RUN mkdir /django-wildwish
 WORKDIR /django-wildwish
 
 # Get list of required packages
+RUN pip install --upgrade pip
 COPY requirements.txt /django-wildwish/
 
 # Install packages listed in requirements.txt
 RUN pip install -r requirements.txt
+
+# copy entrypoint.sh
+COPY entrypoint.sh .
+
+# copy project dir
 COPY . /django-wildwish/
 
-CMD python manage.py runserver 0.0.0.0:8000
+# run entrypoint.sh
+ENTRYPOINT ["/django-wildwish/entrypoint.sh"]
+
+# Run migrations
+# RUN python manage.py makemigrations
+# RUN python manage.py migrate
+
+# Per Django docs, don't use django server in production
+# CMD python manage.py runserver 0.0.0.0:8000
 
 # Skip using pipenv, just use pip
 # RUN pip install pipenv

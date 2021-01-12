@@ -3,22 +3,28 @@ version: "3.8"
 services:
   db:
     image: postgres:12
+    # Add volume to persist data beyond life of the container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     environment:
         # These need to be changed to match db
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=wwpsql_dev
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  # web:
-  #   build: .
-  #   # Permission denied when attempting to run "wait-for"
-  #   # command: ["./wait-for-postgres.sh", "db", "python", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
-  #   # command: python manage.py runserver 0.0.0.0:8000
-  #   volumes:
-  #     - .:/django-wildwish
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - db
+  web:
+    build: .
+    # Permission denied when attempting to run "wait-for"
+    # command: ["./wait-for-postgres.sh", "db", "python", "manage.py", "migrate", "runserver 0.0.0.0:8000"]
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/django-wildwish
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
 
 # Copy pasted from https://github.com/adamyala/event_aggregator/blob/master/docker-compose.yml
 # version: '3'
