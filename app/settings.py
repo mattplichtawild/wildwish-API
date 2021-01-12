@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework',
     'frontend',
+    # Use django-address to manage address and location models
     # 'address'
 ]
 
@@ -106,12 +107,11 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASS'),
-        # 'HOST': os.getenv('DB_HOST', 'db'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'NAME': config('DB_NAME', default='postgres'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASS', default='postgres'),
+        'HOST': config('DB_HOST', default='db'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
