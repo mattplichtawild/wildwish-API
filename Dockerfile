@@ -24,13 +24,16 @@ COPY requirements.txt /django-wildwish/
 RUN pip install -r requirements.txt
 
 # copy entrypoint.sh
-COPY entrypoint.sh .
+# Isn't this redundant since 'entrypoint.sh' is copied with the next COPY command?
+# COPY ./entrypoint.sh /django-wildwish/
 
 # copy project dir
 COPY . /django-wildwish/
 
 # run entrypoint.sh
-ENTRYPOINT ["/django-wildwish/entrypoint.sh"]
+# So many problems with trying to use these entrypoints omg
+# ENTRYPOINT ["/django-wildwish/entrypoint.sh"]
+# ENTRYPOINT [ "/django-wildwish/wait-for-postgres.sh" ]
 
 # Run migrations
 # RUN python manage.py makemigrations
