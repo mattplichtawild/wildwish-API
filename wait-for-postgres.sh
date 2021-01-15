@@ -1,6 +1,7 @@
 #!/bin/sh
 # wait-for-postgres.sh
 
+# Not being used, keep for reference
 set -e
 
 host="$1"
