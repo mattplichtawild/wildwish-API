@@ -1,13 +1,7 @@
 # Use Python3.8 image
 FROM python:3.8
 
-# Sets dumping log messages directly to stream instead of buffering
-# I don't even know what this means or if I need to do it
 ENV PYTHONUNBUFFERED 1
-
-# Set permissions so file can be executed
-# Doesn't solve permissions problem...
-# RUN chmod +x ./wait-for-postgres.sh
 
 # Listen on port 8000
 EXPOSE 8000
@@ -23,12 +17,14 @@ COPY requirements.txt /django-wildwish/
 # Install packages listed in requirements.txt
 RUN pip install -r requirements.txt
 
+# copy project dir
+COPY . /django-wildwish/
+
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
+
 # copy entrypoint.sh
 # Isn't this redundant since 'entrypoint.sh' is copied with the next COPY command?
 # COPY ./entrypoint.sh /django-wildwish/
-
-# copy project dir
-COPY . /django-wildwish/
 
 # run entrypoint.sh
 # So many problems with trying to use these entrypoints omg
