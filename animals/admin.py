@@ -2,15 +2,18 @@ from images.models import Image
 from django.contrib import admin
 from .models import Donation, Species, SpeciesGroup, Toy, User, Animal, Wish, Vendor
 
-
+class ZooAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    
 # User custom class to override fields for User
 class UserAdmin(admin.ModelAdmin):
     # fields = ['first_name', 'last_name', 'keeper']
     fieldsets = [
-        (None, {'fields': ['first_name','last_name']}),
+        (None, {'fields': ['first_name','last_name', 'zoo']}),
         ('Authentication Info', {'fields': ['keeper', 'verified']}),
     ]
-    list_display = ('last_name', 'first_name', 'auth_keeper')
+    autocomplete_fields = ['zoo']
+    list_display = ('last_name', 'first_name', 'auth_keeper', 'zoo')
     
 class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
@@ -49,9 +52,6 @@ class SpeciesAdmin(admin.ModelAdmin):
     list_display = ['common_name', 'genus', 'species', 'sub_species']
     # inlines = [SpeciesGroupInline]
     
-class ZooAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['zoo', 'name', 'species', 'bio', 'date_of_birth']}),
@@ -87,6 +87,6 @@ admin.site.register(Toy, ToyAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(SpeciesGroup)
 admin.site.register(Image)
-# admin.site.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)
 # admin.site.register(Wish, WishAdmin)
 # admin.site.register(Donation)
