@@ -6,8 +6,8 @@ from django.utils import timezone
 import datetime
 
 class User(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     first_name = models.CharField(max_length=24)
     last_name = models.CharField(max_length=24)
     email = models.EmailField(max_length=72)
@@ -57,12 +57,12 @@ class Species(models.Model):
         verbose_name_plural = 'Species'
 
 class Animal(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # (default=self.user.zoo_id)?
     zoo = models.ForeignKey(Zoo, on_delete=PROTECT)
     # for user: on_delete=models.SET(set_user_from_zoo)
-    user = models.ForeignKey(User, on_delete=PROTECT, null=True)
+    user = models.ForeignKey(User, on_delete=PROTECT, null=True, blank=True)
     name = models.CharField(max_length=24)
     date_of_birth = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     species = models.ForeignKey(Species, on_delete=PROTECT, null=True)
@@ -94,8 +94,8 @@ class Animal(models.Model):
         super().save(*args, **kwargs)
     
 class Vendor(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=72)
     website = models.CharField(max_length=72)
     
@@ -103,8 +103,8 @@ class Vendor(models.Model):
         return self.name
     
 class Toy(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=32)
     description = models.TextField(null=True)
     images = models.ManyToManyField(Image)
@@ -124,8 +124,8 @@ class Toy(models.Model):
         db_table = 'toys'
     
 class Wish(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
     images = models.ManyToManyField(Image)
@@ -164,8 +164,8 @@ class Wish(models.Model):
         db_table = 'wishes'
     
 class Donation(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # Preserve record of donation even if user deletes their account
     user = models.ForeignKey(User, null=True, on_delete=SET_NULL, blank=True)
     
