@@ -4,12 +4,14 @@ from .models import Donation, Species, SpeciesGroup, Toy, User, Animal, Wish, Ve
 
 class ZooAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    # class Meta:
+        # ordering = ['-id']
     
 # User custom class to override fields for User
 class UserAdmin(admin.ModelAdmin):
     # fields = ['first_name', 'last_name', 'keeper']
     fieldsets = [
-        (None, {'fields': ['first_name','last_name', 'zoo']}),
+        (None, {'fields': ['first_name','last_name', 'email', 'zoo']}),
         ('Authentication Info', {'fields': ['keeper', 'verified']}),
     ]
     autocomplete_fields = ['zoo']
