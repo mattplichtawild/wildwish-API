@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { Component, useEffect } from 'react'
 import WishList from "./WishList"
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 
-export default function WishCarousel(props) {
-    
-    useEffect(() => {
+export default class WishCarousel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        data: [],
+        loaded: false,
+        placeholder: "Loading"
+        };
+    }
+
+    componentDidMount() {
         axios
         .get('animals/api')
         .then(resp => {
@@ -25,9 +33,11 @@ export default function WishCarousel(props) {
                 }
             })
         })
-    });
+    };
 
-    return (
-        <WishList animals={this.state.data} />
-      );
+    render() {
+        return (
+            <WishList animals={this.state.data} />
+        );
+    }
 }
