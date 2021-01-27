@@ -9,8 +9,9 @@ import NavBar from "./NavBar";
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
-import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import About from './About'
+import FeaturedTabs from "./FeaturedTabs";
 
 const theme = createMuiTheme();
     theme.typography.h1 = {
@@ -36,7 +37,7 @@ export default function App() {
     <NavBar />
     {/* Landing and WishCarousel could probably be clumped together in Home */}
     <Route exact path="/" component={Landing}/>
-    <Route exact path="/animals" component={WishCarousel}/>
+    <Route exact path="/animals" component={FeaturedTabs}/>
     <Route exact path="/about" component={About} />
     {/* <Landing /> */}
     {/* <WishCarousel /> */}
