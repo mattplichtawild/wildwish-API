@@ -74,7 +74,7 @@ class ToyAdmin(admin.ModelAdmin):
     search_fields = ['name', 'vendor__name', 'suggested_species__group_name']
     list_display = ['name', 'price', 'vendor', 'url']
     fieldsets = [
-        (None, {'fields': ['name', 'description', 'price', 'ship_cost', 'vendor', 'url', 'suggested_species']})
+        (None, {'fields': ['name', 'description', 'brand', 'price', 'ship_cost', 'vendor', 'url', 'suggested_species']})
     ]
     inlines = [ToyImageInline]
     
