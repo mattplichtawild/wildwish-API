@@ -1,1 +1,1 @@
-import App from "./components/App";
+import AppContainer from "./components/AppContainer";
