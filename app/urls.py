@@ -15,9 +15,18 @@ Including another URLconf
 """
 # from animals.views import ActiveWishList
 from django.contrib import admin
-from django.urls import include, path
+# from django.views.generic import TemplateView
+from django.urls import include, path, re_path
 
 urlpatterns = [
+    ## This was to solve client sending requests to routes that were supposed to be handled by react-router-dom
+    # path('login/', LoginView.as_view(), name='login'),
+    # path('logout/', LogoutView.as_view()),
+    # path('/', TemplateView.as_view(template_name="app.html"), 
+    # login_url='l/'),
+    # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="app.html"), 
+    # login_url='/'),
+    
     # For basic html template
     # path('', ActiveWishList.as_view()),
     
