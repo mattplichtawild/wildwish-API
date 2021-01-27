@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import axios from "axios";
+// import axios from "axios";
 import WishList from "./WishList";
 import Landing from "./Landing"
+import NavBar from "./NavBar";
 
 class App extends Component {
   constructor(props) {
@@ -14,35 +15,37 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    axios
-        .get('animals/api')
-        .then(resp => {
-            if (resp.status > 400) {
-                return this.setState( () => {
-                    return { placeholder: "Something's fucky" }
-                })
-            }
-            console.log(resp)
-            return resp.data;
-        })
-        .then(data => {
-            this.setState(() => {
-                return {
-                    data,
-                    loaded: true
-                }
-            })
-        })
-  }
+  // componentDidMount() {
+  //   axios
+  //       .get('animals/api')
+  //       .then(resp => {
+  //           if (resp.status > 400) {
+  //               return this.setState( () => {
+  //                   return { placeholder: "Something's fucky" }
+  //               })
+  //           }
+  //           console.log(resp)
+  //           return resp.data;
+  //       })
+  //       .then(data => {
+  //           this.setState(() => {
+  //               return {
+  //                   data,
+  //                   loaded: true
+  //               }
+  //           })
+  //       })
+  // }
   
   render() {
     return (
       <>
+      <NavBar />
       <Landing />
       {/* <p>Why are you here? This is the dev site.</p>
       <p><a type='mailto:' href='mattplichtawild@gmail.com'>Email me</a> if you know Javascript or Python and want to help.</p> */}
       {/* <WishList animals={this.state.data}/> */}
+      <WishCarousel />
       </>
     );
   }
