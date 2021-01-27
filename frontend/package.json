@@ -27,6 +27,7 @@
     "@material-ui/icons": "^4.11.2",
     "@mui-treasury/components": "^1.9.2",
     "@mui-treasury/styles": "^1.13.1",
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "react-router-dom": "^5.2.0"
   }
 }
