@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import axios from "axios";
-import Home from "./Home";
+import WishList from "./WishList";
+import Landing from "./Landing"
 
 class App extends Component {
   constructor(props) {
@@ -38,7 +39,10 @@ class App extends Component {
   render() {
     return (
       <>
-      <Home animals={this.state.data}/>
+      <Landing />
+      {/* <p>Why are you here? This is the dev site.</p>
+      <p><a type='mailto:' href='mattplichtawild@gmail.com'>Email me</a> if you know Javascript or Python and want to help.</p> */}
+      {/* <WishList animals={this.state.data}/> */}
       </>
     );
   }
