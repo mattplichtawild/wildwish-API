@@ -18,18 +18,18 @@ function AnimalCard(props) {
     const animal = props.animal
     const useStyles = makeStyles(() => ({
         card: {
-        borderRadius: '1rem',
+        // borderRadius: '1rem',
         boxShadow: 'none',
         position: 'relative',
         minWidth: 200,
-        minHeight: 360,
+        minHeight: 400,
         width: '100%',
         '&:after': {
             content: '""',
             display: 'block',
             position: 'absolute',
             width: '100%',
-            height: '75%',
+            height: '35%',
             bottom: 0,
             zIndex: 1,
             background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
