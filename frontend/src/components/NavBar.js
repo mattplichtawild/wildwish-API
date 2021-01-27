@@ -13,6 +13,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { NavLink } from 'react-router-dom';
 
 export default function NavBar() {
   const useStyles = makeStyles((theme) => ({
@@ -42,6 +43,8 @@ export default function NavBar() {
     setState({ ...state, [anchor]: open });
   };
 
+  const url = '/'
+
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
@@ -52,19 +55,24 @@ export default function NavBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Home', 'Profile', 'Settings', 'About'].map((text, index) => (
-          <ListItem button key={text}>
-            {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-            <ListItemText primary={text} />
-          </ListItem>
+        <ListItem button component={NavLink} to="/" >
+          <ListItemText primary={'Home'} />
+        </ListItem>
+
+        {['Profile', 'Settings', 'About'].map((text, index) => (
+        <ListItem button component={NavLink} to={url + text.toLowerCase()} key={text}>
+          {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
+          <ListItemText primary={text} />
+        </ListItem>
         ))}
+
+        <Divider />
+      
+        <ListItem button component={NavLink} to='/zoos'>
+          <ListItemText primary='For Zookeepers' />
+        </ListItem>
       </List>
-      <Divider />
-      <List>
-          <ListItem button >
-            <ListItemText primary='For Zookeepers' />
-          </ListItem>
-      </List>
+      
     </div>
   );
 
