@@ -5,18 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-
-const theme = createMuiTheme();
-    theme.typography.h1 = {
-        fontSize: '2.5rem',
-        '@media (min-width:600px)': {
-            // fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: '4rem',
-    },
-};
-
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -43,12 +31,12 @@ export default function Landing() {
     const classes = useStyles();
 
     return (
-        <ThemeProvider theme={theme}>
+        
         <Container className={classes.root} >
-            <Paper elevation='0'>
+            <Paper elevation={0}>
                 <Typography variant='h1'>Let's make wildlife feel wild again.</Typography>
-                <Typography variant='body1'>WildWish connects you to wildlife living in zoos all over the world.</Typography>
-                <Typography variant='body1'>Choose any animal, contribute any amount. Get updates with pictures and video when animals get the new toy you helped provide!</Typography>
+                <Typography variant='body1'>WildWish connects you to wildlife living in sanctuaries and zoos all over the world.</Typography>
+                <Typography variant='body1'>Choose any animal, contribute any amount. Get updates with pictures and video when animals get their new toys!</Typography>
                 <Typography >
                     <Link >Learn more</Link>
                 </Typography>
@@ -62,6 +50,6 @@ export default function Landing() {
             </Paper>
         </Container>
         
-        </ThemeProvider>
+       
       );
 }
