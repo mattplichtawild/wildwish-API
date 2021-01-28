@@ -4,27 +4,30 @@ import TabPanel from "./FeaturedTabs"
 import { makeStyles } from '@material-ui/core/styles';
 
 export default function WishList(props) {
-    const useStyles = makeStyles(() => ({
-        ul: {listStyleType: 'none'},
-        root: {
-          width:'100%'
-        },
+    const useStyles = makeStyles((theme) => ({
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+      },
+      gridList: {
+        width: 500,
+        height: 450,
+      },
+      icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
+      },
     }));
+
     const classes = useStyles();
 
     return (
-
-      <div className={classes.root}>
-        <ul className={classes.ul}>
-            {props.animals.map(animal => {
-              return (
-                
-                <li key={animal.id} id={animal.name}>
-                  <AnimalCard animal={animal} />
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-      );
+      props.animals.map(animal => {
+        return (
+            <AnimalCard animal={animal} />
+        );
+      })
+    );
 }
