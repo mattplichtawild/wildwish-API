@@ -20,6 +20,13 @@ RUN pip install -r requirements.txt
 # copy project dir
 COPY . /django-wildwish/
 
+# Run migrations
+# RUN python manage.py makemigrations
+# RUN python manage.py migrate
+
+# Ensure static files are collected to s3 bucket
+RUN python manage.py collectstatic
+
 CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
 
 # copy entrypoint.sh
@@ -30,10 +37,6 @@ CMD gunicorn app.wsgi:application --bind 0.0.0.0:8000
 # So many problems with trying to use these entrypoints omg
 # ENTRYPOINT ["/django-wildwish/entrypoint.sh"]
 # ENTRYPOINT [ "/django-wildwish/wait-for-postgres.sh" ]
-
-# Run migrations
-# RUN python manage.py makemigrations
-# RUN python manage.py migrate
 
 # Per Django docs, don't use django server in production
 # CMD python manage.py runserver 0.0.0.0:8000
