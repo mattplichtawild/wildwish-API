@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import WishCarousel from './WishCarousel';
+import { getThemeProps } from '@material-ui/styles';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,8 +22,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
+        <Box >
+          {children}
         </Box>
       )}
     </div>
@@ -45,8 +46,9 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 500,
+    marginTop: theme.spacing(6),
   },
+  offset: theme.mixins.toolbar,
 }));
 
 export default function FeaturedTabs() {
@@ -54,6 +56,7 @@ export default function FeaturedTabs() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
+  // For swipeable views
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -63,8 +66,8 @@ export default function FeaturedTabs() {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
+    <div >
+      <AppBar position="fixed" color="default" className={classes.root} >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -73,26 +76,30 @@ export default function FeaturedTabs() {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Featured" {...a11yProps(0)} />
+          <Tab label="Near Me" {...a11yProps(1)} />
           {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
+      
+      
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
-      >
+        >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Stuff Here
+          <WishCarousel />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <WishCarousel />
+          List of animals based on client IP location
         </TabPanel>
         {/* <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three
         </TabPanel> */}
       </SwipeableViews>
+      {/* <div className={classes.offset} /> */}
     </div>
+    
   );
 }
