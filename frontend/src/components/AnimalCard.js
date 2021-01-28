@@ -13,27 +13,35 @@ import { useGalaxyInfoStyles } from '@mui-treasury/styles/info/galaxy';
 import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 // import { Button } from "@material-ui/core";
 import DonateModal from './DonateModal' 
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import { Grid } from "@material-ui/core";
+
 
 function AnimalCard(props) {
     const animal = props.animal
     const useStyles = makeStyles(() => ({
         card: {
-        // borderRadius: '1rem',
-        boxShadow: 'none',
-        position: 'relative',
-        minWidth: 200,
-        minHeight: 400,
-        width: '100%',
-        '&:after': {
-            content: '""',
-            display: 'block',
-            position: 'absolute',
-            width: '100%',
-            height: '35%',
-            bottom: 0,
-            zIndex: 1,
-            background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
-        },
+            // borderRadius: '1rem',
+            boxShadow: 'none',
+            position: 'relative',
+            // minWidth: 200,
+            minHeight: 500,
+            // height: '100%',
+            // width: '100%',
+            '&:after': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                width: '100%',
+                height: '35%',
+                bottom: 0,
+                zIndex: 1,
+                background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
+            },
         },
         content: {
         position: 'absolute',
@@ -44,7 +52,7 @@ function AnimalCard(props) {
     }));
 
     const mediaStyles = useCoverCardMediaStyles({ bgPosition: 'top' });
-    const styles = useStyles();
+    const classes = useStyles();
 
     const defaultAvatar = {upload: 'https://wildwishdev.s3.amazonaws.com/media/default-avatar.jpg'}
 
@@ -53,13 +61,12 @@ function AnimalCard(props) {
     }
 
     return (
-        <div>
-            <Card className={styles.card}>
+            <Card className={classes.card}>
                 <CardMedia
                 classes={mediaStyles}
                 image={animal.avatar.upload}
                 />
-                <Box py={3} px={2} className={styles.content}>
+                <Box py={3} px={2} className={classes.content}>
                 <Info useStyles={useGalaxyInfoStyles}>
                     <InfoTitle>{animal.name}</InfoTitle>
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
@@ -76,7 +83,6 @@ function AnimalCard(props) {
                 </Button> */}
                 </Box>
             </Card>
-        </div>
         
     )
 }

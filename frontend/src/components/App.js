@@ -22,6 +22,7 @@ const theme = createMuiTheme();
         [theme.breakpoints.up('md')]: {
             fontSize: '4rem',
     },
+
 };
 // App contains theming to pass down to other components
 // For router, basename="/static" ?
