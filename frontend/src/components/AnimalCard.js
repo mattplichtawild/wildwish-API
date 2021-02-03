@@ -27,6 +27,7 @@ import Collapse from '@material-ui/core/Collapse';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
 
 function AnimalCard(props) {
     const animal = props.animal
@@ -55,14 +56,14 @@ function AnimalCard(props) {
             },
         },
         expand: {
-            transform: 'rotate(0deg)',
+            transform: 'rotate(180deg)',
             marginLeft: 'auto',
             transition: theme.transitions.create('transform', {
                 duration: theme.transitions.duration.shortest,
             }),
         },
         expandOpen: {
-            transform: 'rotate(180deg)',
+            transform: 'rotate(0deg)',
         },
         content: {
         position: 'absolute',
@@ -93,7 +94,7 @@ function AnimalCard(props) {
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
                     <InfoCaption>{animal.bio}</InfoCaption>
                 </Info>
-                <DonateModal />
+                
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
@@ -115,6 +116,7 @@ function AnimalCard(props) {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                     <Typography paragraph>Donate:</Typography>
+                    <DonateModal />
                     <Typography paragraph>
                         {/* This is the donate popup. */}
                     </Typography>
