@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
           padding: theme.spacing(1)
       },
       '& h1': {
-          fontSize: '1rem'
+          fontSize: '1.5rem',
+          paddingBottom: theme.spacing(2)
       }
     },
 }));
@@ -27,7 +28,7 @@ function About() {
             <Paper >
 
             </Paper>
-            <Paper className={classes.root} elevation={0}>
+            <Paper className={classes.root} elevation={0} >
                 <Typography variant="h1" >
                 Enriching the lives of wild animals in captivity.
                 </Typography>
