@@ -92,7 +92,7 @@ function AnimalCard(props) {
                 <Info useStyles={useGalaxyInfoStyles}>
                     <InfoTitle>{animal.name}</InfoTitle>
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
-                    <InfoCaption>{animal.bio}</InfoCaption>
+                    {/* <InfoCaption>{animal.bio}</InfoCaption> */}
                 </Info>
                 
                 <CardActions disableSpacing>
