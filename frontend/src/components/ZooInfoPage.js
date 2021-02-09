@@ -1,30 +1,76 @@
 import React from 'react';
-import { Container, Paper, Typography } from '@material-ui/core';
+import { Card, CardMedia, CardContent, Container, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      padding: theme.spacing(1),
-      margin: theme.spacing(1),
-      '& p': {
-          fontSize: '1rem',
-          padding: theme.spacing(1)
-      },
+        display: 'flex',
+        flexWrap: 'wrap',
+        padding: theme.spacing(1),
+        margin: theme.spacing(1),
+        '& p': {
+            fontSize: '1rem',
+            padding: theme.spacing(1)
+        },
+        '& h1': {
+        fontSize: '2.5rem'
+        },
     },
+    card: {
+        root: {
+            display: 'flex',
+            flexWrap: 'none',
+        },
+        details: {
+            display: 'flex',
+            flexDirection: 'column',
+          },
+          content: {
+            flex: '1 0 auto',
+          },
+          cover: {
+            width: 151,
+          },
+    }
 }));
 
-function About() {
+function ZooInfoPage() {
     const classes = useStyles();
 
     return (
         <Container>
-            <Paper >
-                
-            </Paper>
             <Paper className={classes.root} elevation={0}>
+            <Typography variant="h1" gutterBottom>
+                Add your animals to the program by creating a profile for each one.
+            </Typography>
+            <Typography>
+                TODO: Redo how this section is built or play with card CSS. Use list items?
+            </Typography>
+            <Card className={classes.card.root}>
+            <div className={classes.card.details}>
+                <CardContent className={classes.card.content}>
+                    <Typography>
+                        Zorro
+                    </Typography>
+                    <Typography>
+                        Bengal Tiger
+                    </Typography>
+                </CardContent>
+            </div>
+                <CardMedia
+                    className={classes.card.cover}
+                    component="img"
+                    // style = {{ height: 50, paddingTop: '0%'}}
+                    src="https://wildwishdev.s3.amazonaws.com/media/img-4943-1_6_orig.jpg"
+                    title="Zorro Avatar"
+                />
+            </Card>
+            <Typography variant="body1" gutterBottom>
+                Customize your animals' wishlists by adding or removing toys and enrichment. You'll get alerted when a wish is funded.
+            </Typography>
+            </Paper>
+            {/* <Paper className={classes.root} elevation={0}>
                 <Typography variant="h1" >
                 Enriching the lives of wild animals in captivity.
                 </Typography>
@@ -63,9 +109,9 @@ function About() {
                 <Typography variant='overline'>
                     <NavLink to="/">Start helping</NavLink>
                 </Typography>
-            </Paper>
+            </Paper> */}
         </Container>
     )
 }
 
-export default About
+export default ZooInfoPage
