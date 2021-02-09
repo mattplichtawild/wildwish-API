@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import WishCarousel from './WishCarousel'
 import Landing from "./Landing"
 import NavBar from "./NavBar";
-
+import ZooInfoPage from "./ZooInfoPage"
 // import axios from "axios";
 
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -40,6 +40,7 @@ export default function App() {
     <Route exact path="/" component={Landing}/>
     <Route exact path="/animals" component={AnimalSelectTabs}/>
     <Route exact path="/about" component={About} />
+    <Route exact path="/zoos" component={ZooInfoPage} />
     {/* <Landing /> */}
     {/* <WishCarousel /> */}
     </ThemeProvider>
