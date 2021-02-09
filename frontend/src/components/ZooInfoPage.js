@@ -47,9 +47,8 @@ function ZooInfoPage() {
                 <Typography variant="h1" gutterBottom>
                     Add your animals to the program by creating a profile for each one.
                 </Typography>
-                <Typography>
-                    TODO: Redo how this section is built or play with card CSS. Use list items?
-                </Typography>
+                
+                {/* TODO: Cards should be single column on small screen. Play with CSS here. */}
                 
                 <Card className={classes.card.root}>
                 <div className={classes.card.details}>
@@ -68,6 +67,46 @@ function ZooInfoPage() {
                         style = {{ height: 90, width: 90, paddingTop: '0%'}}
                         src="https://wildwishdev.s3.amazonaws.com/media/img-4943-1_6_orig.jpg"
                         title="Zorro Avatar"
+                    />
+                </Card>
+
+                <Card className={classes.card.root}>
+                <div className={classes.card.details}>
+                    <CardContent className={classes.card.content}>
+                        <Typography>
+                            Lobo
+                        </Typography>
+                        <Typography>
+                            Wolf Hybrid
+                        </Typography>
+                    </CardContent>
+                </div>
+                    <CardMedia
+                        className={classes.card.cover}
+                        component="img"
+                        style = {{ height: 90, width: 90, paddingTop: '0%'}}
+                        src="https://wildwishdev.s3.amazonaws.com/media/lobo1.jpg"
+                        title="Lobo Avatar"
+                    />
+                </Card>
+
+                <Card className={classes.card.root}>
+                <div className={classes.card.details}>
+                    <CardContent className={classes.card.content}>
+                        <Typography>
+                            Jericho
+                        </Typography>
+                        <Typography>
+                            Southern White Rhinoceros
+                        </Typography>
+                    </CardContent>
+                </div>
+                    <CardMedia
+                        className={classes.card.cover}
+                        component="img"
+                        style = {{ height: 90, width: 90, paddingTop: '0%'}}
+                        src="https://wildwishdev.s3.amazonaws.com/media/jericho1.jpg"
+                        title="Jericho Avatar"
                     />
                 </Card>
                 <Typography variant="body1" gutterBottom>
