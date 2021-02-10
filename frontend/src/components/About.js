@@ -33,7 +33,7 @@ function About() {
                 Enriching the lives of wild animals in captivity.
                 </Typography>
                 <Typography variant="body1">
-                That was the mission when I started WildHeart in a coffee shop in 2015, and it's the mission now.
+                That was the mission when WildHeart was started in a coffee shop in 2015, and it's the mission now.
                 </Typography>
                 <br/>
                 <Typography variant="body1">
@@ -50,7 +50,7 @@ function About() {
                 <Typography variant="body2">
                 This program is free for zoos and wildlife sanctuaries. We often get asked &quot;What&apos;s the catch?&quot; when working with a zoo to
                 provide enrichment. The answer is that there isn&apos;t one. The WildHeart Foundation is a passion project; an organization consisting
-                of me and some friends who love and work with wildlife. The projects we&apos;ve worked on have been acheivements on par with 
+                of a few friends who love and work with wildlife. The projects we&apos;ve worked on have been acheivements on par with 
                 larger nonprofits, but WildHeart is still ran from coffee shops on weekends, and volunteering is
                 scheduled around day jobs or while using vacation time. We do this because we want to see happy animals.
                 </Typography>
