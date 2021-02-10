@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, Container, Paper, Typography } from '@material-ui/core';
+import { Card, CardMedia, CardContent, Container, Paper, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 
@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '1rem',
             padding: theme.spacing(1)
         },
-        '& h1': {
-        fontSize: '2.5rem'
+        '& h2': {
+            fontSize: '2rem'
         },
     },
     // Card styles aren't taking effect, how is this working?
@@ -44,7 +44,7 @@ function ZooInfoPage() {
         <Container>
             <section >
             <Paper className={classes.root} elevation={0}>
-                <Typography variant="h1" gutterBottom>
+                <Typography variant="h2" gutterBottom>
                     Add your animals to the program by creating a profile for each one.
                 </Typography>
                 
@@ -110,13 +110,60 @@ function ZooInfoPage() {
                     />
                 </Card>
                 <Typography variant="body1" gutterBottom>
-                    Customize your animals' wishlists by adding or removing toys and enrichment. You'll get alerted when a wish is funded.
+                    Add pictures and a bio. Customize your animals' wishlists by adding or removing toys and enrichment.
                 </Typography>
             </Paper>
             </section>
-            <Paper >
-
+            
+            <Divider variant="middle" />
+            
+            <section>
+            <Paper className={classes.root} elevation={0}>
+                <Typography variant="h2" gutterBottom>
+                    Watch as your animals become featured on our front page and begin to collect donations for their wishlist items.
+                </Typography>
+                <Typography variant="subtitle1" >
+                    GIF of front page in action here.
+                </Typography>
+                <Typography variant="subtitle1">
+                    Share a wish on your social media pages to increase donations! Once a wish is fully funded, we'll let you know it is on its way.
+                </Typography>
             </Paper>
+            </section>
+
+            <Divider variant="middle" />
+
+            <section>
+                <Paper className={classes.root} elevation={0}>
+                    <Typography variant="h2" >
+                        Upload pictures and videos to activate the next wish.
+                    </Typography>
+                    <Typography>
+                        Image of Wish page here.
+                    </Typography>
+                    <Typography variant="subtitle1" >
+                        These are sent to everyone who donated to that wish, thanking them for their support and driving more engagement to your zoo!
+                    </Typography>
+                </Paper>
+            </section>
+
+            <Divider variant="middle" />
+
+            <section>
+                <Paper  elevation={0}>
+                    <Typography variant="h2" >
+                        Ready to start?
+                    </Typography>
+                    <br />
+                    <Typography variant="overline">
+                        <NavLink to="/signup" style={{fontSize: '2rem'}}>Sign up now</NavLink>
+                    </Typography>
+                    <br />
+                    <Typography variant="overline">
+                        <NavLink to="/faq" >FAQ</NavLink>
+                    </Typography>
+                </Paper>
+            </section>
             {/* <Paper className={classes.root} elevation={0}>
                 <Typography variant="h1" >
                 Enriching the lives of wild animals in captivity.
