@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     card: {
         root: {
             display: 'flex',
-            flexWrap: 'none',
+            
         },
         details: {
             display: 'flex',
@@ -49,7 +49,8 @@ function ZooInfoPage() {
                 </Typography>
                 
                 {/* TODO: Cards should be single column on small screen. Play with CSS here. */}
-                
+            </Paper>
+            <Paper elevation={0}>
                 <Card className={classes.card.root}>
                 <div className={classes.card.details}>
                     <CardContent className={classes.card.content}>
@@ -109,6 +110,8 @@ function ZooInfoPage() {
                         title="Jericho Avatar"
                     />
                 </Card>
+            </Paper>
+            <Paper className={classes.root} elevation={0}>
                 <Typography variant="body1" gutterBottom>
                     Add pictures and a bio. Customize your animals' wishlists by adding or removing toys and enrichment.
                 </Typography>
@@ -122,7 +125,7 @@ function ZooInfoPage() {
                 <Typography variant="h2" gutterBottom>
                     Watch as your animals become featured on our front page and begin to collect donations for their wishlist items.
                 </Typography>
-                <Typography variant="subtitle1" >
+                <Typography >
                     GIF of front page in action here.
                 </Typography>
                 <Typography variant="subtitle1">
