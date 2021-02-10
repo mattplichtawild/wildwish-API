@@ -159,11 +159,11 @@ function ZooInfoPage() {
                     </Typography>
                     <br />
                     <Typography variant="overline">
-                        <NavLink to="/signup" style={{fontSize: '2rem'}}>Sign up now</NavLink>
+                        <NavLink to="/zoo_signup" style={{fontSize: '2rem'}}>Sign up now</NavLink>
                     </Typography>
                     <br />
                     <Typography variant="overline">
-                        <NavLink to="/faq" >FAQ</NavLink>
+                        <NavLink to="/faq" tyle={{fontSize: '1.5rem'}}>FAQ</NavLink>
                     </Typography>
                 </Paper>
             </section>
