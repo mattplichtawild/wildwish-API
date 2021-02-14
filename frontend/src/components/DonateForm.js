@@ -1,8 +1,13 @@
 import axios from "axios";
 import React, { useReducer } from "react";
+import Cookies from 'js-cookie';
+
+// Set header in POST request to include csrf token
+// axios.defaults.xsrfCookieName = 'csrftoken'
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+axios.defaults.withCredentials = true
 
 // Use useReducer hook to control state of multiple form fields
-
 function reducer(state, {field, value}) {
     return {
         ...state,
@@ -12,46 +17,59 @@ function reducer(state, {field, value}) {
 
 // Donate form should have props so :wishId can be inherited from list item key
 function DonateForm(props) {
-    // Use useReducer hook to control state of multiple form fields
+    // let csrftoken = getCookie('csrftoken');
+    let csrfToken = Cookies.get('csrftoken');
 
+    console.log(csrfToken)
     // find active wish and set as var
-    let active_wish = props.animal.wish_set.filter(w => w.active=true)
+    let activeWish = props.animal.wish_set.find(w => w.active=true)
     
-    console.log(active_wish)
-
+    console.log(activeWish)
+    
     const initialState = {
         first_name: '',
         last_name: '',
         email: '',
-        amount: 1,
-        wish_id: active_wish.id
+        amount: 0,
+        wish_id: activeWish.id
     };
+    // Use useReducer hook to control state of multiple form fields
     const [state, dispatch] = useReducer(reducer, initialState);
     const handleChange = (e) => {
+        console.log(state)
         dispatch({field: e.target.name, value: e.target.value})
     };
     const {first_name, last_name, email, amount, wish_id} = state;
 
     const handleSubmit = (e) => {
-    // e.preventDefault();
-    // POST to /donations to create new donation, params sent: :wish_id
-    // TODO: POST :first_name, :last_name, :email to /users to create new user
+        console.log(csrfToken)
+        e.preventDefault();
+        // POST to /donations to create new donation, params sent: :wish_id
+        // TODO: POST :first_name, :last_name, :email to /users to create new user
 
-    // TODO: Refactor to function so this can be reused elsewhere like createDonation(:wishId)
+        // TODO: Refactor to function so this can be reused elsewhere like createDonation(:wishId)
 
-    // Use more RESTful url. Create serializer to handle POST requests to /donations
-    axios.post('/donations', {
-        state
-    })
-    console.log('Donation Submitted!')
-    // how to close modal?
+        // Use more RESTful url. Create serializer to handle POST requests to /donations
+        axios.post('/donations/', 
+            {
+                state
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json", 
+                    'X-CSRFToken': csrfToken
+                }
+            }
+        )
+        console.log('Donation Submitted!')
+        // how to close modal?
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form method="post" action="/donations/" onSubmit={handleSubmit}>
+        <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />
+        <input type="hidden" name="wish_id" value={wish_id} />
         <label htmlFor="first_name">First Name</label>
-        <p>Wish ID:</p>
-        <p>{active_wish.id}</p>
         <input
             className="first_name"
             type="text"
@@ -69,6 +87,7 @@ function DonateForm(props) {
             value={last_name}
             onChange={handleChange}
         ></input>
+        <br ></br>
         <label htmlFor="email">Email</label>
         <input
             className="email"
@@ -78,8 +97,10 @@ function DonateForm(props) {
             value={email}
             onChange={handleChange}
         ></input>
-        <button>Donate</button>
-        </form>
+        <label htmlFor="amount">Amount</label>
+        <input id="amount" name="amount" value={amount} type="number" min="1" onChange={handleChange}/>
+        <button type="submit" >Donate</button>
+        </form >
     );
 }
 
