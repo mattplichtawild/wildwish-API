@@ -1,6 +1,6 @@
 from images.models import Image
 from django.contrib import admin
-from .models import Donation, Species, SpeciesGroup, Toy, User, Animal, Wish, Vendor
+from .models import Species, SpeciesGroup, Toy, User, Animal, Wish, Vendor
 
 class ZooAdmin(admin.ModelAdmin):
     search_fields = ['name']
@@ -91,4 +91,3 @@ admin.site.register(SpeciesGroup)
 admin.site.register(Image)
 admin.site.register(User, UserAdmin)
 # admin.site.register(Wish, WishAdmin)
-# admin.site.register(Donation)
