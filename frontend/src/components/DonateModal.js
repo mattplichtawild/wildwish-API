@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function DonateModal() {
+function DonateModal(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -39,7 +39,7 @@ function DonateModal() {
         Write some bullshit here
       </p>
       {/* <DonateModal /> */}
-        <DonateForm />
+        <DonateForm animal={props.animal}/>
     </div>
   );
 

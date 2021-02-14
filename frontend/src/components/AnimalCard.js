@@ -115,7 +115,7 @@ function AnimalCard(props) {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                     <Typography paragraph>Donate:</Typography>
-                    <DonateModal />
+                    <DonateModal animal={animal}/>
                     <Typography paragraph>
                         {/* This is the donate popup. */}
                     </Typography>
