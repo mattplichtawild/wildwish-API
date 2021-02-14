@@ -30,7 +30,7 @@ function DonateForm(props) {
         first_name: '',
         last_name: '',
         email: '',
-        amount: 0,
+        amount: 1,
         wish_id: activeWish.id
     };
     // Use useReducer hook to control state of multiple form fields
@@ -42,14 +42,11 @@ function DonateForm(props) {
     const {first_name, last_name, email, amount, wish_id} = state;
 
     const handleSubmit = (e) => {
-        console.log(csrfToken)
         e.preventDefault();
         // POST to /donations to create new donation, params sent: :wish_id
         // TODO: POST :first_name, :last_name, :email to /users to create new user
 
         // TODO: Refactor to function so this can be reused elsewhere like createDonation(:wishId)
-
-        // Use more RESTful url. Create serializer to handle POST requests to /donations
         axios.post('/donations/', 
             {
                 state
@@ -61,7 +58,7 @@ function DonateForm(props) {
                 }
             }
         )
-        console.log('Donation Submitted!')
+        .then(resp => {console.log(resp)})
         // how to close modal?
     };
 
