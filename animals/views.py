@@ -1,7 +1,8 @@
 
 
 from django.http.response import JsonResponse
-from animals.models import Animal, Donation, Wish
+from animals.models import Animal, Wish
+from donations.models import Donation
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
@@ -23,6 +24,7 @@ class WishListCreate(generics.ListCreateAPIView):
 # '/animals/:id
 # Create donation with parameters from POST request and add them to the animal's active wish
 # Why did I build it using this url and not '/wishes/:id'?
+# THIS FUNCTION NOT USED, REFACTORED INTO 'donations.views' AS 'create_donation'
 def donate(request, animal_id):
     animal = get_object_or_404(Animal, pk=animal_id)
     print('before if statement')
