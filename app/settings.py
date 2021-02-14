@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'animals.apps.AnimalsConfig',
     'zoos.apps.ZoosConfig',
     'images.apps.ImagesConfig',
+    'donations.apps.DonationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,12 +139,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'static'
 AWS_S3_REGION_NAME = 'us-west-2'
 
-# Comment out block to use local defaults for static
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'animals/static'),
-]
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# Use this only in production
+# Add these variables to Lightsail before committing
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'animals/static'),
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
 
