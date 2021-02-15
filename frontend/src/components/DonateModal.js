@@ -36,8 +36,6 @@ function DonateModal(props) {
     setOpen(false);
   };
 
-  let hasActiveWish = (props.animal.wish_set.filter(w => w.active).length >= 1)
-
   const body = (
     <div className={classes.paper}>
       <h2 id="simple-modal-title">Donate!</h2>
@@ -45,7 +43,7 @@ function DonateModal(props) {
         Write some bullshit here
       </p>
       {/* <DonateModal /> */}
-        <DonateForm animal={props.animal}/>
+        <DonateForm amount={props.amount} animal={props.animal}/>
     </div>
   );
 
@@ -55,7 +53,7 @@ function DonateModal(props) {
         variant='contained'
         color='primary'
         onClick={handleOpen}
-        disabled={!hasActiveWish}
+        disabled={!props.hasActiveWish}
       >
         Donate ${props.amount}
       </Button>
