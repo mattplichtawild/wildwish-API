@@ -6,15 +6,10 @@ from .models import Donation
 from django.urls import reverse
 from mailer import mailer
 
+# Create serializer to handle POST requests to /donations
 def create_donation(request):
-    # animal = get_object_or_404(Animal, pk=animal_id)
     
-    print(request.POST)
-    
-     
-    print('before if statement')
     if request.POST:
-        print('Hit if statement')
         wish = get_object_or_404(Wish, pk=request.POST.get('wish_id'))
         animal = wish.animal
         
