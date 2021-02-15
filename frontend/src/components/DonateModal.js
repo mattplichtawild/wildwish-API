@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles';
 import DonateForm from './DonateForm'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -12,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
+    button: {
+      // backgroundColor: 'blue'
+    }
   }));
 
 function DonateModal(props) {
@@ -32,6 +36,8 @@ function DonateModal(props) {
     setOpen(false);
   };
 
+  let hasActiveWish = (props.animal.wish_set.filter(w => w.active).length >= 1)
+
   const body = (
     <div className={classes.paper}>
       <h2 id="simple-modal-title">Donate!</h2>
@@ -45,9 +51,14 @@ function DonateModal(props) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <Button 
+        variant='contained'
+        color='primary'
+        onClick={handleOpen}
+        disabled={!hasActiveWish}
+      >
         Donate
-      </button>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
