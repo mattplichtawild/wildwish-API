@@ -49,12 +49,12 @@ function AnimalCard(props) {
     }
 
     const increaseAmount = () => {
-        setAmount(amount + 1)
+        setAmount(parseInt(amount) + 1)
     }
 
     const decreaseAmount = () => {
         if (amount > 1) {
-            setAmount(amount - 1)
+            setAmount(parseInt(amount) - 1)
         }
     }
 
