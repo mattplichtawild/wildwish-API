@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import clsx from 'clsx';
+import Input from '@material-ui/core/Input'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -31,6 +32,8 @@ import Button from '@material-ui/core/Button';
 
 function AnimalCard(props) {
     const animal = props.animal
+    let hasActiveWish = (props.animal.wish_set.filter(w => w.active).length >= 1)
+
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -129,10 +132,22 @@ function AnimalCard(props) {
                 <Collapse className={classes.infoDrawer} in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                     <Typography >Help {animal.name}'s wish come true by giving</Typography>
-            
-                    <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/>
+                    <Input 
+                        id='amount'
+                        name='amount'
+                        color='primary'
+                        // disabled={!hasActiveWish}
+                        disableUnderline
+                        type='number'
+                        inputProps={{min: 1}}
+                        onChange={handleChange}
+                        value={amount}
+                        // inputComponent='number'
+                    />
+                    {/* <label htmlFor="amount"/>
+                    <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/> */}
                     
-                    <DonateModal amount={amount} animal={animal}/>
+                    <DonateModal amount={amount} animal={animal} hasActiveWish={hasActiveWish}/>
                     <Typography paragraph>
                         {/* This is the donate popup. */}
                     </Typography>
