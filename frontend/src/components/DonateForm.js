@@ -30,7 +30,7 @@ function DonateForm(props) {
         first_name: '',
         last_name: '',
         email: '',
-        amount: 1,
+        amount: props.amount,
         wish_id: activeWish.id
     };
     // Use useReducer hook to control state of multiple form fields
@@ -45,7 +45,6 @@ function DonateForm(props) {
         e.preventDefault();
         // POST to /donations to create new donation, params sent: :wish_id
         // TODO: POST :first_name, :last_name, :email to /users to create new user
-
         // TODO: Refactor to function so this can be reused elsewhere like createDonation(:wishId)
         axios.post('/donations/', 
             {
@@ -94,8 +93,9 @@ function DonateForm(props) {
             value={email}
             onChange={handleChange}
         ></input>
-        <label htmlFor="amount">Amount</label>
-        <input id="amount" name="amount" value={amount} type="number" min="1" onChange={handleChange}/>
+        <p>Donating ${amount}</p>
+        <label htmlFor="amount"/>
+        <input id="amount" name="amount" value={amount} type="number" hidden/>
         <button type="submit" >Donate</button>
         </form >
     );
