@@ -12,6 +12,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import About from './About'
 import AnimalSelectTabs from "./AnimalSelectTabs";
+import red from '@material-ui/core/colors/red'
 
 const theme = createMuiTheme();
     theme.typography.h1 = {
@@ -21,6 +22,14 @@ const theme = createMuiTheme();
         },
         [theme.breakpoints.up('md')]: {
             fontSize: '4rem',
+    },
+    palette: {
+      primary: {
+        main: red[600],
+      },
+      secondary: {
+        main: '#f44336',
+      },
     },
 
 };
