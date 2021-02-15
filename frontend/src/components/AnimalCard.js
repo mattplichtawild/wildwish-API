@@ -56,14 +56,18 @@ function AnimalCard(props) {
             },
         },
         expand: {
-            transform: 'rotate(180deg)',
+            transform: 'rotate(0deg)',
             marginLeft: 'auto',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest,
-            }),
+            color: 'white',
+            // transition: theme.transitions.create('transform', {
+            //     duration: theme.transitions.duration.shortest,
+            // }),
         },
         expandOpen: {
-            transform: 'rotate(0deg)',
+            // This should be getting set in App.js, is it being overridden somewhere?
+            // color: theme.palette.primary.main
+            color: 'red'
+            // transform: 'rotate(0deg)',
         },
         content: {
         position: 'absolute',
@@ -96,7 +100,6 @@ function AnimalCard(props) {
                 
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
                     </IconButton>
                     <IconButton aria-label="share">
                     <ShareIcon />
@@ -109,7 +112,9 @@ function AnimalCard(props) {
                     aria-expanded={expanded}
                     aria-label="show more"
                     >
-                    <ExpandMoreIcon />
+                        <FavoriteIcon 
+                        
+                        style={{paddingRight: 18}} />
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
