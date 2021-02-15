@@ -57,7 +57,7 @@ function DonateModal(props) {
         onClick={handleOpen}
         disabled={!hasActiveWish}
       >
-        Donate
+        Donate ${props.amount}
       </Button>
       <Modal
         open={open}
