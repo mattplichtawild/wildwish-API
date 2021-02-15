@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import clsx from 'clsx';
 import Input from '@material-ui/core/Input'
+import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -23,12 +24,15 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { Grid } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import Collapse from '@material-ui/core/Collapse';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import green from '@material-ui/core/colors/red'
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove'
 
 function AnimalCard(props) {
     const animal = props.animal
@@ -42,6 +46,16 @@ function AnimalCard(props) {
     const [amount, setAmount] = React.useState(1)
     const handleChange = (event) => {
         setAmount(event.target.value)
+    }
+
+    const increaseAmount = () => {
+        setAmount(amount + 1)
+    }
+
+    const decreaseAmount = () => {
+        if (amount > 1) {
+            setAmount(amount - 1)
+        }
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -87,7 +101,10 @@ function AnimalCard(props) {
         },
         infoDrawer: {
             // background: 'linear-gradient(#0000, white)'
-            background: 'white'
+            background: 'white',
+            content: {
+                display: 'inline-block'
+            }
         }
     }));
 
@@ -131,7 +148,13 @@ function AnimalCard(props) {
                 </CardActions>
                 <Collapse className={classes.infoDrawer} in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                    <Typography >Help {animal.name}'s wish come true by giving</Typography>
+                    <Box>
+                    <Typography variant='overline'>Help their wish come true</Typography>
+                    <Container name='Amount Pick'>
+                    <IconButton onClick={decreaseAmount} size='medium' >
+                        <RemoveIcon fontSize='inherit' color='inherit' />
+                    </IconButton>
+                    <Typography variant='overline'>$</Typography>
                     <Input 
                         id='amount'
                         name='amount'
@@ -144,10 +167,14 @@ function AnimalCard(props) {
                         value={amount}
                         // inputComponent='number'
                     />
+                    <IconButton onClick={increaseAmount} size='medium' color={green[500]}>
+                        <AddIcon fontSize='inherit' color='inherit'/>
+                    </IconButton>
                     {/* <label htmlFor="amount"/>
                     <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/> */}
                     
                     <DonateModal amount={amount} animal={animal} hasActiveWish={hasActiveWish}/>
+                    </Container>
                     <Typography paragraph>
                         {/* This is the donate popup. */}
                     </Typography>
@@ -166,6 +193,8 @@ function AnimalCard(props) {
                     {/* <Typography>
                         Set aside off of the heat to let rest for 10 minutes, and then serve.
                     </Typography> */}
+                    </Box>
+                    
                     </CardContent>
                 </Collapse>
 {/*                 
