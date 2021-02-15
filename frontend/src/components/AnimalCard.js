@@ -35,6 +35,12 @@ function AnimalCard(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
       };
+
+    const [amount, setAmount] = React.useState(1)
+    const handleChange = (event) => {
+        setAmount(event.target.value)
+    }
+
     const useStyles = makeStyles((theme) => ({
         card: {
             // borderRadius: '1rem',
@@ -53,6 +59,7 @@ function AnimalCard(props) {
                 bottom: 0,
                 zIndex: 1,
                 background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
+                // background: 'linear-gradient(#000, white)'
             },
         },
         expand: {
@@ -75,6 +82,10 @@ function AnimalCard(props) {
         bottom: 0,
         width: '100%',
         },
+        infoDrawer: {
+            // background: 'linear-gradient(#0000, white)'
+            background: 'white'
+        }
     }));
 
     const mediaStyles = useCoverCardMediaStyles({ bgPosition: 'top' });
@@ -97,12 +108,10 @@ function AnimalCard(props) {
                     <InfoTitle>{animal.name}</InfoTitle>
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
                 </Info>
-                
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
                     </IconButton>
                     <IconButton aria-label="share">
-                    <ShareIcon />
                     </IconButton>
                     <IconButton
                     className={clsx(classes.expand, {
@@ -117,20 +126,20 @@ function AnimalCard(props) {
                         style={{paddingRight: 18}} />
                     </IconButton>
                 </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Collapse className={classes.infoDrawer} in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                    <Typography paragraph>Donate:</Typography>
-                    <DonateModal animal={animal}/>
+                    <Typography >Help {animal.name}'s wish come true by giving</Typography>
+            
+                    <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/>
+                    
+                    <DonateModal amount={amount} animal={animal}/>
                     <Typography paragraph>
                         {/* This is the donate popup. */}
                     </Typography>
+                    {/* can't get this icon to go to the right... */}
+                    <ShareIcon style={{color: 'white'}}/>
                     {/* <Typography paragraph>
-                        Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                        heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                        browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-                        and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-                        pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-                        saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+                        {amount}
                     </Typography> */}
                     {/* <Typography paragraph>
                         Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
