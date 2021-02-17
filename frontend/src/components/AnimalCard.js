@@ -36,7 +36,10 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 function AnimalCard(props) {
     const animal = props.animal
-    let hasActiveWish = (props.animal.wish_set.filter(w => w.active).length >= 1)
+
+    // Check for 'wish_set' array and that it has an active wish inside it
+    let hasActiveWish = (props.animal.wish_set && (props.animal.wish_set.filter(w => w.active).length >= 1)) ? true : false 
+    
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -133,6 +136,12 @@ function AnimalCard(props) {
                     </IconButton>
                     <IconButton aria-label="share">
                     </IconButton>
+                    {/* <Button 
+                        variant='contained'
+                        color='secondary'
+                        // onClick={handleOpen}
+                        // disabled={!props.hasActiveWish}
+                    >Wish</Button> */}
                     <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
