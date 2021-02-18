@@ -59,7 +59,7 @@ export default function NavBar() {
           <ListItemText primary={'Home'} />
         </ListItem>
 
-        {['Animals', 'Profile', 'Settings', 'About'].map((text, index) => (
+        {['Animals', 'About'].map((text, index) => (
         <ListItem button component={NavLink} to={url + text.toLowerCase()} key={text}>
           {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
           <ListItemText primary={text} />
