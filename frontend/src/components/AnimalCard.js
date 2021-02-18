@@ -33,13 +33,18 @@ import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/red'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove'
+import { NavLink } from "react-router-dom";
 
 function AnimalCard(props) {
     const animal = props.animal
 
     // Check for 'wish_set' array and that it has an active wish inside it
     let hasActiveWish = (props.animal.wish_set && (props.animal.wish_set.filter(w => w.active).length >= 1)) ? true : false 
-    
+
+    // Use activewish for link to wish page
+    // Link to animal profile page once that is built
+    // Currently links to '/wishes/undefined' if no active wish but whatever
+    let activeWish = hasActiveWish && props.animal.wish_set.filter(w => w.active)[0]
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -127,10 +132,12 @@ function AnimalCard(props) {
                 image={animal.avatar.upload}
                 />
                 <Box py={3} px={2} className={classes.content}>
-                <Info useStyles={useGalaxyInfoStyles}>
-                    <InfoTitle>{animal.name}</InfoTitle>
-                    <InfoSubtitle>{animal.zoo}</InfoSubtitle>
-                </Info>
+                <NavLink to={'/wishes/' + activeWish.id} >
+                    <Info useStyles={useGalaxyInfoStyles}>
+                        <InfoTitle>{animal.name}</InfoTitle>
+                        <InfoSubtitle>{animal.zoo}</InfoSubtitle>
+                    </Info>
+                </NavLink>
                 <CardActions disableSpacing>
                     {/* <IconButton aria-label="add to favorites">
                     </IconButton>
