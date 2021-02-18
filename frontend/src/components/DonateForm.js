@@ -20,7 +20,7 @@ function DonateForm(props) {
     // let csrftoken = getCookie('csrftoken');
     let csrfToken = Cookies.get('csrftoken');
 
-    console.log(csrfToken)
+    
     // find active wish and set as var
     let activeWish = props.animal.wish_set.find(w => w.active=true)
     
@@ -95,7 +95,7 @@ function DonateForm(props) {
         ></input>
         <p>Donating ${amount}</p>
         <label htmlFor="amount"/>
-        <input id="amount" name="amount" value={amount} type="number" hidden/>
+        <input id="amount" name="amount" value={amount} type="number" hidden readOnly/>
         <button type="submit" >Donate</button>
         </form >
     );
