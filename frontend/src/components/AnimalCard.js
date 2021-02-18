@@ -132,16 +132,16 @@ function AnimalCard(props) {
                     <InfoSubtitle>{animal.zoo}</InfoSubtitle>
                 </Info>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    {/* <IconButton aria-label="add to favorites">
                     </IconButton>
                     <IconButton aria-label="share">
-                    </IconButton>
-                    {/* <Button 
+                    </IconButton> */}
+                    <Button 
                         variant='contained'
                         color='secondary'
-                        // onClick={handleOpen}
-                        // disabled={!props.hasActiveWish}
-                    >Wish</Button> */}
+                        onClick={handleExpandClick}
+                        // disabled={!hasActiveWish}
+                    >Wish</Button>
                     <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -176,7 +176,7 @@ function AnimalCard(props) {
                         value={amount}
                         // inputComponent='number'
                     />
-                    <IconButton onClick={increaseAmount} size='medium' color={green[500]}>
+                    <IconButton onClick={increaseAmount} size='medium' >
                         <AddIcon fontSize='inherit' color='inherit'/>
                     </IconButton>
                     {/* <label htmlFor="amount"/>
