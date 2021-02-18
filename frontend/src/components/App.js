@@ -4,15 +4,17 @@ import WishCarousel from './WishCarousel'
 import Landing from "./Landing"
 import NavBar from "./NavBar";
 import ZooInfoPage from "./ZooInfoPage"
+import Home from './Home'
 // import axios from "axios";
 
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, useParams } from "react-router-dom";
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import About from './About'
 import AnimalSelectTabs from "./AnimalSelectTabs";
 import red from '@material-ui/core/colors/red'
+import WishInfoPage from "./WishInfoPage";
 
 const theme = createMuiTheme();
     theme.typography.h1 = {
@@ -43,16 +45,17 @@ export default function App() {
   return (
     <>
     <Router >
-    <ThemeProvider theme={theme}>
-    <NavBar />
-    {/* Landing and WishCarousel could probably be clumped together in Home */}
-    <Route exact path="/" component={Landing}/>
-    <Route exact path="/animals" component={AnimalSelectTabs}/>
-    <Route exact path="/about" component={About} />
-    <Route exact path="/zoos" component={ZooInfoPage} />
-    {/* <Landing /> */}
-    {/* <WishCarousel /> */}
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        {/* Landing and WishCarousel could probably be clumped together in Home */}
+        <Route exact path="/" component={Landing}/>
+        <Route exact path="/animals" component={AnimalSelectTabs}/>
+        <Route exact path="/about" component={About} />
+        <Route exact path="/zoos" component={ZooInfoPage} />
+        <Switch>
+              <Route path="/wishes/:id" children={<WishInfoPage />} />
+        </Switch>
+      </ThemeProvider>
     </Router>
     </>
   );
