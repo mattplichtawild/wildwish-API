@@ -28,7 +28,7 @@ export default function WishList(props) {
           {props.animals.map((animal) => {
             return (
             // <Grid item xs={12} sm={6} lg={4}>
-              <AnimalCard animal={animal} className={classes.paper}/>
+              <AnimalCard key={animal.id} animal={animal} className={classes.paper}/>
             // </Grid>
             );
           })}
