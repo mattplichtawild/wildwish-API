@@ -10,12 +10,12 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = ['upload']
         
 class WishSerializer(serializers.ModelSerializer):
-    # toy_id = serializers.StringRelatedField()
-    # animal_id = serializers.StringRelatedField()
+    toy_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
     
     class Meta:
         model = Wish
-        fields = ['id', 'active']
+        fields = ['id', 'animal_id', 'toy_id','active']
         
 class AnimalSerializer(serializers.ModelSerializer):
     
