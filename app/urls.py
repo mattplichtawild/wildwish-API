@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 # from django.views.generic import TemplateView
 from django.urls import include, path, re_path
+from animals import views
 
 urlpatterns = [
     ## This was to solve client sending requests to routes that were supposed to be handled by react-router-dom
@@ -36,4 +37,5 @@ urlpatterns = [
     path('donations/', include('donations.urls')),
     # path('zoos/', include('zoos.urls')),
     path('admin/', admin.site.urls),
+    path('wishes/<int:pk>', views.WishDetail.as_view())
 ]
