@@ -7,7 +7,7 @@ export default function WishInfoPage(props) {
     // id used by react router
     let { id }  = useParams();
 
-    const [data, setData] = useState({ hits: [] });
+    const [data, setData] = useState();
 
     // useEffect(async () => {
     //     const result = await axios(
@@ -15,6 +15,8 @@ export default function WishInfoPage(props) {
     //     );
      
     //     setData(result.data);
+    //     console.log(result.data)
+    //     console.log(data)
     // }, []);
     
     useEffect(() => {
@@ -24,12 +26,22 @@ export default function WishInfoPage(props) {
           );
      
           setData(result.data);
+          console.log(result.data)
         };
      
         fetchData();
+        console.log(data)
     }, []);
     
-    return (
-        <div> This is the wish info page for Wish ID {id}</div>
-    )
+
+    if (data != undefined) {
+        return (
+            
+            <div> This is the wish info page for Wish ID {data.id}. The wish is for Animal ID {data.animal_id}</div>
+        )
+    } else {
+        return (
+            <div> Haven't fetched anything yet for Wish ID {id}</div>
+        )
+    }
 }
