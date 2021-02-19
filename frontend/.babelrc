@@ -2,5 +2,6 @@
     // May get 'regeneratorRuntime is not defined' in async requests if wrong config version
     "presets": [
         "@babel/preset-env", "@babel/preset-react"
-    ]
+    ],
+    "plugins": ["@babel/plugin-transform-runtime"]
 }
