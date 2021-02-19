@@ -11,15 +11,30 @@ from mailer import mailer
 
 from .serializers import AnimalSerializer, WishSerializer
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class WishListCreate(generics.ListCreateAPIView):
+class WishListCreate(APIView):
     queryset = Wish.objects.all()
     serializer_class = WishSerializer
+    
+class WishDetail(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return Wish.objects.get(pk=pk)
+        except Wish.DoesNotExist:
+            raise Http404
+        
+    def get(self, request, pk, format=None):
+        wish = self.get_object(pk)
+        serializer = WishSerializer(wish)
+        return Response(serializer.data)
 
 # '/animals/:id
 # Create donation with parameters from POST request and add them to the animal's active wish
