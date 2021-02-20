@@ -5,29 +5,32 @@ from django.http import HttpResponseRedirect
 from .models import Donation
 from django.urls import reverse
 from mailer import mailer
+import json
 
 # Create serializer to handle POST requests to /donations
 def create_donation(request):
     
-    if request.POST:
-        wish = get_object_or_404(Wish, pk=request.POST.get('wish_id'))
+    if request.method == "POST":
+        data = json.loads(request.body.decode('utf-8'))
+        wish = get_object_or_404(Wish, pk=data.get('wish_id'))
         animal = wish.animal
         
         d = Donation(
-                wish_id=request.POST['wish_id'],
-                first_name=request.POST['first_name'],
-                last_name=request.POST['last_name'],
-                email=request.POST['email'],
-                amount=request.POST['amount']
+                wish_id=data.get('wish_id'),
+                first_name=data.get('first_name'),
+                last_name=data.get('last_name'),
+                email=data.get('email'),
+                amount=data.get('amount')
             )
-        mailer.send_recpt(d)
+       
         d.save()
+        mailer.send_recpt(d)
         if wish.current_funding() >= wish.fund_amount:
             wish.complete_funding()
-        # wish.save()
-        print (f'{d.user} donated {d.amount} to {d.wish}')
+            
+        print (f'{d.first_name} donated ${d.amount} to Wish {d.wish}')
         
-        return JsonResponse(d, safe=False)
+        return JsonResponse(data, safe=False)
         
     #     try:
     #     # create donation with error handling
