@@ -36,7 +36,7 @@ function DonateForm(props) {
     // Use useReducer hook to control state of multiple form fields
     const [state, dispatch] = useReducer(reducer, initialState);
     const handleChange = (e) => {
-        console.log(state)
+      
         dispatch({field: e.target.name, value: e.target.value})
     };
     const {first_name, last_name, email, amount, wish_id} = state;
@@ -48,7 +48,12 @@ function DonateForm(props) {
         // TODO: Refactor to function so this can be reused elsewhere like createDonation(:wishId)
         axios.post('/donations/', 
             {
-                state
+                // first_name, last_name, email, amount, wish_id
+                first_name: first_name,
+                last_name: last_name,
+                email: email,
+                amount: amount,
+                wish_id: wish_id
             },
             {
                 headers: {
