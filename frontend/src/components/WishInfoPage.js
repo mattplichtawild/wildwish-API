@@ -25,7 +25,7 @@ export default function WishInfoPage(props) {
             'wishes/' + id,
           );
      
-          setData(result.data);
+          setData({wish: result.data});
           console.log(result.data)
         };
      
@@ -34,14 +34,13 @@ export default function WishInfoPage(props) {
     }, []);
     
 
-    if (data != undefined) {
+    if (data == undefined) {
         return (
-            
-            <div> This is the wish info page for Wish ID {data.id}. The wish is for Animal ID {data.animal_id}</div>
+            <div> Loading Wish ID {id}</div>
         )
-    } else {
+        } else {
         return (
-            <div> Haven't fetched anything yet for Wish ID {id}</div>
+            <div> This is the wish info page for Wish ID {data.wish.id}. The wish is for Animal ID {data.wish.animal_id}</div>
         )
     }
 }
