@@ -7,7 +7,7 @@ export default function WishInfoPage(props) {
     // id used by react router
     let { id }  = useParams();
 
-    const [data, setData] = useState();
+    const [state = {}, setState] = useState();
 
     // useEffect(async () => {
     //     const result = await axios(
@@ -26,33 +26,34 @@ export default function WishInfoPage(props) {
             'wishes/' + id,
           );
      
-          setData({wish: result.data});
+          setState(result.data);
           console.log(result.data)
         };
      
         // Change this so it only fires if wishData doesn't have an image_set
         const fetchAnimalData = async () => {
+            console.log(state.animal_id)
             const result = await axios(
-                'animals/' + data.wish.animal_id
+                'animals/' + state.animal_id
             )
         }
 
         // Wait for wishData promise to resolve before trying to set animalData
         // Could also utilize params if url was changed to 'animals/:id/wishes/:id'
         fetchWishData()
-        .then(fetchAnimalData())
+        // .then(fetchAnimalData())
 
-        console.log(data)
+        console.log(state)
     }, []);
     
 
-    if (data == undefined) {
+    if (state != undefined && state.id != undefined) {
         return (
-            <div> Loading Wish ID {id}</div>
-        )
+            <div> This is the wish info page for Wish ID {state.id}. The wish is for Animal ID {state.animal_id}</div>
+            )
         } else {
-        return (
-            <div> This is the wish info page for Wish ID {data.wish.id}. The wish is for Animal ID {data.wish.animal_id}</div>
+            return (
+            <div> Loading Wish ID {id}</div>
         )
     }
 }
