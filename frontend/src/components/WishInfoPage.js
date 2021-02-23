@@ -20,7 +20,8 @@ export default function WishInfoPage(props) {
     // }, []);
     
     useEffect(() => {
-        const fetchData = async () => {
+        // could rewrite this so 'url' is parameter
+        const fetchWishData = async () => {
           const result = await axios(
             'wishes/' + id,
           );
@@ -29,7 +30,18 @@ export default function WishInfoPage(props) {
           console.log(result.data)
         };
      
-        fetchData();
+        // Change this so it only fires if wishData doesn't have an image_set
+        const fetchAnimalData = async () => {
+            const result = await axios(
+                'animals/' + data.wish.animal_id
+            )
+        }
+
+        // Wait for wishData promise to resolve before trying to set animalData
+        // Could also utilize params if url was changed to 'animals/:id/wishes/:id'
+        fetchWishData()
+        .then(fetchAnimalData())
+
         console.log(data)
     }, []);
     
