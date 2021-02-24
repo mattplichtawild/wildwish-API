@@ -20,15 +20,15 @@ class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class AnimalDetailCreate(APIView):
+class AnimalDetail(APIView):
     def get_object(self, pk):
         try:
             return Animal.objects.get(pk=pk)
         except Animal.DoesNotExist:
             raise Http404
     
-    def get(self, request, pk, format=None):
-        animal = self.get_object(pk)
+    def get(self, request, animal_id, format=None):
+        animal = self.get_object(animal_id)
         serializer = AnimalSerializer(animal)
         return Response(serializer.data)
     
