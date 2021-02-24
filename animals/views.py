@@ -27,8 +27,8 @@ class AnimalDetail(APIView):
         except Animal.DoesNotExist:
             raise Http404
     
-    def get(self, request, animal_id, format=None):
-        animal = self.get_object(animal_id)
+    def get(self, request, pk, format=None):
+        animal = self.get_object(pk)
         serializer = AnimalSerializer(animal)
         return Response(serializer.data)
     
