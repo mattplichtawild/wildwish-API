@@ -16,7 +16,7 @@ urlpatterns = [
     path('api', views.AnimalListCreate.as_view() ),
     
     # ex: /animals/1
-    path('<int:animal_id>', views.AnimalDetail.as_view(), name='detail'),
+    path('<int:pk>', views.AnimalDetail.as_view(), name='detail'),
     path('<int:animal_id>/donate', views.donate, name='donate'),
     # Not very RESTful
     path('<int:animal_id>/wish', views.update_wish, name='update_wish'),
