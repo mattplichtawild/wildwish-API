@@ -34,7 +34,6 @@ urlpatterns = [
     # For React frontend
     path('', include('frontend.urls')),
     path('animals/', include('animals.urls')),
-    path('animals/<int:pk>/', views.AnimalDetail.as_view()),
     path('donations/', include('donations.urls')),
     # path('zoos/', include('zoos.urls')),
     path('admin/', admin.site.urls),
