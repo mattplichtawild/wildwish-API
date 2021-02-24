@@ -132,7 +132,11 @@ function AnimalCard(props) {
                 image={animal.avatar.upload}
                 />
                 <Box py={3} px={2} className={classes.content}>
-                <NavLink to={'/wishes/' + activeWish.id} >
+                <NavLink 
+                    // omg rewrite how this url is being built
+                    to={'/animals/' + animal.id + '/wishes/' + activeWish.id} 
+                    // isActive={ () => {!hasActiveWish}}
+                >
                     <Info useStyles={useGalaxyInfoStyles}>
                         <InfoTitle>{animal.name}</InfoTitle>
                         <InfoSubtitle>{animal.zoo}</InfoSubtitle>
@@ -223,7 +227,6 @@ function AnimalCard(props) {
                 </Button> */}
                 </Box>
             </Card>
-        
     )
 }
 
