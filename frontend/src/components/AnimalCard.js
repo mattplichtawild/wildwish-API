@@ -139,7 +139,7 @@ function AnimalCard(props) {
                 >
                     <Info useStyles={useGalaxyInfoStyles}>
                         <InfoTitle>{animal.name}</InfoTitle>
-                        <InfoSubtitle>{animal.zoo}</InfoSubtitle>
+                        <InfoSubtitle>{animal.zoo.name}</InfoSubtitle>
                     </Info>
                 </NavLink>
                 <CardActions disableSpacing>
