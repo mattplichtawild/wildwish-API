@@ -16,17 +16,16 @@ def send_msg(message):
     except Exception as e:
         print(e.body)
         
+# obj is donation.animal, or any object that returns a queryset of images with obj.images.all()
+def get_img_array(obj):
+    imgs = []
+    for i in obj.images.all():
+        imgs.append({'url': i.upload.url})
+        
+    return (imgs)   
+
 # Argument is 'Donation' object from 'animals' app
 def send_recpt(donation):
-    
-    # obj is donation.animal, or any object that returns a queryset of images with obj.images.all()
-    def get_img_array(obj):
-        imgs = []
-        for i in obj.images.all():
-            imgs.append({'url': i.upload.url})
-            
-        return (imgs)
-    
     message = Mail(
         from_email = 'roar@wildheart.foundation',
         to_emails = donation.email,
