@@ -1,3 +1,4 @@
+from zoos.models import Zoo
 from django.db import models
 from rest_framework import serializers
 from .models import Animal, Wish
@@ -12,15 +13,23 @@ class ImageSerializer(serializers.ModelSerializer):
 class WishSerializer(serializers.ModelSerializer):
     toy_id = serializers.PrimaryKeyRelatedField(read_only=True)
     animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    images = ImageSerializer(many=True)
     
+    # Write fields for animal_name and animal_location
     class Meta:
         model = Wish
-        fields = ['id', 'animal_id', 'toy_id','active']
+        fields = ['id', 'animal_id', 'toy_id', 'images', 'active']
+        
+class ZooSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Zoo
+        fields = ('id', 'name', 'city', 'st', 'zip')
         
 class AnimalSerializer(serializers.ModelSerializer):
     
     # StringRelatedField returns the __str__ method of the related model
-    zoo = serializers.StringRelatedField()
+    zoo = ZooSerializer(read_only=True)
     species = serializers.StringRelatedField()
     wish_set = WishSerializer(many=True, read_only=True)
     images = ImageSerializer(many=True, read_only=True)
