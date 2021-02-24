@@ -47,13 +47,13 @@ export default function App() {
     <Router >
       <ThemeProvider theme={theme}>
         <NavBar />
+        <Switch >
         {/* Landing and WishCarousel could probably be clumped together in Home */}
         <Route exact path="/" component={Landing}/>
         <Route exact path="/animals" component={AnimalSelectTabs}/>
         <Route exact path="/about" component={About} />
         <Route exact path="/zoos" component={ZooInfoPage} />
-        <Switch>
-              <Route path="/wishes/:id" children={<WishInfoPage />} />
+        <Route path="/animals/:animal_id/wishes/:wish_id" children={<WishInfoPage />} />
         </Switch>
       </ThemeProvider>
     </Router>
