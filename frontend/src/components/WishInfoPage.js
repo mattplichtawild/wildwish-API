@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import { useParams } from 'react-router-dom'
 
-export default function WishInfoPage(props) {
-    // id used by react router
-    let { animal_id, wish_id }  = useParams();
+export default function WishInfoPage() {
+    // params from '/animals/:id/wishes?:id' url
+    let { animal_id, wish_id } = useParams();
     const [state, setState] = useState({ wish: null, animal: null });
             
     useEffect(() => {
@@ -24,14 +24,11 @@ export default function WishInfoPage(props) {
         fetchData();
     }, []);
     
-
-    // state.animal.id != undefined && state.wish.id != undefined
     if (state.animal && state.wish) {
         console.log(state)
         return (
             <div> 
-                <p>This is the wish info page for Wish ID {state.wish.id}. The wish is for {state.animal.name}</p>
-                {/* <p>{props.animal.name}</p> */}
+                <p>This is the wish info page for Wish ID {state.wish.id}. The wish is for {state.animal.name}.</p>
             </div>
             )
         } else {
