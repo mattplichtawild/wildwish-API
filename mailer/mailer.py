@@ -19,6 +19,14 @@ def send_msg(message):
 # Argument is 'Donation' object from 'animals' app
 def send_recpt(donation):
     
+    # obj is donation.animal, or any object that returns a queryset of images with obj.images.all()
+    def get_img_array(obj):
+        imgs = []
+        for i in obj.images.all():
+            imgs.append({'url': i.upload.url})
+            
+        return (imgs)
+    
     message = Mail(
         from_email = 'roar@wildheart.foundation',
         to_emails = donation.email,
@@ -29,7 +37,8 @@ def send_recpt(donation):
     message.dynamic_template_data = {
         'subject': f'Your Donation to {donation.wish.animal.name}',
         'name': donation.first_name,
-        'animal_name': donation.wish.animal.name
+        'animal_name': donation.wish.animal.name,
+        'images': get_img_array(donation.animal)
     }
     
     # SG template name: Donation Receipt
