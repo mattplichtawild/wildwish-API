@@ -37,10 +37,10 @@ def send_recpt(donation):
         'subject': f'Your Donation to {donation.wish.animal.name}',
         'name': donation.first_name,
         'animal_name': donation.wish.animal.name,
-        'images': get_img_array(donation.animal)
+        'animal_av_url': get_img_array(donation.wish.animal)[0]['url'],
+        'images': get_img_array(donation.wish.animal)
     }
     
-    # SG template name: Donation Receipt
     message.template_id = 'd-397bbaeafd9e4933934aa42d1826d7fc'
 
     send_msg(message)
