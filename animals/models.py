@@ -129,7 +129,7 @@ class Wish(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # If the animal is deleted, wishes also get deleted
     animal = models.ForeignKey(Animal, on_delete=CASCADE)
-    images = models.ManyToManyField(Image)
+    images = models.ManyToManyField(Image, blank=True)
     # Don't allow deletion of the toy if being referenced by wishes
     toy = models.ForeignKey(Toy, on_delete=PROTECT)
     # Only active wishes are available to donate to
