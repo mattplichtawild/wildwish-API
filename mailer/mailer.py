@@ -36,6 +36,8 @@ def send_recpt(donation):
     message.dynamic_template_data = {
         'subject': f'Your Donation to {donation.wish.animal.name}',
         'name': donation.first_name,
+        'wish_id': donation.wish.id,
+        'animal_id': donation.wish.animal.id,
         'animal_name': donation.wish.animal.name,
         'animal_av_url': get_img_array(donation.wish.animal)[0]['url'],
         'images': get_img_array(donation.wish.animal)
