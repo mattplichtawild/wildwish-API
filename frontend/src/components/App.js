@@ -15,6 +15,7 @@ import About from './About'
 import AnimalSelectTabs from "./AnimalSelectTabs";
 import red from '@material-ui/core/colors/red'
 import WishInfoPage from "./WishInfoPage";
+import AnimalDetail from "./AnimalDetail"
 
 const theme = createMuiTheme();
     theme.typography.h1 = {
@@ -51,9 +52,12 @@ export default function App() {
         {/* Landing and WishCarousel could probably be clumped together in Home */}
         <Route exact path="/" component={Landing}/>
         <Route exact path="/animals" component={AnimalSelectTabs}/>
+        <Route path="/animals/:id">
+          <AnimalDetail />
+        </Route>
         <Route exact path="/about" component={About} />
         <Route exact path="/zoos" component={ZooInfoPage} />
-        <Route path="/animals/:animal_id/wishes/:wish_id" children={<WishInfoPage />} />
+        <Route path="/wishes/:wish_id/animals/:animal_id" children={<WishInfoPage />} />
         </Switch>
       </ThemeProvider>
     </Router>
