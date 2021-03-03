@@ -4,8 +4,8 @@ import axios from "axios";
 import { useParams } from 'react-router-dom'
 
 export default function WishInfoPage() {
-    // params from '/animals/:id/wishes?:id' url
-    let { animal_id, wish_id } = useParams();
+    // params from '/wishes/:id/animals/:id' url
+    let { wish_id, animal_id } = useParams();
     const [state, setState] = useState({ wish: null, animal: null });
             
     useEffect(() => {
