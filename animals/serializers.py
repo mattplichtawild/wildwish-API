@@ -16,13 +16,14 @@ class ToySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 class WishSerializer(serializers.ModelSerializer):
-    animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    # animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
     images = ImageSerializer(many=True)
     toy = ToySerializer(read_only=True)
     
     class Meta:
         model = Wish
-        fields = ['id', 'animal_id', 'toy', 'images', 'active']
+        fields = ['id', 'animal', 'toy', 'images', 'active']
+        depth = 2
         
 class ZooSerializer(serializers.ModelSerializer):
     
