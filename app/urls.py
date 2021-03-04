@@ -40,5 +40,5 @@ urlpatterns = [
     
     # Should probably separate these into their own app
     path('wishes/<int:pk>', views.WishDetail.as_view()),
-    path('wishes/featured', views.WishListFeatured.as_view() ),
+    path('wishes/featured', views.WishListActive.as_view() ),
 ]
