@@ -20,12 +20,17 @@ class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class WishListFeatured(generics.ListAPIView):
-    queryset = Wish.objects.all()
+class WishListActive(generics.ListAPIView):
+    queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
     
+    # Most recently donated to first
+    # def order_by_last_don(self):
     
-    
+    # Get the IP location from client and match to Animal's location
+    # def match_usr_loc(self):
+        
+        
 class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
     # queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
