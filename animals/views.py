@@ -21,8 +21,8 @@ class AnimalListCreate(generics.ListCreateAPIView):
     serializer_class = AnimalSerializer
     
 class WishListFeatured(generics.ListAPIView):
-    queryset = Animal.objects.all()
-    serializer_class = AnimalSerializer
+    queryset = Wish.objects.all()
+    serializer_class = WishSerializer
     
     
     
