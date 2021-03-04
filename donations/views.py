@@ -8,6 +8,7 @@ from mailer import mailer
 import json
 
 # Create serializer to handle POST requests to /donations
+# TODO: Use rest-framework and serializers to handle this
 def create_donation(request):
     
     if request.method == "POST":
