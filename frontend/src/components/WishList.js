@@ -7,6 +7,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Grid from '@material-ui/core/Grid'
+import { Route } from 'react-router-dom'
 
 export default function WishList(props) {
   const useStyles = makeStyles((theme) => ({
@@ -25,10 +26,10 @@ export default function WishList(props) {
     return (
       <div className={classes.root}>
         {/* <Grid container spacing={3} > */}
-          {props.animals.map((animal) => {
+          {props.data.map((wish) => {
             return (
             // <Grid item xs={12} sm={6} lg={4}>
-              <AnimalCard key={animal.id} animal={animal} className={classes.paper}/>
+              <AnimalCard key={wish.id} data={wish} className={classes.paper}/>
             // </Grid>
             );
           })}

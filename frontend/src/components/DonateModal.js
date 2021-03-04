@@ -43,7 +43,7 @@ function DonateModal(props) {
         Write some bullshit here
       </p>
       {/* <DonateModal /> */}
-        <DonateForm amount={props.amount} animal={props.animal}/>
+        <DonateForm amount={props.amount} wish={props.data}/>
     </div>
   );
 
@@ -53,7 +53,7 @@ function DonateModal(props) {
         variant='contained'
         color='primary'
         onClick={handleOpen}
-        disabled={!props.hasActiveWish}
+        disabled={!props.data.active}
       >
         Donate ${props.amount}
       </Button>

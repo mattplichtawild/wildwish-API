@@ -33,18 +33,19 @@ import Button from '@material-ui/core/Button';
 import green from '@material-ui/core/colors/red'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove'
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function AnimalCard(props) {
-    const animal = props.animal
+    const animal = props.data.animal
 
+    // These aren't used since I rewrote the components to use a Wish serializer that only gives active wishes
     // Check for 'wish_set' array and that it has an active wish inside it
-    let hasActiveWish = (props.animal.wish_set && (props.animal.wish_set.filter(w => w.active).length >= 1)) ? true : false 
+    // let hasActiveWish = (animal.wish_set && (animal.wish_set.filter(w => w.active).length >= 1)) ? true : false 
 
     // Use activewish for link to wish page
     // Link to animal profile page once that is built
     // Currently links to '/wishes/undefined' if no active wish but whatever
-    let activeWish = hasActiveWish && props.animal.wish_set.filter(w => w.active)[0]
+    // let activeWish = hasActiveWish && animal.wish_set.filter(w => w.active)[0]
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -132,16 +133,29 @@ function AnimalCard(props) {
                 image={animal.avatar.upload}
                 />
                 <Box py={3} px={2} className={classes.content}>
-                <NavLink 
+                {/* Link for Wish */}
+                <Link 
                     // omg rewrite how this url is being built
-                    to={'/animals/' + animal.id + '/wishes/' + activeWish.id} 
+                    to={'/wishes/' + props.data.id + '/animals/' + animal.id} 
                     // isActive={ () => {!hasActiveWish}}
                 >
                     <Info useStyles={useGalaxyInfoStyles}>
                         <InfoTitle>{animal.name}</InfoTitle>
                         <InfoSubtitle>{animal.zoo.name}</InfoSubtitle>
                     </Info>
-                </NavLink>
+                </Link>
+                {/* Link for Animal */}
+                {/* <Link 
+                    // omg rewrite how this url is being built
+                    // to={'/wishes/' + activeWish.id + '/animals/' + animal.id} 
+                    // isActive={ () => {!hasActiveWish}}
+                    component={}
+                >
+                    <Info useStyles={useGalaxyInfoStyles}>
+                        <InfoTitle>{animal.name}</InfoTitle>
+                        <InfoSubtitle>{animal.zoo.name}</InfoSubtitle>
+                    </Info>
+                </Link> */}
                 <CardActions disableSpacing>
                     {/* <IconButton aria-label="add to favorites">
                     </IconButton>
@@ -193,7 +207,7 @@ function AnimalCard(props) {
                     {/* <label htmlFor="amount"/>
                     <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/> */}
                     
-                    <DonateModal amount={amount} animal={animal} hasActiveWish={hasActiveWish}/>
+                    <DonateModal amount={amount} data={props.data} />
                     </Container>
                     <Typography paragraph>
                         {/* This is the donate popup. */}

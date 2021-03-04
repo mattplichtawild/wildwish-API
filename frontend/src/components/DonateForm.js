@@ -20,19 +20,18 @@ function DonateForm(props) {
     // let csrftoken = getCookie('csrftoken');
     let csrfToken = Cookies.get('csrftoken');
 
-    
+    // This used before wish serializer was rewritten
     // find active wish and set as var
-    let activeWish = props.animal.wish_set.find(w => w.active=true)
-    
-    console.log(activeWish)
+    // let activeWish = props.animal.wish_set.find(w => w.active=true)
     
     const initialState = {
         first_name: '',
         last_name: '',
         email: '',
         amount: props.amount,
-        wish_id: activeWish.id
+        wish_id: props.wish.id
     };
+    
     // Use useReducer hook to control state of multiple form fields
     const [state, dispatch] = useReducer(reducer, initialState);
     const handleChange = (e) => {

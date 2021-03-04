@@ -15,7 +15,7 @@ export default class WishCarousel extends Component {
 
     componentDidMount() {
         axios
-        .get('animals/api')
+        .get('wishes/featured')
         .then(resp => {
             if (resp.status > 400) {
                 return this.setState( () => {
@@ -37,7 +37,7 @@ export default class WishCarousel extends Component {
 
     render() {
         return (
-            <WishList animals={this.state.data} />
+            <WishList data={this.state.data} />
         );
     }
 }
