@@ -20,8 +20,14 @@ class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
+class WishListFeatured(generics.ListAPIView):
     queryset = Animal.objects.all()
+    serializer_class = AnimalSerializer
+    
+    
+    
+class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
+    # queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
     # Below methods covered by RetrieveUpdateDestroyAPIView
