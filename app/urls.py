@@ -37,5 +37,8 @@ urlpatterns = [
     path('donations/', include('donations.urls')),
     # path('zoos/', include('zoos.urls')),
     path('admin/', admin.site.urls),
-    path('wishes/<int:pk>', views.WishDetail.as_view())
+    
+    # Should probably separate these into their own app
+    path('wishes/<int:pk>', views.WishDetail.as_view()),
+    path('wishes/featured', views.WishListFeatured.as_view() ),
 ]
