@@ -57,7 +57,7 @@ export default function App() {
         </Route>
         <Route exact path="/about" component={About} />
         <Route exact path="/zoos" component={ZooInfoPage} />
-        <Route path="/wishes/:wish_id/animals/:animal_id" children={<WishInfoPage />} />
+        <Route path="/wishes/:wish_id" children={<WishInfoPage />} />
         </Switch>
       </ThemeProvider>
     </Router>

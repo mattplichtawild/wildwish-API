@@ -136,7 +136,7 @@ function AnimalCard(props) {
                 {/* Link for Wish */}
                 <Link 
                     // omg rewrite how this url is being built
-                    to={'/wishes/' + props.data.id + '/animals/' + animal.id} 
+                    to={'/wishes/' + props.data.id} 
                     // isActive={ () => {!hasActiveWish}}
                 >
                     <Info useStyles={useGalaxyInfoStyles}>
