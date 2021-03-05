@@ -13,8 +13,7 @@ urlpatterns = [
     # ex: /animals/
     # Index view using django generic view
     # path('', views.IndexView.as_view(), name='animal_index'),
-    
-    
+
     # ex: /animals/1
     path('<int:pk>', views.AnimalDetail.as_view(), name='detail'),
     path('<int:animal_id>/donate', views.donate, name='donate'),
