@@ -89,10 +89,10 @@ export default function FeaturedTabs() {
         onChangeIndex={handleChangeIndex}
         >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <WishCarousel />
+          <WishCarousel url='featured'/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          List of animals based on client IP location
+          <WishCarousel url='nearby'/>
         </TabPanel>
         {/* <TabPanel value={value} index={2} dir={theme.direction}>
           Item Three

@@ -15,7 +15,7 @@ export default class WishCarousel extends Component {
 
     componentDidMount() {
         axios
-        .get('wishes/featured')
+        .get('wishes/' + this.props.url)
         .then(resp => {
             if (resp.status > 400) {
                 return this.setState( () => {
