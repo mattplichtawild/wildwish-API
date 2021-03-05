@@ -15,8 +15,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-import math 
 # Returns distance between two coordinates in km
+import math 
 def haversine(lat1, lon1, lat2, lon2): 
       
     # distance between latitudes 
@@ -42,7 +42,21 @@ def get_client_ip(request):
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
+    # Probably don't have this in production? This is my own IP
+    # This makes it so I can still get a location during development
+    if ip == '127.0.0.1':
+        ip = '73.153.40.163'
     return ip
+
+def get_client_coords(request):
+    import ipinfo
+    # Put this in .env or something so it's not public
+    access_token = 'c919021826b373'
+    handler = ipinfo.getHandler(access_token)
+    ip_address = get_client_ip(request)
+    details = handler.getDetails(ip_address)
+    
+    return details.loc
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
@@ -52,15 +66,14 @@ class AnimalListCreate(generics.ListCreateAPIView):
 class WishListFeatured(generics.ListAPIView):
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
-    
-    def get_queryset(self):
-        print(get_client_ip(self.request))
-        return super().get_queryset()
-            
         
 class WishListNearby(generics.ListAPIView):
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
+    
+    def get_queryset(self):
+        print(get_client_coords(self.request))
+        return super().get_queryset()
     
     # Get the IP location from client and match to Animal's location
     # def match_usr_loc(self):
