@@ -15,24 +15,59 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+import math 
+# Returns distance between two coordinates in km
+def haversine(lat1, lon1, lat2, lon2): 
+      
+    # distance between latitudes 
+    # and longitudes 
+    dLat = (lat2 - lat1) * math.pi / 180.0
+    dLon = (lon2 - lon1) * math.pi / 180.0
+  
+    # convert to radians 
+    lat1 = (lat1) * math.pi / 180.0
+    lat2 = (lat2) * math.pi / 180.0
+  
+    # apply formulae 
+    a = (pow(math.sin(dLat / 2), 2) + 
+         pow(math.sin(dLon / 2), 2) * 
+             math.cos(lat1) * math.cos(lat2)); 
+    rad = 6371
+    c = 2 * math.asin(math.sqrt(a)) 
+    return rad * c 
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
-class WishListActive(generics.ListAPIView):
+class WishListFeatured(generics.ListAPIView):
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
     
-    # Most recently donated to first
-    # def order_by_last_don(self):
+    def get_queryset(self):
+        print(get_client_ip(self.request))
+        return super().get_queryset()
+            
+        
+class WishListNearby(generics.ListAPIView):
+    queryset = Wish.objects.all().filter(active=True)
+    serializer_class = WishSerializer
     
     # Get the IP location from client and match to Animal's location
     # def match_usr_loc(self):
         
         
 class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
-    # queryset = Animal.objects.all()
+    queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
     # Below methods covered by RetrieveUpdateDestroyAPIView
