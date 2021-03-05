@@ -13,31 +13,50 @@ export default class WishCarousel extends Component {
         };
     }
 
+    
+
     componentDidMount() {
-        axios
-        .get('wishes/' + this.props.url)
-        .then(resp => {
-            if (resp.status > 400) {
-                return this.setState( () => {
-                    return { placeholder: "Something's fucky" }
-                })
-            }
-            console.log(resp)
-            return resp.data;
-        })
-        .then(data => {
-            this.setState(() => {
-                return {
-                    data,
-                    loaded: true
+        const fetchData = (position) => {
+            axios
+            .get('wishes/' + this.props.url)
+            .then(resp => {
+                if (resp.status > 400) {
+                    return this.setState( () => {
+                        return { placeholder: "Something's fucky" }
+                    })
                 }
+                console.log(resp)
+                // console.log(position)
+                return resp.data;
             })
-        })
+            .then(data => {
+                this.setState(() => {
+                    return {
+                        data,
+                        loaded: true
+                    }
+                })
+            })
+        }
+
+        // Using navigator.geolocation times out, don't use
+        // const error = (err) => {
+        //     console.warn(`ERROR(${err.code}): ${err.message}`);
+        //   }
+        
+        // navigator.geolocation.getCurrentPosition(fetchData, error, {timeout:60000, enableHighAccuracy: false})
+        fetchData()
     };
 
     render() {
+        if (this.props.url === 'nearby' && !("geolocation" in navigator)) {
+            return (
+                <h1>Turn on location please</h1>
+            )
+        } else {
         return (
             <WishList data={this.state.data} />
         );
+        }
     }
 }
