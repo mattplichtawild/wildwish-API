@@ -21,3 +21,6 @@ djangorestframework>=3.12
 
 # For automated testing
 coverage>=5.3
+
+# IPinfo API
+ipinfo>=4.1.0
