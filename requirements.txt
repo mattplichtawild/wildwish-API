@@ -22,5 +22,11 @@ djangorestframework>=3.12
 # For automated testing
 coverage>=5.3
 
+# For Zoo 'country' field
+django-countries>=7.0
+
 # IPinfo API
 ipinfo>=4.1.0
+
+# For gathering location info 
+pgeocode>=0.3.0
