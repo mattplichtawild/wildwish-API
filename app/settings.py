@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework',
     'frontend',
+    # For Zoo 'country' field
+    'django_countries',
     # Use django-address to manage address and location models
     # 'address'
 ]
@@ -107,6 +109,7 @@ REST_FRAMEWORK = {
 # Or use os.getenv() ?
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME', default='postgres'),
         'USER': config('DB_USER', default='postgres'),
@@ -144,8 +147,8 @@ STATICFILES_DIRS = [
 ]
 
 # Use this only in production
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'app.storage_backends.MediaStorage'
 
