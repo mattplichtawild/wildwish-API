@@ -18,7 +18,12 @@ from rest_framework import status
 # Returns distance between two coordinates in km
 import math 
 def haversine(lat1, lon1, lat2, lon2): 
-      
+    # ensure args are not strings
+    lat1 = float(lat1)
+    lon1 = float(lon1)
+    lat2 = float(lat2)
+    lon2 = float(lon2)
+
     # distance between latitudes 
     # and longitudes 
     dLat = (lat2 - lat1) * math.pi / 180.0
@@ -48,7 +53,7 @@ def get_client_ip(request):
         ip = '73.153.40.163'
     return ip
 
-def get_client_coords(request):
+def get_client_zip(request):
     import ipinfo
     # Put this in .env or something so it's not public
     access_token = 'c919021826b373'
@@ -56,7 +61,8 @@ def get_client_coords(request):
     ip_address = get_client_ip(request)
     details = handler.getDetails(ip_address)
     
-    return details.loc
+    lat, lon = details.loc.split(',')
+    return details.postal
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
@@ -72,7 +78,7 @@ class WishListNearby(generics.ListAPIView):
     serializer_class = WishSerializer
     
     def get_queryset(self):
-        print(get_client_coords(self.request))
+        print(get_client_zip(self.request))
         return super().get_queryset()
     
     # Get the IP location from client and match to Animal's location
