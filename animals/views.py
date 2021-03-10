@@ -15,6 +15,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+import pgeocode
+
 # Returns distance between two coordinates in km
 import math 
 def haversine(lat1, lon1, lat2, lon2): 
@@ -53,7 +55,7 @@ def get_client_ip(request):
         ip = '73.153.40.163'
     return ip
 
-def get_client_zip(request):
+def get_client_info(request):
     import ipinfo
     # Put this in .env or something so it's not public
     access_token = 'c919021826b373'
@@ -61,8 +63,8 @@ def get_client_zip(request):
     ip_address = get_client_ip(request)
     details = handler.getDetails(ip_address)
     
-    lat, lon = details.loc.split(',')
-    return details.postal
+    # lat, lon = details.loc.split(',')
+    return details
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
@@ -77,13 +79,39 @@ class WishListNearby(generics.ListAPIView):
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
     
-    def get_queryset(self):
-        print(get_client_zip(self.request))
-        return super().get_queryset()
-    
-    # Get the IP location from client and match to Animal's location
-    # def match_usr_loc(self):
+    def find_by_dist(self):
+        # Dist between locations in km.
+        MAX_DIST = 250
         
+        # client_details is object like:
+        '''
+        {
+            "ip": "8.8.8.8",
+            "city": "Mountain View",
+            "region": "California",
+            "country": "US",
+            "loc": "37.3860,-122.0838",
+            "postal": "94035",
+            "timezone": "America/Los_Angeles"
+        }
+        '''
+        
+        client_details = get_client_info(self.request)
+        dist = pgeocode.GeoDistance(client_details.country)
+        nearby_list = []
+        
+        # pgeocode requires that both zips be in same country
+        queryset = list(self.queryset.filter(animal__zoo__country=client_details.country))
+        
+        # Add object to nearby_list if it is within max distance
+        for w in queryset:
+            if dist.query_postal_code(w.animal.zoo.zip, client_details.postal) < MAX_DIST:
+                nearby_list.append(w)
+        
+        return nearby_list
+    
+    def get_queryset(self):
+        return self.find_by_dist()
         
 class AnimalDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Animal.objects.all()
