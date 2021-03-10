@@ -53,6 +53,7 @@ function DonateModal(props) {
         variant='contained'
         color='primary'
         onClick={handleOpen}
+        // Serializer is returning only active wishes so 'disabled' shouldn't be needed, but just in case
         disabled={!props.data.active}
       >
         Donate ${props.amount}
