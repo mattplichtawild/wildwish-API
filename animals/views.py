@@ -101,7 +101,7 @@ class WishListNearby(generics.ListAPIView):
         nearby_list = []
         
         # pgeocode requires that both zips be in same country
-        queryset = list(self.queryset.filter(animal__zoo__country=client_details.country))
+        queryset = self.queryset.filter(animal__zoo__country=client_details.country)
         
         # Add object to nearby_list if it is within max distance
         for w in queryset:
