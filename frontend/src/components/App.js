@@ -52,9 +52,8 @@ export default function App() {
         {/* Landing and WishCarousel could probably be clumped together in Home */}
         <Route exact path="/" component={Landing}/>
         <Route exact path="/animals" component={AnimalSelectTabs}/>
-        <Route path="/animals/:id">
-          <AnimalDetail />
-        </Route>
+        <Route path="/animals/:id" component={AnimalDetail} />
+       
         <Route exact path="/about" component={About} />
         <Route exact path="/zoos" component={ZooInfoPage} />
         <Route path="/wishes/:wish_id" children={<WishInfoPage />} />
