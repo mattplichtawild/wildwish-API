@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import { useParams } from 'react-router-dom'
+import { Divider, Typography } from '@material-ui/core';
 
 export default function WishInfoPage() {
     // params from '/wishes/:id/animals/:id' url
@@ -25,11 +26,30 @@ export default function WishInfoPage() {
         fetchData();
     }, []);
     
+    const remaining_funding = () => {
+        return (parseInt(state.wish.toy.price) - parseInt(state.wish.current_funding))
+    }
+
     if (state.wish) {
         console.log(state)
         return (
-            <div> 
-                <p>This is the wish info page for Wish ID {state.wish.id}. The wish is for {state.wish.animal.name}.</p>
+            // <div> 
+            //     <p>This is the wish info page for Wish ID {state.wish.id}. The wish is for {state.wish.animal.name}.</p>
+            // </div>
+            <div>
+            <Typography variant='h2' >{state.wish.animal.name}</Typography>
+            <Typography variant='body2' >{state.wish.animal.zoo.name}</Typography>
+            <Typography variant='body2' >{state.wish.animal.zoo.city}, {state.wish.animal.zoo.st}</Typography>
+            <Divider/>
+            {state.wish.active ?
+            <>
+            <Typography variant='overline' >${remaining_funding()} remaining!</Typography> 
+            <Typography variant='body1' >{state.wish.animal.name} is getting a {state.wish.toy.name}!</Typography>
+            <Typography variant='body1' >{state.wish.toy.description}</Typography>
+            </>
+            :
+            <Typography variant='overline' >Wish fulfilled!</Typography> 
+            }
             </div>
             )
         } else {
