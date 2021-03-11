@@ -25,9 +25,6 @@ function About() {
 
     return (
         <Container>
-            <Paper >
-
-            </Paper>
             <Paper className={classes.root} elevation={0} >
                 <Typography variant="h1" >
                 Enriching the lives of wild animals in captivity.
