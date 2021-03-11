@@ -13,7 +13,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class ToySerializer(serializers.ModelSerializer):
     class Meta:
         model = Toy
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'description', 'price')
 
 class WishSerializer(serializers.ModelSerializer):
     # animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -22,7 +22,7 @@ class WishSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Wish
-        fields = ['id', 'animal', 'toy', 'images', 'active']
+        fields = ['id', 'animal', 'toy', 'images', 'active', 'current_funding']
         depth = 2
         
 class ZooSerializer(serializers.ModelSerializer):
