@@ -97,8 +97,8 @@ export default function NavBar() {
           </React.Fragment>
         ))}
         
-          <Typography variant="h6" className={classes.title}>
-            Menu
+          <Typography variant="h5" component='h1' className={classes.title}>
+            WildWish
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
