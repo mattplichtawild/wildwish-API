@@ -34,6 +34,7 @@ import green from '@material-ui/core/colors/red'
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove'
 import { NavLink, Link } from "react-router-dom";
+import DonateBox from "./DonateBox";
 
 function AnimalCard(props) {
     const animal = props.data.animal
@@ -184,34 +185,7 @@ function AnimalCard(props) {
                     <CardContent>
                     <Box>
                     <Typography variant='overline'>Help their wish come true</Typography>
-                    <Container name='Amount Pick'>
-                    <IconButton onClick={decreaseAmount} size='medium' >
-                        <RemoveIcon fontSize='inherit' color='inherit' />
-                    </IconButton>
-                    <Typography variant='overline'>$</Typography>
-                    <Input 
-                        id='amount'
-                        name='amount'
-                        color='primary'
-                        // disabled={!hasActiveWish}
-                        disableUnderline
-                        type='number'
-                        inputProps={{min: 1}}
-                        onChange={handleChange}
-                        value={amount}
-                        // inputComponent='number'
-                    />
-                    <IconButton onClick={increaseAmount} size='medium' >
-                        <AddIcon fontSize='inherit' color='inherit'/>
-                    </IconButton>
-                    {/* <label htmlFor="amount"/>
-                    <input type='number' name='amount' id='amount' value={amount} min='1' onChange={handleChange}/> */}
-                    
-                    <DonateModal amount={amount} data={props.data} />
-                    </Container>
-                    <Typography paragraph>
-                        {/* This is the donate popup. */}
-                    </Typography>
+                    <DonateBox data={props.data} />
                     {/* can't get this icon to go to the right... */}
                     <ShareIcon style={{color: 'white'}}/>
                     {/* <Typography paragraph>

@@ -3,12 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import { useParams } from 'react-router-dom'
 import { Divider, Typography } from '@material-ui/core';
+import DonateBox from './DonateBox';
 
 export default function WishInfoPage() {
     // params from '/wishes/:id/animals/:id' url
     let { wish_id } = useParams();
     const [state, setState] = useState({ wish: null });
-            
+
     useEffect(() => {
         const fetchData = async () => {
             const wishResp = await axios(
@@ -46,6 +47,7 @@ export default function WishInfoPage() {
             <Typography variant='overline' >${remaining_funding()} remaining!</Typography> 
             <Typography variant='body1' >{state.wish.animal.name} is getting a {state.wish.toy.name}!</Typography>
             <Typography variant='body1' >{state.wish.toy.description}</Typography>
+            <DonateBox data={state.wish} />
             </>
             :
             <Typography variant='overline' >Wish fulfilled!</Typography> 
