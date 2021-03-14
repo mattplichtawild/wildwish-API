@@ -50,7 +50,11 @@ export default function WishInfoPage() {
             <DonateBox data={state.wish} />
             </>
             :
+            <>
             <Typography variant='overline' >Wish fulfilled!</Typography> 
+            <Typography variant='body1' >{state.wish.animal.name} received a {state.wish.toy.name}!</Typography>
+            <Typography variant='body1' >{state.wish.toy.description}</Typography>
+            </>
             }
             </div>
             )
