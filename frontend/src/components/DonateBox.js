@@ -23,6 +23,8 @@ export default function DonateBox(props) {
     }
 
     return (
+        <>
+        <Typography variant='overline'>Help their wish come true</Typography>
         <Container name='Amount Pick'>
             <IconButton onClick={decreaseAmount} size='medium' >
                 <RemoveIcon fontSize='inherit' color='inherit' />
@@ -48,5 +50,6 @@ export default function DonateBox(props) {
             
             <DonateModal amount={amount} data={props.data} />
         </Container>
+        </>
     )
 }

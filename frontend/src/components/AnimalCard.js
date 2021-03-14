@@ -184,7 +184,6 @@ function AnimalCard(props) {
                 <Collapse className={classes.infoDrawer} in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                     <Box>
-                    <Typography variant='overline'>Help their wish come true</Typography>
                     <DonateBox data={props.data} />
                     {/* can't get this icon to go to the right... */}
                     <ShareIcon style={{color: 'white'}}/>
