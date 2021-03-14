@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
 import { useParams } from 'react-router-dom'
-import { Divider, Typography } from '@material-ui/core';
+import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import DonateBox from './DonateBox';
 
 export default function WishInfoPage() {
@@ -60,7 +60,8 @@ export default function WishInfoPage() {
             )
         } else {
             return (
-            <div> Loading Wish ID {wish_id}</div>
+                <CircularProgress />
+            
         )
     }
 }

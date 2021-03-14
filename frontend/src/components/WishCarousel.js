@@ -2,6 +2,7 @@ import React, { Component, useEffect } from 'react'
 import WishList from "./WishList"
 import { makeStyles } from '@material-ui/core/styles';
 import axios from "axios";
+import { CircularProgress } from '@material-ui/core';
 
 export default class WishCarousel extends Component {
     constructor(props) {
@@ -49,14 +50,18 @@ export default class WishCarousel extends Component {
     };
 
     render() {
-        if (this.props.url === 'nearby' && !("geolocation" in navigator)) {
+        if (this.state.data.length) {
+            if (this.props.url === 'nearby' && !("geolocation" in navigator)) {
+                return (
+                    <h1>Turn on location please</h1>
+                )
+            } else {
             return (
-                <h1>Turn on location please</h1>
-            )
+                <WishList data={this.state.data} />
+            );
+            }
         } else {
-        return (
-            <WishList data={this.state.data} />
-        );
+            return <CircularProgress />
         }
     }
 }
