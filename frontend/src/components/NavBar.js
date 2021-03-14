@@ -14,8 +14,12 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { NavLink } from 'react-router-dom';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 export default function NavBar() {
+  const trigger = useScrollTrigger();
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -78,6 +82,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
+      <Slide appear={false} in={!trigger}>
       <AppBar position="fixed">
         <Toolbar>
         
@@ -98,6 +103,7 @@ export default function NavBar() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
+      </Slide>
       <div className={classes.offset} />
     </div>
     

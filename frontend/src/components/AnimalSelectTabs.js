@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import WishCarousel from './WishCarousel';
 import { getThemeProps } from '@material-ui/styles';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FeaturedTabs() {
+  const trigger = useScrollTrigger();
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -67,6 +70,7 @@ export default function FeaturedTabs() {
 
   return (
     <div >
+      <Slide appear={false} in={!trigger}>
       <AppBar position="fixed" color="default" className={classes.root} >
         <Tabs
           value={value}
@@ -81,7 +85,7 @@ export default function FeaturedTabs() {
           {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </AppBar>
-      
+      </Slide>
       
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
