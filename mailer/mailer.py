@@ -40,7 +40,8 @@ def send_recpt(donation):
         'animal_id': donation.wish.animal.id,
         'animal_name': donation.wish.animal.name,
         'animal_av_url': get_img_array(donation.wish.animal)[0]['url'],
-        'images': get_img_array(donation.wish.animal)
+        'images': get_img_array(donation.wish.animal),
+        'wish_url': f'http://dev.wildwish.com/#/wishes/{donation.wish.id}'
     }
     
     message.template_id = 'd-397bbaeafd9e4933934aa42d1826d7fc'
