@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from 'react-router-dom'
 import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import DonateBox from './DonateBox';
+import {Helmet} from "react-helmet";
 
 export default function WishInfoPage() {
     // params from '/wishes/:id/animals/:id' url
@@ -34,10 +35,18 @@ export default function WishInfoPage() {
     if (state.wish) {
         console.log(state)
         return (
-            // <div> 
-            //     <p>This is the wish info page for Wish ID {state.wish.id}. The wish is for {state.wish.animal.name}.</p>
-            // </div>
-            <div>
+            <div >
+            <Helmet>
+                <title>Make {state.wish.animal.name}'s wish come true!</title>
+                <meta charSet="utf-8" />
+                <meta property="og:url" content={"http://dev.wildwish.com/#/wishes/" + state.wish.id} />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={"Make " + state.wish.animal.name + "'s wish come true!"}/>
+                <meta property="og:description" content={state.wish.animal.name + " is getting a " + state.wish.toy.name} />
+                <meta property="og:image" content={state.wish.animal.images[0].upload} />
+                <link rel="canonical" href={"http://dev.wildwish.com/#/wishes/" + state.wish.id} />
+            </Helmet>
+           
             <Typography variant='h2' >{state.wish.animal.name}</Typography>
             <Typography variant='body2' >{state.wish.animal.zoo.name}</Typography>
             <Typography variant='body2' >{state.wish.animal.zoo.city}, {state.wish.animal.zoo.st}</Typography>
