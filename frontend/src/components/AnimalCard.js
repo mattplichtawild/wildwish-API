@@ -70,11 +70,11 @@ function AnimalCard(props) {
 
     const useStyles = makeStyles((theme) => ({
         card: {
-            // borderRadius: '1rem',
+            borderRadius: 0,
             boxShadow: 'none',
             position: 'relative',
             // minWidth: 200,
-            minHeight: 500,
+            minHeight: 600,
             // height: '100%',
             // width: '100%',
             '&:after': {
