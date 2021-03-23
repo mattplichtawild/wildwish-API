@@ -4,13 +4,14 @@ import { Container, Grid, Link } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
       flexWrap: 'wrap',
       padding: theme.spacing(4),
-      margin: theme.spacing(1),
+      marginTop: theme.spacing(4),
       '& > *': {
 
         // width: theme.spacing(16),
@@ -38,7 +39,7 @@ export default function Landing() {
                 <Typography variant='body1'>WildWish connects you to wildlife living in sanctuaries and zoos all over the world.</Typography>
                 <Typography variant='body1'>Choose any animal, contribute any amount. Get updates with pictures and video when animals get their new toys!</Typography>
                 <Typography >
-                    <Link >Learn more</Link>
+                    <NavLink to='/about' >Learn more</NavLink>
                 </Typography>
                 <Container className={classes.root}>
                     <Typography variant='overline'>Scroll to start</Typography>
