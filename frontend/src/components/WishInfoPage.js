@@ -42,7 +42,7 @@ export default function WishInfoPage() {
                 <meta property="og:url" content={"http://dev.wildwish.com/#/wishes/" + state.wish.id} />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={"Make " + state.wish.animal.name + "'s wish come true!"}/>
-                <meta property="og:description" content={state.wish.animal.name + " is getting a " + state.wish.toy.name} />
+                <meta property="og:description" content={state.wish.animal.name + " is getting a " + state.wish.toy.name + "!"} />
                 <meta property="og:image" content={state.wish.animal.images[0].upload} />
                 <link rel="canonical" href={"http://dev.wildwish.com/#/wishes/" + state.wish.id} />
             </Helmet>
