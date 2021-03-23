@@ -17,24 +17,32 @@ import red from '@material-ui/core/colors/red'
 import WishInfoPage from "./WishInfoPage";
 import AnimalDetail from "./AnimalDetail"
 
-const theme = createMuiTheme();
-    theme.typography.h1 = {
-        fontSize: '2.5rem',
-        '@media (min-width:600px)': {
-            // fontSize: '1.5rem',
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: '4rem',
-    },
-    palette: {
-      primary: {
-        main: red[600],
-      },
-      secondary: {
-        main: '#f44336',
-      },
-    },
+const theme = createMuiTheme({
+  root: {
+  '@global': {
+    body: {
+      margin: 0,
+    }
+  }
+  }
+});
 
+theme.typography.h1 = {
+  fontSize: '2.5rem',
+  '@media (min-width:600px)': {
+      // fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '4rem',
+  },
+  palette: {
+    primary: {
+      main: red[600],
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
 };
 // App contains theming to pass down to other components
 // For router, basename="/static" ?
@@ -50,7 +58,7 @@ export default function App() {
         <NavBar />
         <Switch >
         {/* Landing and WishCarousel could probably be clumped together in Home */}
-        <Route exact path="/" component={Landing}/>
+        <Route exact path="/" component={Home}/>
         <Route exact path="/animals" component={AnimalSelectTabs}/>
         <Route path="/animals/:id" component={AnimalDetail} />
        

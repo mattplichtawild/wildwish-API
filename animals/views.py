@@ -14,7 +14,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+import pprint
 import pgeocode
 
 # Returns distance between two coordinates in km
@@ -97,6 +97,7 @@ class WishListNearby(generics.ListAPIView):
         '''
         
         client_details = get_client_info(self.request)
+        pprint.pprint(client_details.all)
         dist = pgeocode.GeoDistance(client_details.country)
         nearby_list = []
         
