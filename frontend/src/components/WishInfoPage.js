@@ -44,6 +44,8 @@ export default function WishInfoPage() {
                 <meta property="og:title" content={"Make " + state.wish.animal.name + "'s wish come true!"}/>
                 <meta property="og:description" content={state.wish.animal.name + " is getting a " + state.wish.toy.name + "!"} />
                 <meta property="og:image" content={state.wish.animal.images[0].upload} />
+                {/* <meta property="og:image:width" content='600' />
+                <meta property="og:image:height" content='600' /> */}
                 <link rel="canonical" href={"http://dev.wildwish.com/#/wishes/" + state.wish.id} />
             </Helmet>
            
