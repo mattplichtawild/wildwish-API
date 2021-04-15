@@ -1,6 +1,7 @@
 
 
 from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from animals.models import Animal, Wish
 from donations.models import Donation
 from django.shortcuts import get_object_or_404, render
@@ -66,9 +67,19 @@ def get_client_info(request):
     # lat, lon = details.loc.split(',')
     return details
 
+# To create objects from static page hosted on Netlify
+@csrf_exempt
+def create_from_landing(request):
+    if request.method == "POST":
+        data = json.loads(request.body.decode('utf-8'))
+        print(request.body)
+    return JsonResponse('{ good: true }', safe=False)
+
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
+    
+    
     serializer_class = AnimalSerializer
     
 class WishListFeatured(generics.ListAPIView):

@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.AnimalListCreate.as_view()),
     path('wishes/active', views.WishListCreate.as_view(), name='active_wish_list'),
     
+    path('landing', views.create_from_landing),
     # ex: /animals/
     # Index view using django generic view
     # path('', views.IndexView.as_view(), name='animal_index'),
