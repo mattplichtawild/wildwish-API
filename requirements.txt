@@ -30,3 +30,6 @@ ipinfo>=4.1.0
 
 # For gathering location info 
 pgeocode>=0.3.0
+
+# CORS Headers for accepting forms from wildwish.org subdomains
+django-cors-headers>=3.7.0
