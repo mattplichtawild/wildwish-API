@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 # Image is abstract class (no db table)
 # Subclasses inherit from this model and each have their own db table
@@ -6,6 +7,7 @@ class Image(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     upload = models.ImageField()
     title = models.CharField(max_length=90, default='Untitled')
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
     
     def __str__(self):
         return self.upload.name
