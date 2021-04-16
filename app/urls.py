@@ -36,6 +36,7 @@ urlpatterns = [
     path('animals/', include('animals.urls')),
     path('donations/', include('donations.urls')),
     # path('zoos/', include('zoos.urls')),
+    path('images/', include('images.urls')),
     path('admin/', admin.site.urls),
     
     # Should probably separate these into their own app
