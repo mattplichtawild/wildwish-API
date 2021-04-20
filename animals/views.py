@@ -102,14 +102,13 @@ def get_client_info(request):
 @api_view(['POST'])
 @parser_classes([parsers.JSONParser])
 def create_from_landing(request, format=None):
-    # data = json.loads(request.body.decode('utf-8'))
     data = request.data
     
-    ## Use serializers for these
+    ## Serializers created with django-rest-framework need csrf and CORS protection
+    ## This is quick and dirty till I build authentication
     zooInfo = data['zoo']
     z, created = Zoo.objects.get_or_create(name=zooInfo['name'])
     z.website = zooInfo['website']
-    # print(zooInfo)
     z.save()
     
     userInfo = data['user']
@@ -118,7 +117,6 @@ def create_from_landing(request, format=None):
         first_name=userInfo['first_name'],
         last_name=userInfo['last_name']
         )
-    # print(userInfo)
     u.save()
     
     animals = data['animals']
