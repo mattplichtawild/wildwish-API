@@ -109,6 +109,9 @@ def create_from_landing(request, format=None):
     zooInfo = data['zoo']
     z, created = Zoo.objects.get_or_create(name=zooInfo['name'])
     z.website = zooInfo['website']
+    # zip and country are needed for db and view functions but I don't want to include these fields on the main form
+    z.zip = '80205'
+    z.country = 'US'
     z.save()
     
     userInfo = data['user']
