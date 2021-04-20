@@ -1,8 +1,10 @@
 
 
+from images.models import Image
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from animals.models import Animal, Wish
+from animals.models import Animal, Species, Wish, User
+from zoos.models import Zoo
 from donations.models import Donation
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, Http404
@@ -10,13 +12,17 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from mailer import mailer
 
-from .serializers import AnimalSerializer, WishSerializer
+from .serializers import AnimalSerializer, WishSerializer, ImageSerializer
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.decorators import parser_classes
+from rest_framework import parsers
 import pprint
 import pgeocode
+import json
 
 # Returns distance between two coordinates in km
 import math 
@@ -67,13 +73,82 @@ def get_client_info(request):
     # lat, lon = details.loc.split(',')
     return details
 
+# {
+# "zoo": {
+#     "name":"",
+#     "website":""
+#     },
+#  "user": {
+#      "first_name":"Paul",
+#      "last_name":"Blart",
+#      "email":"mallcop@example.com"
+#      },
+#  "animals":[
+#      {
+#          "name":"Test",
+#          "species":"Lion",
+#          "dob":"",
+#          "bio":"Test",
+#          "images":[{ uuid: 'string' }, { uuid: 'string' }],
+#          "toys":[
+#              {"url":"https://www.wildlifetoybox.com/p-balls.html"}
+#             ]
+#     },
+#     ]
+#  }
+
 # To create objects from static page hosted on Netlify
 @csrf_exempt
-def create_from_landing(request):
-    if request.method == "POST":
-        data = json.loads(request.body.decode('utf-8'))
-        print(request.body)
-    return JsonResponse('{ good: true }', safe=False)
+@api_view(['POST'])
+@parser_classes([parsers.JSONParser])
+def create_from_landing(request, format=None):
+    # data = json.loads(request.body.decode('utf-8'))
+    data = request.data
+    
+    ## Use serializers for these
+    zooInfo = data['zoo']
+    z, created = Zoo.objects.get_or_create(name=zooInfo['name'])
+    z.website = zooInfo['website']
+    # print(zooInfo)
+    z.save()
+    
+    userInfo = data['user']
+    u, created = User.objects.get_or_create(
+        email=userInfo['email'],
+        first_name=userInfo['first_name'],
+        last_name=userInfo['last_name']
+        )
+    # print(userInfo)
+    u.save()
+    
+    animals = data['animals']
+    for e in animals:
+        if e['dob'] == '':
+            dob = None
+        else:
+            dob = e['dob']
+
+        a = Animal(
+            zoo=z,
+            user=u,
+            name=e['name'],
+            date_of_birth=dob,
+            bio=e['bio'],
+        )
+        a.save()
+        species, created = Species.objects.get_or_create(common_name=e['species'])
+        species.save()
+        a.species = species
+        
+        print(a)
+        for i in e['images']:
+            img = Image.objects.get(uuid=i['uuid'])
+            a.images.add(img)
+            print(img)
+            
+        a.save()
+    
+    return JsonResponse( data, safe=False)
 
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
@@ -209,7 +284,7 @@ def donate(request, animal_id):
 # Maybe refactor into separate wish app and use '/wishes/:wish_id
 # Method for keepers to update active wish with pictures, not creating new wish 
 def update_wish(request, animal_id):
-    from .forms import ImageForm
+    from images.forms import ImageForm
     # Get active wish from animal's set
     # GET returns form to upload images (no other attribute changes)
     # POST adds images and triggers mailer to send email with images to donor
