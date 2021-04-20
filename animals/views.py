@@ -3,7 +3,7 @@
 from images.models import Image
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from animals.models import Animal, Species, Wish, User
+from animals.models import Animal, Species, Wish, User, Toy
 from zoos.models import Zoo
 from donations.models import Donation
 from django.shortcuts import get_object_or_404, render
@@ -138,12 +138,24 @@ def create_from_landing(request, format=None):
         species.save()
         a.species = species
         
-        print(a)
+        # Create animal-image relationships by looking up the uuid of the image (auto uploaded by same form)
         for i in e['images']:
             img = Image.objects.get(uuid=i['uuid'])
             a.images.add(img)
-            print(img)
+        
+        for t in e['toys']:
+            # Create new toy with user submitted URL
+            # Set default price as 10 until it is manually set by admins
+            if t['url'] is not '':
+                toy = Toy(name='Toy', brand='', url=t['url'], price=10)
+                toy.save()
+                wish = Wish(toy=toy, animal=a, fund_amount=toy.price)
+                wish.save()
             
+        # Set the first wish as active
+        w = a.wish_set.first()
+        w.active = True
+        w.save()
         a.save()
     
     return JsonResponse( data, safe=False)
