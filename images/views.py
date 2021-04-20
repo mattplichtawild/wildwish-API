@@ -19,6 +19,7 @@ def create_from_landing(request):
         img.save()
         
         # Using django's form api
+        # Doesn't play well with the way RDU is sending request
         # from .forms import ImageForm
         # form = ImageForm(request.POST, request.FILES)
         # print(request.POST, request.FILES, form.is_valid(), form)
@@ -32,7 +33,6 @@ def create_from_landing(request):
     
 ## First attempt using 'django-rest-framework'
 ## Maybe refactor this later for other use?
-# @csrf_exempt
 # @api_view(['POST'])
 # class ImageDetail(viewsets.ModelViewSet):
 #     parser_classes = [MultiPartParser]
