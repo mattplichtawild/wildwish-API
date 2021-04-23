@@ -144,8 +144,9 @@ def create_from_landing(request, format=None):
         # Create animal-image relationships by looking up the uuid of the image (auto uploaded by same form)
         for i in e['images']:
             # NEED EXCEPTION HANDLING HERE
-            img = Image.objects.get(uuid=i['uuid'])
-            a.images.add(img)
+            img, created = Image.objects.get_or_create(uuid=i['uuid'])
+            if not created:
+                a.images.add(img)
         
         for t in e['toys']:
             # Create new toy with user submitted URL
