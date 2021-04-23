@@ -152,7 +152,11 @@ def create_from_landing(request, format=None):
             # Create new toy with user submitted URL
             # Set default price as 10 until it is manually set by admins
             if t['url'] is not '':
-                toy = Toy(name='Toy', brand='', url=t['url'], price=10)
+                toy, created = Toy.objects.get_or_create(url=t['url'])
+                if created:
+                    toy.name='Toy'
+                    toy.price=10
+                    toy.brand=''
                 toy.save()
                 wish = Wish(toy=toy, animal=a, fund_amount=toy.price)
                 wish.save()
