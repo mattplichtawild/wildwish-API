@@ -110,7 +110,7 @@ class Toy(models.Model):
     images = models.ManyToManyField(Image)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     ship_cost = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
-    brand = models.CharField(max_length=180)
+    brand = models.CharField(max_length=180, null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True, blank=True)
     url = models.URLField(max_length=1200, null=True)
     
