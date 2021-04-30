@@ -112,7 +112,7 @@ class Toy(models.Model):
     ship_cost = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     brand = models.CharField(max_length=180)
     vendor = models.ForeignKey(Vendor, on_delete=CASCADE, null=True, blank=True)
-    url = models.URLField(max_length=255, null=True)
+    url = models.URLField(max_length=1200, null=True)
     
     suggested_species = models.ManyToManyField(SpeciesGroup, blank=True)
     suggested_species.verbose_name = 'Suggested Species'
