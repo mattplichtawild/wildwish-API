@@ -136,10 +136,10 @@ def create_from_landing(request, format=None):
             date_of_birth=dob,
             bio=e['bio'],
         )
-        a.save()
         species, created = Species.objects.get_or_create(common_name=e['species'])
         species.save()
         a.species = species
+        a.save()
         
         # Create animal-image relationships by looking up the uuid of the image (auto uploaded by same form)
         for i in e['images']:
@@ -151,13 +151,19 @@ def create_from_landing(request, format=None):
         for t in e['toys']:
             # Create new toy with user submitted URL
             # Set default price as 10 until it is manually set by admins
-            if t['url'] is not '':
-                toy, created = Toy.objects.get_or_create(url=t['url'])
-                if created:
-                    toy.name='Toy'
-                    toy.price=10
-                    toy.brand=''
-                toy.save()
+            if t['url'] != '':
+                try:
+                    toy = Toy.objects.get(url=t['url'])
+                # get_or_create wasn't working correctly since 'name' is required
+                except Toy.DoesNotExist:
+                    toy = Toy(
+                        url=t['url'],
+                        name='Default Toy Name',
+                        price=10,
+                        brand=''
+                    )
+                    toy.save()
+                
                 wish = Wish(toy=toy, animal=a, fund_amount=toy.price)
                 wish.save()
             
