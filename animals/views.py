@@ -108,10 +108,11 @@ def create_from_landing(request, format=None):
     ## This is quick and dirty till I build authentication
     zooInfo = data['zoo']
     z, created = Zoo.objects.get_or_create(name=zooInfo['name'])
-    z.website = zooInfo['website']
-    # zip and country are needed for db and view functions but I don't want to include these fields on the main form
-    z.zip = '80205'
-    z.country = 'US'
+    if created:
+        z.website = zooInfo['website']
+        # zip and country are needed for db and view functions but I don't want to include these fields on the main form
+        z.zip = '80205'
+        z.country = 'US'
     z.save()
     
     userInfo = data['user']
@@ -144,7 +145,8 @@ def create_from_landing(request, format=None):
         
         # Create animal-image relationships by looking up the uuid of the image (auto uploaded by same form)
         for i in e['images']:
-            # NEED EXCEPTION HANDLING HERE
+            # Using get_or_create here allows finding the image to fail gracefully
+            # If it was created, then it's obviously not what we're looking for
             img, created = Image.objects.get_or_create(uuid=i['uuid'])
             if not created:
                 a.images.add(img)
