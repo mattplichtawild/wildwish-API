@@ -120,6 +120,7 @@ def create_from_landing(request, format=None):
         first_name=userInfo['first_name'],
         last_name=userInfo['last_name']
         )
+    u.zoo = z
     u.save()
     
     animals = data['animals']
