@@ -110,7 +110,9 @@ def create_from_landing(request, format=None):
     z, created = Zoo.objects.get_or_create(name=zooInfo['name'])
     if created:
         z.website = zooInfo['website']
-        # zip and country are needed for db and view functions but I don't want to include these fields on the main form
+        # Address lines are needed functions but I don't want to include these fields on the main form
+        z.city = 'UPDATE ADDRESS FIELDS'
+        z.st = 'CO'
         z.zip = '80205'
         z.country = 'US'
     z.save()
