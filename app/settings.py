@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'animals.apps.AnimalsConfig',
     'zoos.apps.ZoosConfig',
     'images.apps.ImagesConfig',
