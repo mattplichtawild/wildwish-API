@@ -1,5 +1,6 @@
 from images.models import Image
 from zoos.models import Zoo
+from users.models import User
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT, SET_NULL
 from django.utils import timezone
