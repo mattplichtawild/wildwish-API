@@ -32,7 +32,12 @@ urlpatterns = [
     # path('', ActiveWishList.as_view()),
     
     # For React frontend
-    path('', include('frontend.urls')),
+    # path('', include('frontend.urls')),
+    
+    # For browseable API
+    path('', views.WishListFeatured.as_view() ),
+
+    path('users/', include('users.urls')),
     path('animals/', include('animals.urls')),
     path('donations/', include('donations.urls')),
     # path('zoos/', include('zoos.urls')),
