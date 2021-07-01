@@ -8,6 +8,7 @@ app_name = 'animals'
 urlpatterns = [
     # Path to index using functional view instead of class based
     path('', views.AnimalListCreate.as_view()),
+    
     path('wishes/active', views.WishListCreate.as_view(), name='active_wish_list'),
     
     path('landing', views.create_from_landing),

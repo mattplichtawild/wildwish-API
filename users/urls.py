@@ -7,7 +7,9 @@ app_name = 'users'
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+# First arg is prefix to use. Keep blank so users/ are created directly on top of /
+# ex: r'users_api' would set path as /users/users_api/
+router.register(r'', views.UserViewSet)
 
 urlpatterns = [
     # path('', views.UserListCreate.as_view()),
