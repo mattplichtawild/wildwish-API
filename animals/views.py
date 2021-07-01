@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from animals.models import Animal, Species, Wish, User, Toy
 from zoos.models import Zoo
+from users.models import User
 from donations.models import Donation
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, Http404
@@ -13,7 +14,7 @@ from django.views.generic import ListView, DetailView
 from mailer import mailer
 
 from .serializers import AnimalSerializer, WishSerializer, ImageSerializer
-from rest_framework import generics
+from rest_framework import generics, viewsets, authentication, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -24,6 +25,10 @@ import pprint
 import pgeocode
 import json
 
+class AnimalViewSet(viewsets.ModelViewSet):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializer
+    
 # Returns distance between two coordinates in km
 import math 
 def haversine(lat1, lon1, lat2, lon2): 
@@ -183,10 +188,9 @@ def create_from_landing(request, format=None):
 # For CRUD actions using rest_framework
 class AnimalListCreate(generics.ListCreateAPIView):
     queryset = Animal.objects.all()
-    
-    
     serializer_class = AnimalSerializer
-    
+
+
 class WishListFeatured(generics.ListAPIView):
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
