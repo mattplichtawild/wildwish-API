@@ -49,7 +49,6 @@ class AnimalSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Animal
-        # 'images' field just needs to return the url of the image
         fields = ('id', 'name', 'species', 'date_of_birth', 'user', 'zoo', 'bio', 'images', 'wish_set', 'avatar')
 
 # class WishSerializer(serializers.ModelSerializer):
