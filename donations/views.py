@@ -7,8 +7,25 @@ from django.urls import reverse
 from mailer import mailer
 import json
 
+from rest_framework import viewsets
+from .models import User
+from .serializers import DonationSerializer
+from rest_framework import authentication, permissions
+
+class DonationViewSet(viewsets.ModelViewSet):
+    # Which auth and permission classes to use?
+    # authentication_classes = [authentication.TokenAuthentication]
+    # permission_classes = [permissions.IsAdminUser]
+    
+    queryset = Donation.objects.all()
+    serializer_class = DonationSerializer
+
+
+
+
+## Functional view written while first going through docs
 # Create serializer to handle POST requests to /donations
-# TODO: Use rest-framework and serializers to handle this
+# DONE # TODO: Use rest-framework and serializers to handle this  
 def create_donation(request):
     
     if request.method == "POST":
