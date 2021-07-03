@@ -20,7 +20,7 @@ django-sendgrid-v5>=0.9
 djangorestframework>=3.12
 
 # JWT support for rest_framework
-djangorestframework-jwt>=1.11.0
+djangorestframework-simplejwt>=3.1.2
 
 # For automated testing
 coverage>=5.3
