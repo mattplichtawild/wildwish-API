@@ -18,6 +18,10 @@ from django.contrib import admin
 # from django.views.generic import TemplateView
 from django.urls import include, path, re_path
 from animals import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     ## This was to solve client sending requests to routes that were supposed to be handled by react-router-dom
@@ -43,6 +47,10 @@ urlpatterns = [
     # path('zoos/', include('zoos.urls')),
     path('images/', include('images.urls')),
     path('admin/', admin.site.urls),
+    
+    # For JWT Authentication
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
     # Should probably separate these into their own app
     path('wishes/<int:pk>', views.WishDetail.as_view()),
