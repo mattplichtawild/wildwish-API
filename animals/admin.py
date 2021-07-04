@@ -7,16 +7,6 @@ class ZooAdmin(admin.ModelAdmin):
     # class Meta:
         # ordering = ['-id']
     
-# User custom class to override fields for User
-class UserAdmin(admin.ModelAdmin):
-    # fields = ['first_name', 'last_name', 'keeper']
-    fieldsets = [
-        (None, {'fields': ['first_name','last_name', 'email', 'zoo']}),
-        ('Authentication Info', {'fields': ['keeper', 'verified']}),
-    ]
-    autocomplete_fields = ['zoo']
-    list_display = ('last_name', 'first_name', 'auth_keeper', 'zoo')
-    
 class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
     list_display = ('id', 'animal', 'toy')
@@ -91,5 +81,4 @@ admin.site.register(Toy, ToyAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(SpeciesGroup)
 admin.site.register(Image)
-admin.site.register(User, UserAdmin)
 admin.site.register(Wish, WishAdmin)
