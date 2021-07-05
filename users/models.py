@@ -50,6 +50,11 @@ class User(AbstractUser):
     zoo = models.ForeignKey(Zoo, blank=True, null=True, on_delete=PROTECT)
     verified = models.BooleanField(default=False)
     
+    # These attrs inherited from AbstractUser. Set defaults to be safe
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    
     # Fields below needed to correctly use AbstractUser
     username = None 
     USERNAME_FIELD = 'email'
