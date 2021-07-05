@@ -18,10 +18,8 @@ from django.contrib import admin
 # from django.views.generic import TemplateView
 from django.urls import include, path, re_path
 from animals import views
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenRefreshView
+from users.views import TokenObtainPairView
 
 urlpatterns = [
     ## This was to solve client sending requests to routes that were supposed to be handled by react-router-dom
