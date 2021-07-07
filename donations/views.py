@@ -20,7 +20,6 @@ class DonationViewSet(viewsets.ModelViewSet):
 
 
 ## Functional view written while first going through docs
-# Create serializer to handle POST requests to /donations
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from animals.models import Wish
