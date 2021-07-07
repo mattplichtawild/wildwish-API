@@ -26,6 +26,7 @@ import pgeocode
 import json
 
 class AnimalViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
