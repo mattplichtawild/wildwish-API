@@ -1,4 +1,3 @@
-
 from rest_framework import viewsets
 from .serializers import DonationSerializer
 from .models import Donation
@@ -17,7 +16,6 @@ class DonationViewSet(viewsets.ModelViewSet):
         donation = serializer.save()
         mailer.send_recpt(donation)
         
-
 
 ## Functional view written while first going through docs
 from django.http.response import JsonResponse
