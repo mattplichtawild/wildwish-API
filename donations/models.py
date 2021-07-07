@@ -35,9 +35,9 @@ class Donation(models.Model):
     
     def __str__(self):
         if self.wish:
-            return (f'{self.amount} to {self.wish.animal.name}')
+            return (f'${self.amount} to {self.wish.animal.name}')
         else:
-            return (f'{self.amount} to nobody in particular')
+            return (f'${self.amount} to nobody in particular')
         
     class Meta:
         db_table = 'donations'

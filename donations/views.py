@@ -1,30 +1,32 @@
-from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
-from animals.models import Wish
-from django.http import HttpResponseRedirect
-from .models import Donation
-from django.urls import reverse
-from mailer import mailer
-import json
 
 from rest_framework import viewsets
-from .models import User
 from .serializers import DonationSerializer
-from rest_framework import authentication, permissions
+from .models import Donation
+from mailer import mailer
 
 class DonationViewSet(viewsets.ModelViewSet):
-    # Which auth and permission classes to use?
     # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
     
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
-
-
+     
+    # Send email receipt when creating donation   
+    # TODO: Create method to check if email already exists in User database
+    def perform_create(self, serializer):
+        donation = serializer.save()
+        mailer.send_recpt(donation)
+        
 
 
 ## Functional view written while first going through docs
 # Create serializer to handle POST requests to /donations
+from django.http.response import JsonResponse
+from django.shortcuts import get_object_or_404
+from animals.models import Wish
+from django.http import HttpResponseRedirect
+import json
+
 # DONE # TODO: Use rest-framework and serializers to handle this  
 def create_donation(request):
     
