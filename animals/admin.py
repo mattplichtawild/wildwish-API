@@ -7,13 +7,22 @@ class ZooAdmin(admin.ModelAdmin):
     # class Meta:
         # ordering = ['-id']
     
+class WishImageInline(admin.TabularInline):
+    model = Wish.images.through
+    extra = 1
+    verbose_name = 'Image'
+    verbose_name_plural = 'Images'
+
 class WishAdmin(admin.ModelAdmin):
     # each entry is a callable attribute on 'Wish'
-    list_display = ('id', 'animal', 'toy')
+    list_display = ('toy', 'animal', 'active')
+    readonly_fields = ['current_funding']
+    # inlines = [WishImageInline]
     # fieldsets = [
     #     (None, {'fields': ['fund_amount']}),
-    #     # ('Current funding', {'fileds': ['']})
+    #     (None, {'fields': ['current_funding']})
     # ]
+    fields = ['toy', 'animal', 'fund_amount', 'current_funding']
     # exclude = ('fund_amount',)
     
 class WishInLine(admin.StackedInline):
