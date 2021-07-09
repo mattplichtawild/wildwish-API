@@ -1,4 +1,3 @@
-from orders.models import Order
 from images.models import Image
 from zoos.models import Zoo
 from users.models import User
@@ -135,8 +134,6 @@ class Wish(models.Model):
         
     def complete_funding(self):
         self.active = False
-        order = Order(wish=self)
-        order.save()
         self.save()
             
     def __str__(self):
