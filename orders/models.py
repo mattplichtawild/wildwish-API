@@ -16,3 +16,6 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     wish = models.ForeignKey(Wish, on_delete=PROTECT)
     status = models.CharField(max_length=72, choices=STATUS_CHOICES, default=NEW)
+
+    def __str__(self):
+        return f'{self.status} Order | ID: {self.id}'

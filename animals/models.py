@@ -137,7 +137,7 @@ class Wish(models.Model):
         self.save()
             
     def __str__(self):
-        return (f'ID #{self.id} | {self.toy.name} for {self.animal.name} at {self.animal.zoo.name}')
+        return (f'{self.toy.name} for {self.animal.name} at {self.animal.zoo.name}')
     
     class Meta:
         verbose_name_plural = 'Wishes'
