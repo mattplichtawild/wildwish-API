@@ -1,3 +1,4 @@
+from orders.models import Order
 from rest_framework import viewsets
 from .serializers import DonationSerializer
 from .models import Donation
@@ -14,9 +15,15 @@ class DonationViewSet(viewsets.ModelViewSet):
     # TODO: Create method to check if email already exists in User database
     def perform_create(self, serializer):
         donation = serializer.save()
+        wish = donation.wish
         mailer.send_recpt(donation)
         
-
+        # If the created donation fulfills the funding amount, create a new order:
+        if wish.current_funding() >= wish.fund_amount:
+            wish.complete_funding()
+            order = Order(wish=wish)
+            order.save()
+            
 ## Functional view written while first going through docs
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
