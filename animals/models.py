@@ -124,9 +124,12 @@ class Wish(models.Model):
     def set_fund(self, *args, **kwargs):
         return self.toy.price
     
-    def clean(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
+        # Set fund amount before saving
+        # This value will use toy.price, plus shipping costs and other criteria
         if self.fund_amount is None:
             self.fund_amount = self.toy.price
+        super(Wish, self).save()
             
         super().clean(*args, **kwargs)
         
