@@ -30,6 +30,16 @@ class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
+    
+class WishViewSet(viewsets.ModelViewSet):
+    pass
+
+    ## When resources images are updated, email those images to all the donors
+    ## Create new Post from images 
+    def update(self, request, *args, **kwargs):
+        
+        super().update(self, request, *args, **kwargs)
+    
 # Returns distance between two coordinates in km
 import math 
 def haversine(lat1, lon1, lat2, lon2): 
