@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'zoos.apps.ZoosConfig',
     'images.apps.ImagesConfig',
     'donations.apps.DonationsConfig',
+    'wishes.apps.WishesConfig',
     'posts.apps.PostsConfig',
     'orders.apps.OrdersConfig',
     'django.contrib.admin',
