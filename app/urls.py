@@ -42,6 +42,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('animals/', include('animals.urls')),
     path('donations/', include('donations.urls')),
+    path('wishes/', include('wishes.urls')),
     # path('zoos/', include('zoos.urls')),
     path('images/', include('images.urls')),
     path('admin/', admin.site.urls),
