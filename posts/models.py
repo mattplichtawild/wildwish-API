@@ -1,5 +1,8 @@
 from images.models import Image
 from django.db import models
+## parsing error; instbot is being imported fine
+from instabot import Bot
+
 
 class Post(models.Model):
     ## upload_id created by Instagram when posted
@@ -24,5 +27,6 @@ class Post(models.Model):
         pass
     
     def post_to_insta(self):
-        pass
+        bot = Bot()
+        bot.login(username = "******", password = "ppppppp")
         

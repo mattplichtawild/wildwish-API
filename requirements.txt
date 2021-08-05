@@ -36,3 +36,6 @@ pgeocode>=0.3.0
 
 # CORS Headers for accepting forms from wildwish.org subdomains
 django-cors-headers>=3.7.0
+
+# Instabot for uploading posts to instagram
+instabot>=0.117.0
