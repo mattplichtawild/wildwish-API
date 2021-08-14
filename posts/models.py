@@ -1,6 +1,5 @@
 from images.models import Image
 from django.db import models
-## parsing error; instbot is being imported fine
 from instabot import Bot
 from decouple import config
 

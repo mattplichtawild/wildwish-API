@@ -1,7 +1,8 @@
 *.pyc
 *.pyo
-.venv
+venv
 .env*
 node_modules/
 config/log
 config/WildHeart.Foundation_uuid_and_cookie.json
+config/Wildheart.Foundation.checkpoint
