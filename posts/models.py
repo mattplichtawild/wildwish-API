@@ -38,15 +38,17 @@ class Post(models.Model):
         ## Or possibly use image parameter, method can be called when user is uploading so the file can be grabbed before being uploaded to s3?
         bot.upload_photo(img_url)
         
+    ## Download img file from s3 bucket to temp memory so it can be used in post_to_insta
     def download_source(self):
         s3_client = boto3.client('s3', 
-                                 aws_access_key_id='<Access Key ID>', 
-                                 aws_secret_access_key='<Secret Access Key>', 
-                                 region_name='ap-south-1'
-                                 )
+            aws_access_key_id=config('AWS_ACCESS_KEY_ID'), 
+            aws_secret_access_key=config('AWS_SECRET_ACCESS_KEY'), 
+            region_name=config('AWS_S3_REGION_NAME')
+        )
 
         ## download_file 2nd param: Name to give object that is downloaded
         ## download_file 3rd param: full path of s3 file to download
-        s3_client.download_file('BUCKET_NAME', 'TEMP_OBJ', 'FILE_NAME')
+        ## What does this return?
+        s3_client.download_file(config('AWS_STORAGE_BUCKET_NAME'), 'TEMP_OBJ', 'FILE_NAME')
         
         print('Downloaded source photo')
