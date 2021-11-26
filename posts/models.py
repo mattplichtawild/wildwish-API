@@ -3,7 +3,8 @@ from django.db import models
 from instabot import Bot
 from decouple import config
 
-from boto3 import boto3
+## ISSUE: Cannot import boto3
+# from boto3 import boto3
 
 
 class Post(models.Model):
@@ -39,16 +40,16 @@ class Post(models.Model):
         bot.upload_photo(img_url)
         
     ## Download img file from s3 bucket to temp memory so it can be used in post_to_insta
-    def download_source(self):
-        s3_client = boto3.client('s3', 
-            aws_access_key_id=config('AWS_ACCESS_KEY_ID'), 
-            aws_secret_access_key=config('AWS_SECRET_ACCESS_KEY'), 
-            region_name=config('AWS_S3_REGION_NAME')
-        )
+    # def download_source(self):
+    #     s3_client = boto3.client('s3', 
+    #         aws_access_key_id=config('AWS_ACCESS_KEY_ID'), 
+    #         aws_secret_access_key=config('AWS_SECRET_ACCESS_KEY'), 
+    #         region_name=config('AWS_S3_REGION_NAME')
+    #     )
 
-        ## download_file 2nd param: Name to give object that is downloaded
-        ## download_file 3rd param: full path of s3 file to download
-        ## What does this return?
-        s3_client.download_file(config('AWS_STORAGE_BUCKET_NAME'), 'TEMP_OBJ', 'FILE_NAME')
+    #     ## download_file 2nd param: Name to give object that is downloaded
+    #     ## download_file 3rd param: full path of s3 file to download
+    #     ## What does this return?
+    #     s3_client.download_file(config('AWS_STORAGE_BUCKET_NAME'), 'TEMP_OBJ', 'FILE_NAME')
         
-        print('Downloaded source photo')
+    #     print('Downloaded source photo')
