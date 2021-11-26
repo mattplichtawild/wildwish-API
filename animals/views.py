@@ -340,6 +340,8 @@ def update_wish(request, animal_id):
             for d in d_set:
                 mailer.send_wish_imgs(d)
                 
+            ## Use file to create post here?
+                
             # Get the current instance object to display in the template
             return render(request, 'animals/wish_form.html', {'form': form, 'img_obj': img_obj})
     else:
