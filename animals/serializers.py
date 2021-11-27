@@ -15,22 +15,34 @@ class ToySerializer(serializers.ModelSerializer):
     class Meta:
         model = Toy
         fields = ('id', 'name', 'description', 'price')
-
-class WishSerializer(serializers.ModelSerializer):
-    # animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
-    images = ImageSerializer(many=True)
-    toy = ToySerializer(read_only=True)
-    
-    class Meta:
-        model = Wish
-        fields = ['id', 'toy', 'images', 'active', 'current_funding']
-        depth = 2
         
 class ZooSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Zoo
         fields = ('id', 'name', 'city', 'st', 'zip')
+
+## WishSerializer needs related animal without exposing further related models
+class SterilizedAnimalSerializer(serializers.ModelSerializer):
+    zoo = ZooSerializer(read_only=True)
+    images = ImageSerializer(many=True, read_only=True)
+    avatar = ImageSerializer(many=False, read_only=True)
+    
+    class Meta:
+        model = Animal
+        fields = ['id', 'name', 'species', 'date_of_birth', 'bio', 'zoo', 'images', 'avatar']
+    
+class WishSerializer(serializers.ModelSerializer):
+    # animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
+    images = ImageSerializer(many=True)
+    animal = SterilizedAnimalSerializer(read_only=True)
+    toy = ToySerializer(read_only=True)
+    
+    class Meta:
+        model = Wish
+        fields = ['id', 'toy', 'animal', 'images', 'active', 'current_funding']
+        depth = 2
+        
         
 class SpeciesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,7 +61,7 @@ class AnimalSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Animal
-        fields = ('id', 'name', 'species', 'date_of_birth', 'user', 'zoo', 'bio', 'images', 'wish_set', 'avatar')
+        fields = ('id', 'name', 'species', 'date_of_birth', 'user', 'zoo', 'bio', 'images', 'avatar')
 
 # class WishSerializer(serializers.ModelSerializer):
     
