@@ -1,3 +1,4 @@
+from rest_framework.relations import StringRelatedField
 from users.serializers import UserSerializer
 from zoos.models import Zoo
 from django.db import models
@@ -24,7 +25,7 @@ class ZooSerializer(serializers.ModelSerializer):
 
 ## WishSerializer needs related animal without exposing further related models
 class SterilizedAnimalSerializer(serializers.ModelSerializer):
-    zoo = ZooSerializer(read_only=True)
+    zoo = serializers.StringRelatedField(many=False)
     images = ImageSerializer(many=True, read_only=True)
     avatar = ImageSerializer(many=False, read_only=True)
     
