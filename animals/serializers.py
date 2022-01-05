@@ -56,7 +56,7 @@ class AnimalSerializer(serializers.ModelSerializer):
     zoo = ZooSerializer(read_only=True)
     user = UserSerializer(read_only=True)
     # species = SpeciesSerializer()
-    wish_set = WishSerializer(many=True, read_only=True)
+    # wish_set = WishSerializer(many=True, read_only=True)
     images = ImageSerializer(many=True, read_only=True)
     avatar = ImageSerializer(many=False, read_only=True)
     
