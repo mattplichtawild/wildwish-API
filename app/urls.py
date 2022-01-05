@@ -18,7 +18,7 @@ from django.contrib import admin
 # from django.views.generic import TemplateView
 from django.urls import include, path, re_path
 from animals import views
-from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from users.views import TokenObtainPairView
 
 urlpatterns = [
@@ -48,8 +48,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # For JWT Authentication
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     
     # Should probably separate these into their own app
     path('wishes/<int:pk>', views.WishDetail.as_view()),

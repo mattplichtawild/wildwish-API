@@ -13,5 +13,10 @@ router.register(r'', views.UserViewSet)
 
 urlpatterns = [
     # path('', views.UserListCreate.as_view()),
+    
+    # Copy/paste example from blog
+    # TODO: Get rid of this url so paths are RESTful eg: POST to '/users/' does this
+    path('create/', views.UserCreate.as_view(), name="create_user"),
+    
     path('', include(router.urls)),
 ]
