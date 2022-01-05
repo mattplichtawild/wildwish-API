@@ -15,7 +15,7 @@ class TokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email', 'zoo']
+        fields = ['id', 'first_name', 'last_name', 'email', 'password', 'zoo']
         extra_kwargs = {'password': {'write_only': True}}
         
     # Serializer was not hashing password. Explicitly call 'set_password' to make this happen
