@@ -16,6 +16,7 @@ class UserManager(BaseUserManager):
             pass
         # Copy/pasted value error has error with _typeshed
             # raise ValueError(_typeshed('The Email must be set'))
+            raise TypeError('Must have valid email.')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
