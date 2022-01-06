@@ -18,7 +18,7 @@ from rest_framework import generics, viewsets, authentication, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.decorators import parser_classes
 from rest_framework import parsers
 import pprint
@@ -194,6 +194,8 @@ class AnimalListCreate(generics.ListCreateAPIView):
 
 
 class WishListFeatured(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    
     queryset = Wish.objects.all().filter(active=True)
     serializer_class = WishSerializer
         
