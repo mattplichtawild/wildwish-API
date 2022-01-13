@@ -1,11 +1,25 @@
 from django.http.response import HttpResponse, JsonResponse
-# from rest_framework import generics, viewsets
+from rest_framework import generics, viewsets
+
+from animals.serializers import ImageSerializer
 from .models import Image
 # from animals.serializers import ImageSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 import json
 # from rest_framework.parsers import MultiPartParser
+    
+class ImageViewSet(viewsets.ModelViewSet):
+    permission_classes = []
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    
+    def get_queryset(self):
+        if 'animal_pk' in self.kwargs: 
+            return self.queryset.filter(animal=self.kwargs['animal_pk'])
+        else:
+            return self.queryset
+    
     
 @csrf_exempt
 def create_from_landing(request):

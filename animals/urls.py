@@ -4,6 +4,7 @@ from django.urls import path, include
 from rest_framework_nested import routers
 from . import views
 from wishes.views import WishViewSet
+from images.views import ImageViewSet
 
 app_name = 'animals'
 # Routers provide an easy way of automatically determining the URL conf.
@@ -14,7 +15,7 @@ router.register(r'', views.AnimalViewSet)
 
 animals_router = routers.NestedSimpleRouter(router, r'', lookup='animal')
 animals_router.register(r'wishes', WishViewSet)
-# animals_router.register(r'images', ImageViewSet)
+animals_router.register(r'images', ImageViewSet)
 
 # 'name' argument is used by django route helpers (in templates and such)
 urlpatterns = [
