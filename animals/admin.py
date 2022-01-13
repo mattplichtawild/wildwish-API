@@ -56,7 +56,7 @@ class SpeciesAdmin(admin.ModelAdmin):
 class AnimalAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at']
     fieldsets = [
-        (None, {'fields': ['created_at', 'updated_at', 'zoo', 'name', 'species', 'bio', 'date_of_birth']}),
+        (None, {'fields': ['created_at', 'updated_at', 'zoo', 'user', 'name', 'species', 'bio', 'date_of_birth']}),
         # ('Profile Pic', {'fields': ['recent_img']})
     ]
     
