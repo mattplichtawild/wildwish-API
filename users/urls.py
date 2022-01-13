@@ -4,6 +4,7 @@ from rest_framework_nested import routers
 from django.urls import path, include
 from . import views
 from animals.views import AnimalViewSet
+from donations.views import DonationViewSet
 
 app_name = 'users'
 
@@ -15,6 +16,7 @@ router.register(r'', views.UserViewSet)
 
 users_router = routers.NestedSimpleRouter(router, r'', lookup='user')
 users_router.register(r'animals', AnimalViewSet)
+users_router.register(r'donations', DonationViewSet)
 
 urlpatterns = [
     # path('', views.UserListCreate.as_view()),

@@ -3,14 +3,19 @@ from rest_framework import viewsets
 from .serializers import DonationSerializer
 from .models import Donation
 from mailer import mailer
+from rest_framework import authentication, permissions
 
 class DonationViewSet(viewsets.ModelViewSet):
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAdminUser, permissions.DjangoModelPermissions]
-    
-    queryset = Donation.objects.all()
+    permission_classes = [permissions.IsAuthenticated, permissions.DjangoModelPermissions]
     serializer_class = DonationSerializer
+    queryset = Donation.objects.all()
      
+    def get_queryset(self):
+        if 'user_pk' in self.kwargs: 
+            return self.queryset.filter(user=self.kwargs['user_pk'])
+        else:
+            return self.queryset
+        
     # Send email receipt when creating donation   
     # TODO: Create method to check if email already exists in User database
     def perform_create(self, serializer):
