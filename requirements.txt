@@ -19,6 +19,9 @@ django-sendgrid-v5>=0.9
 # Basic CRUD through API
 djangorestframework>=3.12
 
+# Nested resources
+drf-nested-routers>=0.93.4
+
 # JWT support for rest_framework
 djangorestframework-simplejwt>=4.7.1
 
