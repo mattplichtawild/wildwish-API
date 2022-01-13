@@ -30,6 +30,12 @@ class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
     
+    def get_queryset(self):
+        if 'user_pk' in self.kwargs: 
+            return Animal.objects.filter(user=self.kwargs['user_pk'])
+        else:
+            return self.queryset
+    
     
 # Returns distance between two coordinates in km
 import math 
