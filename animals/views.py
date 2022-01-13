@@ -32,7 +32,7 @@ class AnimalViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         if 'user_pk' in self.kwargs: 
-            return Animal.objects.filter(user=self.kwargs['user_pk'])
+            return self.queryset.filter(user=self.kwargs['user_pk'])
         else:
             return self.queryset
     
