@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
             pass
         # Copy/pasted value error has error with _typeshed
             # raise ValueError(_typeshed('The Email must be set'))
-            raise TypeError('Must have valid email.')
+            raise TypeError('This field is required.')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -50,6 +50,8 @@ class User(AbstractUser):
     keeper = models.BooleanField(default=False)
     zoo = models.ForeignKey(Zoo, blank=True, null=True, on_delete=PROTECT)
     verified = models.BooleanField(default=False)
+    
+    ## 'password' attr is inherited from django models
     
     # These attrs inherited from AbstractUser. Set defaults to be safe
     is_staff = models.BooleanField(default=False)
