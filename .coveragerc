@@ -1,0 +1,11 @@
+[run]
+omit =
+        *__init__*
+        *venv*
+        *tests*
+
+[report]
+omit =
+        *__init__*
+        *venv*
+        *test*
