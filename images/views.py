@@ -17,6 +17,8 @@ class ImageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if 'animal_pk' in self.kwargs: 
             return self.queryset.filter(animal=self.kwargs['animal_pk'])
+        elif 'wish_pk' in self.kwargs:
+            return self.queryset.filter(wish=self.kwargs['wish_pk'])
         else:
             return self.queryset
     
