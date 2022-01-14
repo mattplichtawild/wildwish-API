@@ -22,16 +22,6 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from users.views import TokenObtainPairView
 
 urlpatterns = [
-    ## This was to solve client sending requests to routes that were supposed to be handled by react-router-dom
-    # path('login/', LoginView.as_view(), name='login'),
-    # path('logout/', LogoutView.as_view()),
-    # path('/', TemplateView.as_view(template_name="app.html"), 
-    # login_url='l/'),
-    # re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="app.html"), 
-    # login_url='/'),
-    
-    # For basic html template
-    # path('', ActiveWishList.as_view()),
     
     # For React frontend
     # path('', include('frontend.urls')),
@@ -51,9 +41,7 @@ urlpatterns = [
     path('api/token/obtain/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    
-    # Should probably separate these into their own app
-    path('wishes/<int:pk>', views.WishDetail.as_view()),
+  
     path('wishes/featured', views.WishListFeatured.as_view() ),
     path('wishes/nearby', views.WishListNearby.as_view() )
 ]
