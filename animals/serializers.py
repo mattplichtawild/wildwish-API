@@ -25,7 +25,7 @@ class ZooSerializer(serializers.ModelSerializer):
 
 ## WishSerializer needs related animal without exposing further related models
 class SterilizedAnimalSerializer(serializers.ModelSerializer):
-    zoo = serializers.StringRelatedField(many=False)
+    zoo = serializers.StringRelatedField(many=False, read_only=True)
     images = ImageSerializer(many=True, read_only=True)
     avatar = ImageSerializer(many=False, read_only=True)
     
@@ -35,14 +35,13 @@ class SterilizedAnimalSerializer(serializers.ModelSerializer):
     
 class WishSerializer(serializers.ModelSerializer):
     # animal_id = serializers.PrimaryKeyRelatedField(read_only=True)
-    images = ImageSerializer(many=True)
+    images = ImageSerializer(many=True, read_only=True)
     animal = SterilizedAnimalSerializer(read_only=True)
     toy = ToySerializer(read_only=True)
     
     class Meta:
         model = Wish
         fields = ['id', 'toy', 'animal', 'images', 'active', 'current_funding']
-        depth = 2
         
         
 class SpeciesSerializer(serializers.ModelSerializer):
