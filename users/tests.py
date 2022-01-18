@@ -1,4 +1,5 @@
 from django.test import ( TestCase, Client )
+from rest_framework.test import APIClient
 from users.models import User
 from django.urls import reverse
 
@@ -6,9 +7,7 @@ from django.urls import reverse
 
 class UserTestCase(TestCase):
     
-    ## Spin up a test client to test API use
-    ## This is done automatically by 'TestCase'
-    # client = Client()
+    client = APIClient()
     
     def create_user(self, **kwargs):
         return User.objects.create(**kwargs)
@@ -59,7 +58,21 @@ class UserTestCase(TestCase):
 
     ## User can use those tokens to view resources
     def test_token_access(self):
-        pass 
+        client = APIClient()
+        ## Create a user
+        user = self.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com')
+        user.set_password('password')
+        user.save()
+    
+        ## Get the access token and set it in the request header
+        resp = client.post(reverse('token_obtain_pair'), { "email": "mallcop@gmail.com", "password": "password"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        resp = client.get(f'/users/{user.id}/')
+        self.assertTrue(resp.status_code, 200)
+        
+        
+        
 
     ## User can create and edit their own resources
 
