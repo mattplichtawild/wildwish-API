@@ -12,7 +12,6 @@ class UserTestCase(TestCase):
         return User.objects.create(**kwargs)
     
     def test_user_create(self):
-        '''User can create account'''
         user = self.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com')
         self.assertTrue(isinstance(user, User))
         self.assertEqual(user.__str__(), user.name())
@@ -38,17 +37,30 @@ class UserTestCase(TestCase):
         self.assertEqual(resp.status_code, 400)
         self.assertTrue(resp.content, {"email": "This field is required.", "password": "This field is required."})
         
+    ## User can login by obtaining token
+    def test_user_login(self):
+        data = {
+            'first_name': 'Paul',
+            'last_name': 'Blart',
+            'email': 'mallcop@gmail.com',
+            'password': 'password'
+        }
+        
+        ## Register the user first
+        self.client.post('/users/register/', data)
+        ## Then test that the user can login
+        resp = self.client.post('/api/token/obtain/', { "email": "mallcop@gmail.com", "password": "password"})
+        self.assertTrue('access' in resp.json())
+        self.assertTrue('refresh' in resp.json())
         
         
-        
-## User can login (obtain tokens)
 
-## User can use those tokens to view resources
+    ## User can use those tokens to view resources
 
-## User can create and edit their own resources
+    ## User can create and edit their own resources
 
-## User cannot view resources that don't belong to them
+    ## User cannot view resources that don't belong to them
 
-## User cannot edit or delete resources that don't belong to them
+    ## User cannot edit or delete resources that don't belong to them
 
-## Admins can view all resources
+    ## Admins can view all resources
