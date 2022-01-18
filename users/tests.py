@@ -1,12 +1,14 @@
 from django.test import ( TestCase, Client )
 from users.models import User
+from django.urls import reverse
 
 # Create your tests here.
 
 class UserTestCase(TestCase):
     
     ## Spin up a test client to test API use
-    client = Client()
+    ## This is done automatically by 'TestCase'
+    # client = Client()
     
     def create_user(self, **kwargs):
         return User.objects.create(**kwargs)
@@ -47,15 +49,17 @@ class UserTestCase(TestCase):
         }
         
         ## Register the user first
-        self.client.post('/users/register/', data)
+        self.client.post(reverse('users:create_user'), data)
         ## Then test that the user can login
-        resp = self.client.post('/api/token/obtain/', { "email": "mallcop@gmail.com", "password": "password"})
+        resp = self.client.post(reverse('token_obtain_pair'), { "email": "mallcop@gmail.com", "password": "password"})
         self.assertTrue('access' in resp.json())
         self.assertTrue('refresh' in resp.json())
         
         
 
     ## User can use those tokens to view resources
+    def test_token_access(self):
+        pass 
 
     ## User can create and edit their own resources
 
