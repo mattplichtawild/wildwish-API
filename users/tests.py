@@ -86,8 +86,20 @@ class UserTestCase(TestCase):
         resp = client.get(f'/users/{user2.id}/')
         self.assertEqual(resp.status_code, 403)
         
-    ## Admins can view all resources
-   
+    ## Admins can view all user accounts
+    def test_admin_account_view(self):
+        client = APIClient()
+        
+        user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
+            
+        admin = User.objects.create_superuser(first_name='Matt', last_name='Plichta', email='testemail@gmail.com', password='betterpassword')
+        
+        resp = client.post(reverse('token_obtain_pair'), { "email": admin.email, "password": "betterpassword"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        resp = client.get(f'/users/{user.id}/')
+        self.assertEqual(resp.status_code, 200)
+        
     ## User can create and edit their own resources
 
     ## User cannot edit or delete resources that don't belong to them
