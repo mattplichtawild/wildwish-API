@@ -121,9 +121,29 @@ class UserTestCase(TestCase):
         resp = client.patch(f'/users/{user1.id}/', { "first_name": newFirstName, "last_name": newLastName })
         
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(resp.json()['first_name'], newFirstName)
+        self.assertEqual(resp.data['first_name'], newFirstName)
         self.assertEqual(resp.json()['last_name'], newLastName)
         
 
     ## User can delete their account, cannot delete others
-
+    def test_delete_account(self):
+        client = APIClient()
+        
+        user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
+        user2 = User.objects.create_user(first_name='Matt', last_name='Plichta', email='testemail@gmail.com', password='betterpassword')
+        
+        resp = client.post(reverse('token_obtain_pair'), { "email": user1.email, "password": "password"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        
+        preUserCount = User.objects.all().count()
+        
+        ## Delete request to forbidden account
+        resp = client.delete(f'/users/{user2.id}/')
+        self.assertEqual(resp.status_code, 403)
+        self.assertEqual(User.objects.all().count(), preUserCount)
+        
+        ## Delete request to correct account
+        resp = client.delete(f'/users/{user1.id}/')
+        self.assertEqual(resp.status_code, 204)
+        self.assertEqual(User.objects.all().count(), (preUserCount - 1) )
