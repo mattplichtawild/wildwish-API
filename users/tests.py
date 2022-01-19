@@ -100,7 +100,23 @@ class UserTestCase(TestCase):
         resp = client.get(f'/users/{user.id}/')
         self.assertEqual(resp.status_code, 200)
         
-    ## User can create and edit their own resources
+    ## User can edit their account, cannot edit others
+    def test_edit_account(self):
+        client = APIClient()
+        
+        user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
+        resp = client.post(reverse('token_obtain_pair'), { "email": user.email, "password": "password"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        newFirstName = "Kevin"
+        newLastName = "James"
+        resp = client.patch(f'/users/{user.id}/', { "first_name": newFirstName, "last_name": newLastName })
+        print(resp.status_code, resp.json())
+        
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.json()['first_name'], newFirstName)
+        self.assertEqual(resp.json()['last_name'], newLastName)
+        
 
-    ## User cannot edit or delete resources that don't belong to them
+    ## User can delete their account, cannot delete others
 
