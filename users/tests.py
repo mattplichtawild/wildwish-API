@@ -69,7 +69,7 @@ class UserTestCase(TestCase):
         token = resp.json()
         client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
         resp = client.get(f'/users/{user.id}/')
-        self.assertTrue(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200)
      
     ## User cannot view other accounts 
     def test_forbidden_user(self):
