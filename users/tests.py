@@ -135,7 +135,7 @@ class UserTestCase(TestCase):
         resp = client.post(reverse('token_obtain_pair'), { "email": user1.email, "password": "password"})
         token = resp.json()
         client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
-        
+       
         preUserCount = User.objects.all().count()
         
         ## Delete request to forbidden account
@@ -147,3 +147,26 @@ class UserTestCase(TestCase):
         resp = client.delete(f'/users/{user1.id}/')
         self.assertEqual(resp.status_code, 204)
         self.assertEqual(User.objects.all().count(), (preUserCount - 1) )
+        
+    ## Only admins can view index of all users
+    def test_index_view(self):
+        client = APIClient()
+        
+        user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
+        admin = User.objects.create_superuser(first_name='Matt', last_name='Plichta', email='testemail@gmail.com', password='betterpassword')
+        
+        # Login admin user and try index
+        resp = client.post(reverse('token_obtain_pair'), { "email": admin.email, "password": "betterpassword"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        
+        resp = client.get('/users/')
+        self.assertEqual(resp.status_code, 200)
+        
+        # Login regular user and try index
+        resp = client.post(reverse('token_obtain_pair'), { "email": user.email, "password": "password"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        
+        resp = client.get('/users/')
+        self.assertEqual(resp.status_code, 403)
