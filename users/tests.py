@@ -104,14 +104,21 @@ class UserTestCase(TestCase):
     def test_edit_account(self):
         client = APIClient()
         
-        user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
-        resp = client.post(reverse('token_obtain_pair'), { "email": user.email, "password": "password"})
-        token = resp.json()
-        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
+        user2 = User.objects.create_user(first_name='Matt', last_name='Plichta', email='testemail@gmail.com', password='betterpassword')
         newFirstName = "Kevin"
         newLastName = "James"
-        resp = client.patch(f'/users/{user.id}/', { "first_name": newFirstName, "last_name": newLastName })
-        print(resp.status_code, resp.json())
+
+        resp = client.post(reverse('token_obtain_pair'), { "email": user1.email, "password": "password"})
+        token = resp.json()
+        client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
+        
+        ## Patch request to forbidden account
+        resp = client.patch(f'/users/{user2.id}/', { "first_name": newFirstName, "last_name": newLastName })
+        self.assertEqual(resp.status_code, 403)
+
+        ## Patch request to correct account
+        resp = client.patch(f'/users/{user1.id}/', { "first_name": newFirstName, "last_name": newLastName })
         
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.json()['first_name'], newFirstName)
