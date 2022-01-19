@@ -56,7 +56,7 @@ class UserTestCase(TestCase):
         
         
 
-    ## User can use those tokens to view resources
+    ## User can use those tokens to view account (other resources tested within respective apps)
     def test_token_access(self):
         client = APIClient()
         ## Create a user
@@ -70,17 +70,14 @@ class UserTestCase(TestCase):
         client.credentials(HTTP_AUTHORIZATION='JWT ' + token['access'])
         resp = client.get(f'/users/{user.id}/')
         self.assertTrue(resp.status_code, 200)
-        
+     
+    ## User cannot view other accounts 
     def test_forbidden_user(self):
         client = APIClient()
         ## Create users
-        user1 = self.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com')
-        user1.set_password('password')
-        user1.save()
+        user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
         
-        user2 = self.create_user(first_name='Matt', last_name='Plichta', email='testemail@gmail.com')
-        user2.set_password('betterpassword')
-        user2.save()
+        user2 = User.objects.create_user(first_name='Matt', last_name='Plichta', email='testemail@gmail.com', password='betterpassword')
     
         ## Get the access token and set it in the request header
         resp = client.post(reverse('token_obtain_pair'), { "email": user1.email, "password": "password"})
@@ -89,11 +86,9 @@ class UserTestCase(TestCase):
         resp = client.get(f'/users/{user2.id}/')
         self.assertEqual(resp.status_code, 403)
         
-
+    ## Admins can view all resources
+   
     ## User can create and edit their own resources
-
-    ## User cannot view resources that don't belong to them
 
     ## User cannot edit or delete resources that don't belong to them
 
-    ## Admins can view all resources
