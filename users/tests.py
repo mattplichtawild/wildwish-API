@@ -73,6 +73,7 @@ class UserTestCase(TestCase):
      
     ## User cannot view other accounts 
     def test_forbidden_user(self):
+        '''User cannot view other accounts'''
         client = APIClient()
         ## Create users
         user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
@@ -88,6 +89,7 @@ class UserTestCase(TestCase):
         
     ## Admins can view all user accounts
     def test_admin_account_view(self):
+        '''Admins can view all user accounts'''
         client = APIClient()
         
         user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
@@ -102,6 +104,7 @@ class UserTestCase(TestCase):
         
     ## User can edit their account, cannot edit others
     def test_edit_account(self):
+        '''User can edit their account, cannot edit others'''
         client = APIClient()
         
         user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
@@ -127,6 +130,7 @@ class UserTestCase(TestCase):
 
     ## User can delete their account, cannot delete others
     def test_delete_account(self):
+        '''User can delete their account, cannot delete others'''
         client = APIClient()
         
         user1 = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
@@ -150,6 +154,7 @@ class UserTestCase(TestCase):
         
     ## Only admins can view index of all users
     def test_index_view(self):
+        '''Only admins can view index of all users'''
         client = APIClient()
         
         user = User.objects.create_user(first_name='Paul', last_name='Blart', email='mallcop@gmail.com', password='password')
