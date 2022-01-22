@@ -1,17 +1,18 @@
 from .models import User
 from .serializers import UserSerializer, TokenObtainPairSerializer
 
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from .permissions import IsAdminOrSelf
 
 
 # Copy/paste example method '/users/register/'
 class UserCreate(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AllowAny]
 
     def post(self, request, format='json'):
         serializer = UserSerializer(data=request.data)
@@ -29,9 +30,9 @@ class UserViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.action == 'list':
-            permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+            permission_classes = [IsAuthenticated, IsAdminUser]
         else:
-            permission_classes = [permissions.IsAuthenticated, IsAdminOrSelf]
+            permission_classes = [IsAuthenticated, IsAdminOrSelf]
         return [permission() for permission in permission_classes]
     
 # For simpleJWT
