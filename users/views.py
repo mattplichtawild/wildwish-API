@@ -1,21 +1,17 @@
-from django.http.response import HttpResponse
-from django.shortcuts import render
-
 from .models import User
 from .serializers import UserSerializer, TokenObtainPairSerializer
 
-from rest_framework import viewsets
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import authentication, permissions, status
-from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from .permissions import IsAdminOrSelf
 
 
 # Copy/paste example method '/users/register/'
 class UserCreate(APIView):
     permission_classes = [permissions.AllowAny]
-    authentication_classes = ()
 
     def post(self, request, format='json'):
         serializer = UserSerializer(data=request.data)
@@ -27,15 +23,16 @@ class UserCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAdminUser]
-    # permission_classes = [ permissions.IsAuthenticated, permissions.DjangoModelPermissions]
-    permission_classes = []
-    authentication_classes = []
-    
+class UserViewSet(viewsets.ModelViewSet): 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+        else:
+            permission_classes = [permissions.IsAuthenticated, IsAdminOrSelf]
+        return [permission() for permission in permission_classes]
     
 # For simpleJWT
 class TokenObtainPairView(TokenObtainPairView):
